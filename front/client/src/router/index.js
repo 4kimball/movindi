@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Home from '../views/Home.vue'
 import Intro from '../views/Intro'
 import Community from '../views/Community'
 import Actors from '../views/Actors'
 import Profile from '../views/Profile'
+
+import CommunityReview from '../views/CommunityReview'
+import CommunityJob from '../views/CommunityJob'
+import CommunityFree from '../views/CommunityFree'
+
 
 Vue.use(VueRouter)
 
@@ -22,7 +28,24 @@ const routes = [
   {
     path: '/community',
     name: 'Community',
-    component: Community
+    component: Community,
+    children: [
+      {
+        path: 'review',
+        name: 'CommunityReview',
+        component: CommunityReview
+      },
+      {
+        path: 'job',
+        name: 'CommunityJob',
+        component: CommunityJob
+      },
+      {
+        path: 'free',
+        name: 'CommunityFree',
+        component: CommunityFree
+      }
+    ]
   },
   {
     path: '/actors',
