@@ -1,0 +1,32 @@
+[
+  {
+    "model": "articles.movie",
+    "pk": 1,
+    "fields": {
+      "title": "심야의 FM",
+      "content": "라디오 프로그램이 생방송되는 120분 간, 정체불명의 남자에게 인질로 잡힌 가족을 구해야 하는 DJ의 사투를 그린 생중계 인질극.",
+      "director": "김상만",
+      "actors": "수애 유지태",
+      "poster_path": "http://file.koreafilm.or.kr/thm/02/00/01/38/tn_DPK004184.JPG",
+      "release_date": "2010-10-14",
+      "genre": "범죄",
+      "keyword": "가족",
+      "rank_average": 3
+    }
+  },
+  {
+    "model": "articles.movie",
+    "pk": 2,
+    "fields": {
+      "title": "누가 나를 죽였나",
+      "content": "화투의 이미지를 채용, 변형시켜서 만든 이 작품은 비광에 나오는 남자와 화투 패 중 동물들간의 만남이 주된 내용이다. 처음에 숲에 있는 한 남지가 우산을 펼치면서 이야기가 전개된다. 이들은 자연을 대표하는 존재로써 인간에게 친숙할 수도 배타적일 수도 또는 무관심할 수도 있는 존재들이다. 반드시 인간과 자연의 대립이라던가 하는 주제를 전해주는 것이 아니라 인간과 자연의 모호한 관계를 중점으로 두었다.",
+      "director": "박현선",
+      "actors": "정인정 박서현",
+      "poster_path": "http://file.koreafilm.or.kr/thm/02/00/01/38/tn_DPK004184.JPG",
+      "release_date": "2010-10-14",
+      "genre": "판타지",
+      "keyword": "자연",
+      "rank_average": 3
+    }
+  }
+]
