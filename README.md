@@ -6,8 +6,15 @@
 
 ---
 
-- `git switch -c <브랜치 이름>`
-- 
+- `git switch -c <브랜치 이름>` : 브랜치 생성 후에 이동
+- 생성한 브랜치에서 작업하기
+- `git add .` -> `git commit -m <commit message>`
+- `git push origin <브랜치 이름`
+- gitlab에서 merge하기
+- `git switch master` : master로 이동하기
+- `git pull origin master` : 변경된 상태 받아보기
+- `git brach -d <브랜치 이름>`
+- `git branch` : 삭제되었는지 확인하기
 
 ---
 
