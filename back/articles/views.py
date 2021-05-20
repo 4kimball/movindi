@@ -14,6 +14,7 @@ from .serializers import (
     ActorListSerializer
 )
 
+
 @api_view(['GET'])
 def movie_list(request):
     '''
@@ -83,3 +84,24 @@ def movie_comment_create(request, movie_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def actor_list(request):
+    '''
+    전체 배우 리스트
+    '''
+    actors = get_list_or_404(Actor)
+    serializer = ActorListSerializer(actors, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def find_actor(request, name):
+    '''
+    특정 배우 검색하기
+    '''
+    if Actor.objects.filter(name=name).exists():
+        actor = get_object_or_404(Actor, name=name)
+        serializer = ActorListSerializer(actor)
+        return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_204_NO_CONTENT)

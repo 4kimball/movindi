@@ -7,5 +7,7 @@ urlpatterns = [
     path('community/<str:type>/', views.community_list),
     path('community/detail/<int:article_pk>/', views.article_detail),
     path('community/review/<int:review_pk>/comments/', views.review_comment_create),
-    path('movies/<int:movie_pk>/comments/', views.movie_comment_create)
+    path('movies/<int:movie_pk>/comments/', views.movie_comment_create),
+    path('actors/', views.actor_list),
+    path('actors/<str:name>/', views.find_actor)
 ]
