@@ -60,6 +60,19 @@ def article_detail(request, article_pk):
         
         return Response(serializer.data)
 
+@api_view(['PUT', 'DELETE'])
+def article_update_delete(request, article_pk):
+    article = get_object_or_404(Review, pk=article_pk)
+    if request.method == 'DELETE':
+        article.delete()
+        return Response(status=status.HTTP_200_OK)
+    
+    elif request.method == 'PUT':
+        serializer = ReviewSerializer(article, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
 @api_view(['POST'])
 def review_comment_create(request, review_pk):
     '''
@@ -73,6 +86,12 @@ def review_comment_create(request, review_pk):
             serializer.save(review=review)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(['DELETE'])
+def review_comment_delete(request, comment_pk):
+    comment = get_object_or_404(ReviewComment, pk=comment_pk)
+    comment.delete()
+    return Response(status=status.HTTP_200_OK)
+
 @api_view(['POST'])
 def movie_comment_create(request, movie_pk):
     '''
@@ -84,6 +103,12 @@ def movie_comment_create(request, movie_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['DELETE'])
+def movie_comment_delete(request, comment_pk):
+    comment = get_object_or_404(MovieComment, pk=comment_pk)
+    comment.delete()
+    return Response(status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def actor_list(request):
