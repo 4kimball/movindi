@@ -2,7 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db import models 
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -41,4 +42,5 @@ class Actor(models.Model):
     intro = models.TextField()
     age = models.IntegerField()
     filmography = models.TextField()
+    image = ProcessedImageField(upload_to='image/actor_image', processors=[ResizeToFill(480, 640)], format='JPEG', options={'quality':150}, blank=False )
     
