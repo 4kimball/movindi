@@ -15,7 +15,9 @@
         <router-link :to="{ name: 'Profile'}"><span>My</span></router-link>
       </ul>
     </header>
-    <router-view/>
+    <div>
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -23,7 +25,10 @@
 
 export default {
   name: 'App',
-
+  created() {
+    this.$store.dispatch('getMovies')
+  },
+  
 }
 </script>
 
