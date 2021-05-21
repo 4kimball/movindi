@@ -2,22 +2,22 @@
   <div id="app">
     <header>
       <div class="logo">
-        <router-link :to="{ name: 'Home'}"><h1>MoovIndi</h1></router-link>
+        <router-link :to="{ name: 'Home'}" class="rlink"><h1>MoovIndi</h1></router-link>
       </div>
       <div class="search">
         <input type="text">
         <i class="fas fa-search"></i>
       </div>
       <ul class="menu">
-        <router-link :to="{ name: 'Intro'}"><span>Movindi?</span></router-link>
-        <router-link :to="{ name: 'Actors'}"><span>배우들</span></router-link>
-        <router-link :to="{ name: 'Community'}"><span>Community</span></router-link>
-        <router-link :to="{ name: 'Profile'}"><span>My</span></router-link>
+        <router-link :to="{ name: 'Intro'}" class="rlink"><span>Movindi?</span></router-link>
+        <router-link :to="{ name: 'Actors'}" class="rlink"><span>배우들</span></router-link>
+        <router-link :to="{ name: 'Community'}" class="rlink"><span>Community</span></router-link>
+        <router-link :to="{ name: 'Profile'}" class="rlink"><span>My</span></router-link>
       </ul>
     </header>
-    <div>
-      <router-view/>
-    </div>
+    
+    <router-view class="view"/>
+    
   </div>
 </template>
 
@@ -33,10 +33,8 @@ export default {
 </script>
 
 <style>
-body {
-  background-color: rgb(38, 38, 38);
-}
-a {
+
+.rlink {
   text-decoration: none;
 }
 </style>
