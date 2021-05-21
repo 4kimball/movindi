@@ -18,6 +18,10 @@
 
 ---
 
+- `python manage.py loaddata articles/movies.json` : movie 테이블에 영화 데이터 넣기
+
+---
+
 
 
 ### 역할

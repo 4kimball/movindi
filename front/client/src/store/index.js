@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -23,8 +23,17 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
+    SET_MOVIES(state, movies) {
+      state.movies = movies
+    }
   },
   actions: {
+    getMovies({ commit }) {
+      axios.get('http://127.0.0.1:8000/api/v1/movies/')
+        .then(res => {
+          commit('SET_MOVIES', res.data)
+        })
+    }
   },
   modules: {
   }

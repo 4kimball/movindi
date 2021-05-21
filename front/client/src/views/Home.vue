@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <section>
-      <div class="movies"></div>
+      <div class="today-movie">
+        <div class="container">
+          <p>오늘의 영화</p>
+          <h2>{{ movies[0].title }}</h2>
+        </div>
+      </div>
+
       <div class="today-actor"></div>
       <div class="recommand-movies"></div>
       <div class="community"></div>
@@ -14,9 +20,27 @@
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      
+    }
+  },
   components: {
- 
-  }
+    
+  },
+  methods: {
+    
+  },
+  computed: {
+    movies() {
+      return this.$store.state.movies
+    }
+  },
+  created() {
+    this.$store.dispatch('getMovies')
+  },
+  
+
 }
 </script>
 
@@ -26,9 +50,10 @@ section {
   flex-direction: column;
 }
 
-.movies {
+.today-movie {
   width: 100%;
   height: 1000px;
+  position: relative;
 }
 
 .today-actor {
@@ -48,4 +73,6 @@ section {
   height: 1000px;
   background-color: green;
 }
+
+
 </style>
