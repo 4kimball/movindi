@@ -9,25 +9,41 @@
         <i class="fas fa-search"></i>
       </div>
       <ul class="menu">
-        <router-link :to="{ name: 'Intro'}" class="rlink"><span>Movindi?</span></router-link>
+        <div v-if="isLoggedIn" class="if-box">
+        <router-link :to="{ name: 'Intro'}" class="rlink"><span>MoovIndi?</span></router-link>
         <router-link :to="{ name: 'Actors'}" class="rlink"><span>배우들</span></router-link>
-        <router-link :to="{ name: 'Community'}" class="rlink"><span>Community</span></router-link>
+        <router-link :to="{ name: 'Community'}" class="rlink" ><span>Community</span></router-link>
         <router-link :to="{ name: 'Profile'}" class="rlink"><span>My</span></router-link>
+        <span @click="logout" id="logout">Logout</span>
+        </div>
+        <div v-else class="if-box">
+        <router-link :to="{ name: 'Login'}" class="rlink"><span>Login</span></router-link>
+        </div>
       </ul>
     </header>
     
-    <router-view class="view"/>
+    <router-view/>
     
   </div>
 </template>
 
 <script>
-
+import {mapGetters} from 'vuex'
 export default {
   name: 'App',
   created() {
     this.$store.dispatch('getMovies')
   },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn'
+    ])
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
+  }
   
 }
 </script>
@@ -36,5 +52,9 @@ export default {
 
 .rlink {
   text-decoration: none;
+}
+
+#logout:hover {
+  cursor:pointer;
 }
 </style>

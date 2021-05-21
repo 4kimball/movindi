@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../router'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -12,11 +13,15 @@ export default new Vuex.Store({
       selectBoardType: null,
       selectPage: 1,
       selectArticleID: null
-    }
+    },
+    accessToken: localStorage.getItem('access_token') || '',
   },
   getters: {
     getOneArticle(state) {
       return state.reviews.filter(review => review.id === state.whereUserWatch.selectArticleID)
+    },
+    isLoggedIn({ accessToken }) {
+      return accessToken ? true : false
     }
   },
   mutations: {
@@ -33,6 +38,12 @@ export default new Vuex.Store({
     },
     RESET_SELECTE_ARTICLEID(state) {
       state.whereUserWatch.selectArticleID = null
+    },
+    UPDATE_TOKEN(state, access_token) {
+      state.accessToken = access_token
+    },
+    DELETE_TOKEN(state) {
+      state.accessToken = ''
     }
   },
   actions: {
@@ -67,6 +78,24 @@ export default new Vuex.Store({
     resetSelectArticleID({ commit }) {
       commit('RESET_SELECTE_ARTICLEID')
     },
+    // 로그인
+    login({ commit }, credentials) {
+      axios.post('http://127.0.0.1:8000/api/v1/token/', credentials)
+        .then(res => {
+          console.log(res.data);
+          localStorage.setItem('access_token', res.data.access)
+          commit('UPDATE_TOKEN', res.data.access)
+        })
+        .then( () => {
+          router.push({ name: 'Home'})
+        })
+    },
+    //로그아웃
+    logout({ commit }) {
+      commit('DELETE_TOKEN')
+      localStorage.removeItem('access_token')
+      router.push({name:'Login'})
+    }
   },
   modules: {
   }
