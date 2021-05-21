@@ -7,10 +7,10 @@ import Community from '../views/Community'
 import Actors from '../views/Actors'
 import Profile from '../views/Profile'
 
-import CommunityReview from '../views/CommunityReview'
-import CommunityJob from '../views/CommunityJob'
 import CommunityFree from '../views/CommunityFree'
-
+import CommunityJob from '../views/CommunityJob'
+import CommunityReview from '../views/CommunityReview'
+import CommunityWrite from '../views/CommunityWrite'
 
 Vue.use(VueRouter)
 
@@ -31,7 +31,7 @@ const routes = [
     component: Community,
     children: [
       {
-        path: 'review',
+        path: '',
         name: 'CommunityReview',
         component: CommunityReview
       },
@@ -44,7 +44,12 @@ const routes = [
         path: 'free',
         name: 'CommunityFree',
         component: CommunityFree
-      }
+      },
+      {
+        path: 'write',
+        name: 'CommunityWrite',
+        component: CommunityWrite
+      },
     ]
   },
   {
