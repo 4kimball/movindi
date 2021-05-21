@@ -1,15 +1,21 @@
 <template>
   <div class="home">
     <section>
-      <div class="today-movie">
-        <div class="container">
+      <div class="today-movie container">
+        <div id="movie-info">
           <p>오늘의 영화</p>
-          <h2>{{ movies[0].title }}</h2>
+          <h1>{{ movie.title }}</h1>
+          <p>{{ movie.release_date }} | {{ movie.genre }}</p>
+          <hr>
+          <p>{{ movie.content }}</p>
         </div>
+      
+        <img :src=movie.poster_path alt="">
+       
       </div>
-
-      <div class="today-actor"></div>
       <div class="recommand-movies"></div>
+      <div class="today-actor"></div>
+      
       <div class="community"></div>
     </section>
   </div>
@@ -32,8 +38,8 @@ export default {
     
   },
   computed: {
-    movies() {
-      return this.$store.state.movies
+    movie() {
+      return this.$store.state.movies[0]
     }
   },
   created() {
@@ -45,34 +51,52 @@ export default {
 </script>
 
 <style>
-section {
+.home section {
   display: flex;
   flex-direction: column;
+  margin-top: 5rem;
 }
 
-.today-movie {
+.home .today-movie {
   width: 100%;
   height: 1000px;
   position: relative;
+  color: #f2f2f2;
+
+  display: flex;
+  justify-content: space-between;
 }
 
-.today-actor {
+.home .today-movie #movie-info {
+  width: 50%;  
+  margin-right: 3rem;
+  z-index: 1;
+}
+
+.home .today-movie img {
+  
+  width: 400px;
+  height: 600px;
+  z-index: 0;
+  opacity: 0.7;
+
+  border-radius: 5px;
+}
+.home .today-actor {
   width: 100%;
   height: 1000px;
   background-color: orange;
 }
 
-.recommand-movies {
+.home .recommand-movies {
   width: 100%;
   height: 1000px;
   background-color: navy;
 }
 
-.community {
+.home .community {
   width: 100%;
   height: 1000px;
   background-color: green;
 }
-
-
 </style>
