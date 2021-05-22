@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 from .models import Review, ReviewComment, Movie, MovieComment, Actor
 from .serializers import (
+    MovieSerializer,
     ReviewCommentSerializer,
     ReviewListSerializer,
     MovieListSerializer,
@@ -120,13 +121,17 @@ def actor_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def find_actor(request, name):
+def search(request, keyword):
     '''
-    특정 배우 검색하기
+    검색
     '''
-    if Actor.objects.filter(name=name).exists():
-        actor = get_object_or_404(Actor, name=name)
+    if Actor.objects.filter(name=keyword).exists():
+        actor = get_object_or_404(Actor, name=keyword)
         serializer = ActorListSerializer(actor)
+        return Response(serializer.data)
+    elif Movie.objects.filter(title=keyword).exists():
+        movie = get_object_or_404(Movie, title=keyword)
+        serializer = MovieSerializer(movie)
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_204_NO_CONTENT)

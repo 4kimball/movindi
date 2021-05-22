@@ -12,5 +12,5 @@ urlpatterns = [
     path('movies/<int:movie_pk>/comments/', views.movie_comment_create),
     path('movies/comments/<int:comment_pk>/', views.movie_comment_delete),
     path('actors/', views.actor_list),
-    path('actors/<str:name>/', views.find_actor)
+    path('search/<keyword>/', views.search)
 ]
