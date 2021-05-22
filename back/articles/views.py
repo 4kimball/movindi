@@ -22,6 +22,15 @@ def movie_list(request):
     전체 영화 목록 가져오기
     '''
     movies = get_list_or_404(Movie)
+    for i in range(len(movies)):
+        movie = get_object_or_404(Movie, pk=movies[i].pk)
+        comments = movie.moviecomment_set.all()
+        total = 0
+        for j in range(len(comments)):
+            total += comments[j].rank
+        if len(comments) > 0:
+            movie.rank_average = total // len(comments)
+    movies = get_list_or_404(Movie)
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
