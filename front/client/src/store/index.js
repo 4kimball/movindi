@@ -112,6 +112,16 @@ export default new Vuex.Store({
       commit('DELETE_TOKEN')
       localStorage.removeItem('access_token')
       router.push({name:'Login'})
+    },
+    signup({ dispatch }, credentials) {
+      axios.post('http://127.0.0.1:8000/api/v1/accounts/signup/', credentials)
+        .then(res => {
+          console.log(res)
+          dispatch('login', credentials)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   modules: {

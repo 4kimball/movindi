@@ -10,17 +10,16 @@
       <input type="password" id="password" v-model="credentials.password">
     </div>
     <div class="login-signup">
-    <span id="signup-btn">아직 회원이 아니신가요?</span>
+    <router-link :to="{ name: 'Signup'}" class="rlink" id="signup" @click="signup">아직 회원이 아니신가요?</router-link>
     <button @click="login">로그인</button>
     </div>
   </div>
-   <Signup />
   </div>
  
 </template>
 
 <script>
-import Signup from '@/views/Signup'
+import router from '../router'
 export default {
   name: 'Login',
   data() {
@@ -32,11 +31,14 @@ export default {
     }
   },
   components: {
-    Signup
+
   },
   methods: {
     login() {
       this.$store.dispatch('login', this.credentials)
+    },
+    signup() {
+      router.push({name: 'Signup'})
     }
   }
 }
@@ -71,11 +73,7 @@ export default {
   color: white;
 }
 
-.login .login-form .login-btn {
-  text-align: end;
-  width: 100%;
-  padding-right: 2rem;
-}
+
 .login .login-form button {
   width: 100px;
   align-items: flex-end;
