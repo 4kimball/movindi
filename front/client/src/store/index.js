@@ -16,6 +16,7 @@ export default new Vuex.Store({
     },
     accessToken: localStorage.getItem('access_token') || '',
     randomMovies: [],
+    searchResult: {}
   },
   getters: {
     getOneArticle(state) {
@@ -50,6 +51,13 @@ export default new Vuex.Store({
     },
     DELETE_TOKEN(state) {
       state.accessToken = ''
+    },
+    UPDATE_SEARCH(state, result) {
+      if(result === '') {
+        state.searchResult = 204
+      } else {
+        state.searchResult = result
+      }
     }
   },
   actions: {
@@ -121,6 +129,16 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    search({ commit }, keyword) {
+      
+      axios.get(`http://127.0.0.1:8000/api/v1/search/${keyword}/`)
+        .then(res => {
+          commit('UPDATE_SEARCH', res.data)
+        })
+        .then(() => {
+          router.push({name: 'SearchResult'})
         })
     }
   },

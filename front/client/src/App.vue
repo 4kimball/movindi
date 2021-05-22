@@ -5,8 +5,8 @@
         <router-link :to="{ name: 'Home'}" class="rlink"><h1>MoovIndi</h1></router-link>
       </div>
       <div class="search">
-        <input type="text">
-        <i class="fas fa-search"></i>
+        <input type="text" v-model="searchKeyword" @keyup.enter="search">
+        <i class="fas fa-search" @click="search"></i>
       </div>
       <ul class="menu">
         <div v-if="isLoggedIn" class="if-box">
@@ -31,6 +31,11 @@
 import {mapGetters} from 'vuex'
 export default {
   name: 'App',
+  data() {
+    return {
+      searchKeyword: ''
+    }
+  },
   created() {
     this.$store.dispatch('getMovies')
     this.$store.dispatch('getRandomMovies', '비')
@@ -43,6 +48,10 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout')
+    },
+    search() {
+      this.$store.dispatch('search', this.searchKeyword)
+      this.searchKeyword = ''
     }
   }
   
@@ -57,5 +66,10 @@ export default {
 
 #logout:hover {
   cursor:pointer;
+}
+
+.search input {
+  color: white;
+  padding: 1rem;
 }
 </style>

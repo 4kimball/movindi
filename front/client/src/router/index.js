@@ -7,6 +7,7 @@ import Community from '../views/Community'
 import Actors from '../views/Actors'
 import Profile from '../views/Profile'
 import Login from '../views/Login'
+import SearchResult from '../views/SearchResult'
 
 import CommunityFree from '../views/CommunityFree'
 import CommunityJob from '../views/CommunityJob'
@@ -72,6 +73,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path: '/search/result',
+    name: 'SearchResult',
+    component: SearchResult
   }
 ]
 
