@@ -33,6 +33,7 @@ export default {
   name: 'App',
   created() {
     this.$store.dispatch('getMovies')
+    this.$store.dispatch('getRandomMovies', '비')
   },
   computed: {
     ...mapGetters([

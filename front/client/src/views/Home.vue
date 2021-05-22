@@ -20,29 +20,30 @@
           <button @click="handleClick" class="btn-family">#가족에 대해서</button>
           <button @click="handleClick" class="btn-change">#기분전환</button>
         </div>
+
         <div class="images">
+          <div v-for="movie in randomMovies" :key="movie.id" @click="getDetailMovie(movie)">
           <img :src=movie.poster_path alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="0" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+                <div class="modal-content" >
                   <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ movie.title }}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">{{ datilMovie.title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body d-flex">
                     <div>  
-                     <p>{{ movie.content }}</p>
+                     <p>{{ datilMovie.content }}</p>
                      </div>
-                    <img :src=movie.poster_path alt="" id="modal-img">
+                    <img :src=datilMovie.poster_path alt="" id="modal-img">
                   </div>
                   
                 </div>
               </div>
             </div>
-          <img :src=movie.poster_path alt="">
-          <img :src=movie.poster_path alt="">
-          <img :src=movie.poster_path alt="">
+            </div>
         </div>
+
       </div>
       </div>
       <div class="today-actor"></div>
@@ -59,7 +60,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      
+      datilMovie: {}
     }
   },
   components: {
@@ -73,21 +74,32 @@ export default {
       beforeClicked.id = ""
       const targetBtn = event.target
       targetBtn.id = "btn-clicked"
+      let keyword = ''
       if(targetBtn.className === 'btn-rain') {
         section.id = 'bg-rain';
+        keyword = '비'
       } else if(targetBtn.className ==='btn-friend') {
         section.id = 'bg-friend';
+        keyword = '친구'
       } else if(targetBtn.className === 'btn-family') {
         section.id = 'bg-family';
+        keyword = '가족'
       } else if(targetBtn.className === 'btn-change') {
         section.id = 'bg-change';
+        keyword = '기분전환'
       }
+      this.$store.dispatch('getRandomMovies', keyword)
     },
-    
+    getDetailMovie(movie) {
+      this.datilMovie = movie
+    }
   },
   computed: {
     movie() {
       return this.$store.state.movies[0]
+    },
+    randomMovies() {
+      return this.$store.state.randomMovies
     }
   },
   created() {
@@ -200,6 +212,9 @@ export default {
   width: 300px;
 }
 
+.recommand-movies .images {
+  display: flex;
+}
 #btn-clicked {
   background-color: rgba(255, 26, 117, 0.8);
   

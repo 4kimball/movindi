@@ -15,6 +15,7 @@ export default new Vuex.Store({
       selectArticleID: null
     },
     accessToken: localStorage.getItem('access_token') || '',
+    randomMovies: [],
   },
   getters: {
     getOneArticle(state) {
@@ -28,7 +29,12 @@ export default new Vuex.Store({
     SET_MOVIES(state, movies) {
       state.movies = movies
     },
-
+    SET_ACTORS(state, actors) {
+      state.actors = actors
+    },
+    SET_RANDOM_MOVIE(state, movies) {
+      state.randomMovies = movies
+    },
     // 커뮤니티 관련함수
     SET_REVIEWS(state, reviews) {
       state.reviews = reviews
@@ -53,7 +59,18 @@ export default new Vuex.Store({
           commit('SET_MOVIES', res.data)
         })
     },
-
+    getActors({ commit }) {
+      axios.get('http://127.0.0.1:8000/api/v1/actors/')
+        .then(res => {
+          commit('SET_ACTORS', res.data)
+        })
+    },
+    getRandomMovies({ commit }, keyword) {
+      axios(`http://127.0.0.1:8000/api/v1/movies/${keyword}/`)
+        .then(res => {
+          commit('SET_RANDOM_MOVIE', res.data)
+        })
+    },
     // 커뮤니티 관련 함수
     getArticles({ commit }) {
       // review 타입 글을 가져온다.
