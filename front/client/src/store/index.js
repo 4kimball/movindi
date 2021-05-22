@@ -104,7 +104,7 @@ export default new Vuex.Store({
           commit('UPDATE_TOKEN', res.data.access)
         })
         .then( () => {
-          router.push({ name: 'Home'})
+          router.push({ name: 'Intro'})
         })
     },
     //로그아웃
