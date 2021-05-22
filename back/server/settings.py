@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'articles',
     'accounts',
     'rest_framework',
+    'django_seed',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',

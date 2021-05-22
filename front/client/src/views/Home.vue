@@ -18,18 +18,25 @@
         <div class="images">
           <div v-for="movie in randomMovies" :key="movie.id" @click="getDetailMovie(movie)">
           <img :src=movie.poster_path alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="0" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal fade modal-dialog-scrollable " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="0" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content" >
                   <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ datilMovie.title }}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">{{ detailMovie.title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body d-flex">
+                  <div class="modal-body ">
+                    <div class="d-flex">
                     <div>  
-                     <p>{{ datilMovie.content }}</p>
+                     <p>{{ detailMovie.content }}</p>
                      </div>
-                    <img :src=datilMovie.poster_path alt="" id="modal-img">
+                     <img :src=detailMovie.poster_path alt="" id="modal-img">
+                     </div> 
+                     <hr>
+                     <p><span v-for="(rank, index) in detailMovie.rank_average" :key="index" id="rank-star"><i class="fas fa-star"></i></span></p>
+                     <p v-for="comment in detailMovie.moviecomment_set" :key="comment.id">
+                       {{ comment.content }}
+                     </p>  
                   </div>                  
                 </div>
               </div>
@@ -56,7 +63,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      datilMovie: {},
+      detailMovie: {},
       
     }
   },
@@ -88,7 +95,8 @@ export default {
       this.$store.dispatch('getRandomMovies', keyword)
     },
     getDetailMovie(movie) {
-      this.datilMovie = movie
+      this.detailMovie = movie
+      console.log(movie.rank_average)
     },
   },
   computed: {
@@ -97,7 +105,7 @@ export default {
     },
     randomMovies() {
       return this.$store.state.randomMovies
-    }
+    },
   },
   created() {
     this.$store.dispatch('getMovies')
@@ -211,5 +219,7 @@ export default {
 
 }
 
-
+#rank-star {
+  color: var(--color-pink);
+}
 </style>

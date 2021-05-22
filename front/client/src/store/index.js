@@ -64,6 +64,7 @@ export default new Vuex.Store({
     getMovies({ commit }) {
       axios.get('http://127.0.0.1:8000/api/v1/movies/')
         .then(res => {
+          console.log(res)
           commit('SET_MOVIES', res.data)
         })
     },
