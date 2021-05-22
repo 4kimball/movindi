@@ -40,7 +40,7 @@ class MovieComment(models.Model):
 class Actor(models.Model):
     name = models.CharField(max_length=20)
     intro = models.TextField()
-    age = models.IntegerField()
+    date_of_birth = models.TextField()
     filmography = models.TextField()
-    image = ProcessedImageField(upload_to='image/actor_image', processors=[ResizeToFill(480, 640)], format='JPEG', options={'quality':150}, blank=False )
+    profile_image = models.TextField()
     

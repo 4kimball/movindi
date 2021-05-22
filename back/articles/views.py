@@ -29,7 +29,7 @@ def movie_keyword(request, keyword):
     '''
     키워드로 영화추천하기
     '''
-    movies = Movie.objects.filter(keyword=keyword).all()[:5]
+    movies = Movie.objects.filter(keyword=keyword).order_by('?')[:4]
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 

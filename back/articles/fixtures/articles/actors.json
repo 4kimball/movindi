@@ -1,0 +1,112 @@
+[
+  {
+    "model": "articles.actor",
+    "pk": 1,
+    "fields": {
+      "name": "정다은",
+      "intro": "혼자 사는 사람들을 통해 처음 성인연기를 하였으며, 권상우 이정현 주연의 두 번 할까요에서 여고생 단역을 맡았다.",
+      "date_of_birth": "2001",
+      "filmography": "혼자 사는 사람들, 비밀의 정원",
+      "profile_image": "https://drive.google.com/uc?id=1tf7W-Kb9p7eAfRbPx1fVCRrpPvyJSueR"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 2,
+    "fields": {
+      "name": "서현우",
+      "intro": "한국 예술 종합학교 연기학을 전공하였고 2010년 뮤지컬 '내 마음의 풍금'으로 데뷔하였다. 2010년 오프대학로 페스티벌 연기상을 수상하였다.",
+      "date_of_birth": "1983-11-20",
+      "filmography": "유체이탈자, 혼자 사는 사람들, 그녀를 지우는 시간, 국도극장",
+      "profile_image": "https://drive.google.com/uc?id=1Kucxp6-QMgkyOLf_a2904DoCM48U62vg"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 3,
+    "fields": {
+      "name": "손수현",
+      "intro": "데뷔 전부터 인터넷 쇼핑몰에서 피팅 모델로 활동하여 유명세를 탔으며 2013년 버스커 버스크의 뮤비 출연 계기로 화제가 되었다.",
+      "date_of_birth": "1988-02-29",
+      "filmography": "선풍기를 고치는 방법, 프론트맨, 프리랜서",
+      "profile_image": "https://drive.google.com/uc?id=1jym2ufiCtPxgbqR5Ff57GVvm5KqatxM2"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 4,
+    "fields": {
+      "name": "이상희",
+      "intro": "대학 진학 후 영화가 좋았고, 영화를 전공하는 친구를 보면서 막연히 영화에 대한 꿈을 키웠다고 한다. 본래 전공인 간호학과를 졸업하고 간호사로 일했으나, 나중에 간호사를 그만두고 후에 배우로 데뷔했다.",
+      "date_of_birth": "1983-10-08",
+      "filmography": "돛대, 데시벨, 정가네 목장",
+      "profile_image": "https://drive.google.com/uc?id=1pf9Gw6khYV_fo0ZrdqzgFKCFVfTZGfcc"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 5,
+    "fields": {
+      "name": "강진아",
+      "intro": "건국대 영화과를 졸업하였으며 제20회 부산영화평론가협회상 신인연기자상을 수상하였다.",
+      "date_of_birth": "-",
+      "filmography": "순영, 한비, 아이들은 즐겁다, 빛과 철",
+      "profile_image": "https://drive.google.com/uc?id=1WocWkAiZy3iRiPgI0WRIjLtWxh3_kHdK"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 6,
+    "fields": {
+      "name": "권잎새",
+      "intro": "영화배우이자 뮤지컬 배우이다.",
+      "date_of_birth": "1995",
+      "filmography": "낙인, 연습생, 할머니의 외출",
+      "profile_image": "https://drive.google.com/uc?id=1SaJznMO-MwiVO9XCtNIpjogiwBL6JOtC"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 7,
+    "fields": {
+      "name": "류기산",
+      "intro": "한국예술종합학교를 졸업하였으며 2014년 영화 족구왕으로 데뷔했다.",
+      "date_of_birth": "1987-10-07",
+      "filmography": "샘, 게이트, 불한당",
+      "profile_image": "https://drive.google.com/uc?id=1yv-jMR-CB304MBtuUaQXBGqcBTkMgj9z"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 8,
+    "fields": {
+      "name": "이가섭",
+      "intro": "세종대학교 영화예술학과를 졸업하였으며 2011년 영화 복무태만으로 데뷔했다.",
+      "date_of_birth": "1991-12-28",
+      "filmography": "복무태만, 오랜만이다, 노량진, 니나 내나",
+      "profile_image": "https://drive.google.com/uc?id=1PYqhv7xKnwZXxmaohQLcJedPL8XVlSHJ"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 9,
+    "fields": {
+      "name": "이종원",
+      "intro": "모델 출신의 배우로 2018년 웹드라마 팩 투더 퓨처로 데뷔했다.",
+      "date_of_birth": "1994-12-31",
+      "filmography": "반성, 니나 내나, 인유어드림",
+      "profile_image": "https://drive.google.com/uc?id=1E6i7BzZLB7tJS2IVHvuBV-SUuTKZtou3"
+    }
+  },
+  {
+    "model": "articles.actor",
+    "pk": 10,
+    "fields": {
+      "name": "한별",
+      "intro": "경기대학교 청소년학과를 졸업하였으며 가수겸 배우로 활동하고있다.",
+      "date_of_birth": "-",
+      "filmography": "박화영, 변산, 니나 내나",
+      "profile_image": "https://drive.google.com/uc?id=1XXfKA7x15rL9JcBGYlCFsGh44VXb3-mB"
+    }
+  }
+]
