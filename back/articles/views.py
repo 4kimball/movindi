@@ -14,8 +14,8 @@ from .serializers import (
     ReviewSerializer,
     ActorListSerializer
 )
-
-
+from django.contrib.auth import get_user_model
+import jwt
 @api_view(['GET'])
 def movie_list(request):
     '''
@@ -29,8 +29,8 @@ def movie_list(request):
         for j in range(len(comments)):
             total += comments[j].rank
         if len(comments) > 0:
-            movie.rank_average = total // len(comments)
-    movies = get_list_or_404(Movie)
+            rank_average = total // len(comments)
+            Movie.objects.filter(pk=movies[i].pk).update(rank_average=rank_average)
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -144,3 +144,20 @@ def search(request, keyword):
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def like_actor(request, actor_pk):
+    access_token = request.data.get('access_token')
+    user = jwt.decode(f'{access_token}', None, None)
+    actor = get_object_or_404(Actor, pk=actor_pk)
+    user_id = user.get('user_id')
+    User = get_user_model()
+    user = User.objects.get(pk=user_id)
+    
+    if actor.like_users.filter(pk=user.pk).exists():
+        actor.like_users.remove(user)
+    else:
+        actor.like_users.add(user)
+    
+    serializer = ActorListSerializer(actor)
+    return Response(serializer.data)
