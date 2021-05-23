@@ -1,13 +1,9 @@
 <template>
   <div class="actors">
-    <div class="container">
+    <div class="container mt-5">
       <div class="row">
-        <div class="col-5"  v-for="actor in actors" :key="actor.id" id="actor-box">
-          <img :src=actor.profile_image :alt=actor.name class="profile-image">
-          <div>
-            <div class="name-box">
-              <h3>{{ actor.name }}</h3>
-              <div class="actor-like" @click="like_actor(actor)">
+        <div class="col-10 col-md-5"  v-for="actor in actors" :key="actor.id" id="actor-box">
+          <div id="actor-like" @click="like_actor(actor)">
                 <span v-if="isLiked(actor)">
                   <i class="fas fa-heart"></i>
                 </span>
@@ -15,11 +11,14 @@
                   <i class="far fa-heart"></i>
                 </span>
               </div>
+          <img :src=actor.profile_image :alt=actor.name class="profile-image">
+          <div class="actor-info">
+            <div class="name-box">
+              <h3>{{ actor.name }}</h3>
             </div>
             <p>{{ actor.date_of_birth }}</p>
             <p>{{ actor.intro }}</p>
-            <p>작품활동</p>
-            <p>{{ actor.filmography }}</p>
+            <p><strong>작품활동</strong> : {{ actor.filmography }}</p>
           </div>
         </div>
       </div>
@@ -64,30 +63,36 @@ export default {
 
 <style>
 #actor-box {
-  border: 5px solid var(--color-pink);
   border-radius: 5px;
   color : black;
-  padding: 1rem;
   margin: 1rem;
+  padding: 1rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
 
   background-color: #e6e6e6;
+  width: 400px;
 }
 
 .profile-image {
-  width: 120px;
+  width: 150px;
   height: 200px;
   margin-right: 1rem;
   border-radius: 50%;
+  margin-bottom: 2rem;
 }
 
 .name-box {
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.name-box .actor-like span i{
-  color: var(---color-pink);
+#actor-like {
+  font-size: 24px;
+  color: var(--color-pink);  
+  width: 100%;
+  text-align: end;
 }
 </style>

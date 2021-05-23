@@ -91,4 +91,16 @@ export default {
   z-index: 1;
   
 }
+
+@media screen and (max-width:1125px) {
+  .movie-list .movie-item {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .movie-list .movie-item img {
+    width: 400px; 
+    height: 600px;
+  }
+}
 </style>
