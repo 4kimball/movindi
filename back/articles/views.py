@@ -159,5 +159,6 @@ def like_actor(request, actor_pk):
     else:
         actor.like_users.add(user)
     
-    serializer = ActorListSerializer(actor)
+    actors = get_list_or_404(Actor)
+    serializer = ActorListSerializer(actors, many=True)
     return Response(serializer.data)
