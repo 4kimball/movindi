@@ -17,7 +17,10 @@ export default new Vuex.Store({
     accessToken: localStorage.getItem('access_token') || '',
     randomMovies: [],
     searchResult: {},
-    username: ''
+    user: {
+      username: '',
+      pk: Number
+    }
   },
   getters: {
     getOneArticle(state) {
@@ -59,6 +62,10 @@ export default new Vuex.Store({
       } else {
         state.searchResult = result
       }
+    },
+    SET_USER(state, user) {
+      state.user.username = user.username
+      state.user.pk = user.pk
     }
   },
   actions: {
@@ -105,14 +112,29 @@ export default new Vuex.Store({
     resetSelectArticleID({ commit }) {
       commit('RESET_SELECTE_ARTICLEID')
     },
+    getUserInfo({ commit }, username) {
+      axios.get(`http://127.0.0.1:8000/api/v1/accounts/${username}`)
+        .then( res => {
+          commit
+          console.log(res)
+        })
+    },
+    getByUsername({ commit }, username) {
+      console.log(username)
+      axios.get(`http://127.0.0.1:8000/api/v1/accounts/user/${username}/`)
+        .then(res => {
+          commit('SET_USER', res.data)
+        })
+    },
     // 로그인
-    login({state, commit}, credentials) {
+    login({commit, dispatch}, credentials) {
       axios.post('http://127.0.0.1:8000/api/v1/token/', credentials)
         .then(res => {
-          state.username = res.config.data.split('"')[3]
- 
+          const username = res.config.data.split('"')[3]
+         
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
+          dispatch('getByUsername', username)
         })
         .then( () => {
           router.push({ name: 'Intro'})
@@ -145,10 +167,10 @@ export default new Vuex.Store({
         })
     },
     // 배우 좋아요
-    like_actor({ state}, actor) {
+    like_actor({ commit, state}, actor) {
       axios.post(`http://127.0.0.1:8000/api/v1/actors/like/${actor.id}/`, {access_token: state.accessToken})
         .then(res => {
-          res
+          commit('SET_ACTORS', res.data)
         })
     }
   },

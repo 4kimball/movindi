@@ -8,7 +8,7 @@
             <div class="name-box">
               <h3>{{ actor.name }}</h3>
               <div class="actor-like" @click="like_actor(actor)">
-                <span v-if="true">
+                <span v-if="isLiked(actor)">
                   <i class="fas fa-heart"></i>
                 </span>
                 <span v-else>
@@ -47,7 +47,17 @@ export default {
     like_actor(actor) {
       this.$store.dispatch('like_actor', actor)
     },
-
+    isLiked(actor) {
+      
+      if(!this.isLoggedIn){
+        return false
+      } 
+      if(actor.like_users.includes(this.$store.state.user.pk)){
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>

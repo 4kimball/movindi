@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.status import (
@@ -9,6 +10,9 @@ from .serializers import (
     UserSerializer
 )
 
+from django.contrib.auth import get_user_model
+
+from accounts import serializers
 @api_view(['POST'])
 def signup(request):
     # 1. 비밀번호 준비
@@ -29,3 +33,10 @@ def signup(request):
         user.set_password(request.data.get('password'))
         user.save()
         return Response(serializer.data, HTTP_201_CREATED)
+
+@api_view(['GET'])
+def getByUsername(request, username):
+    User = get_user_model()
+    user = get_object_or_404(User, username=username)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
