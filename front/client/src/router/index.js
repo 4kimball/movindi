@@ -12,6 +12,7 @@ import SearchResult from '../views/SearchResult'
 import CommunityFree from '../views/CommunityFree'
 import CommunityJob from '../views/CommunityJob'
 import CommunityReview from '../views/CommunityReview'
+import CommunityReviewDetail from '../views/CommunityReviewDetail'
 import CommunityWrite from '../views/CommunityWrite'
 import Signup from '../views/Signup'
 Vue.use(VueRouter)
@@ -33,9 +34,14 @@ const routes = [
     component: Community,
     children: [
       {
-        path: '',
+        path: 'review',
         name: 'CommunityReview',
         component: CommunityReview
+      },
+      {
+        path: '/review/:article_id',
+        name: 'CommunityReviewDetail',
+        component: CommunityReviewDetail
       },
       {
         path: 'job',

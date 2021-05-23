@@ -6,11 +6,9 @@
       <router-link :to="{ name: 'CommunityFree'}"><span class="mx-3 p-2">#자유게시판</span></router-link>
     </ul>
     <router-view/>
-    <button>
-      <router-link :to="{ name: 'CommunityWrite'}">글쓰기</router-link>
-    </button>
 
-    <b-tabs content-class="mt-3" align="center">
+
+    <!-- <b-tabs content-class="mt-3" align="center">
       <b-tab title="# 영화 리뷰" active>
         <div>
           <CommunityReview />
@@ -22,16 +20,16 @@
       <b-tab title="# 자유게시판">
         <div></div>
       </b-tab>
-    </b-tabs>
+    </b-tabs> -->
   </div>
 </template>
 
 <script>
-import CommunityReview from '@/views/CommunityReview'
+// import CommunityReview from '@/views/CommunityReview'
 export default {
   name: 'Community',
   components: {
-    CommunityReview
+    // CommunityReview
   }
 }
 </script>
