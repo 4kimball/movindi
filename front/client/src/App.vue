@@ -2,6 +2,7 @@
   <div id="app" @resize="addMoreBtn">
     <header>
       <div class="logo">
+        <span class="sub-title">독립영화를 사랑하는 당신과 함께</span>
         <router-link :to="{ name: 'Home'}" class="rlink"><h1>MoovIndi</h1></router-link>
       </div>
       <div class="search">
@@ -115,5 +116,13 @@ export default {
 
 .more-btn .dropdown-menu .dropdown-item span{
   color: black;
+}
+
+.logo h1 {
+  margin: 0;
+}
+.logo .sub-title {
+  font-size: 12px;
+  color: #999999;
 }
 </style>

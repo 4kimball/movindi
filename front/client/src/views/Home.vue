@@ -33,7 +33,11 @@
                      <img :src=detailMovie.poster_path alt="" id="modal-img">
                      </div> 
                      <hr>
+                     <div id="icons">
                      <p><span v-for="(rank, index) in detailMovie.rank_average" :key="index" id="rank-star"><i class="fas fa-star"></i></span></p>
+                     <p v-if="isLiked(detailMovie)" id="like-movie"><i class="fas fa-heart"></i></p>
+                     <p v-else id="like-movie"><i class="far fa-heart"></i></p>
+                      </div>
                      <p v-for="comment in detailMovie.moviecomment_set" :key="comment.id">
                        {{ comment.content }}
                      </p>  
@@ -100,6 +104,17 @@ export default {
       this.detailMovie = movie
       console.log(movie.rank_average)
     },
+    isLiked(movie) {
+      
+      if(!this.isLoggedIn){
+        return false
+      } 
+      if(movie.like_users.includes(this.$store.state.user.pk)){
+        return true
+      } else {
+        return false
+      }
+    }
   },
   computed: {
     randomMovies() {
@@ -216,6 +231,16 @@ export default {
 }
 
 #rank-star {
+  color: var(--color-pink);
+}
+
+.home #icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home #icons #like-movie {
+  font-size: 22px;
   color: var(--color-pink);
 }
 
