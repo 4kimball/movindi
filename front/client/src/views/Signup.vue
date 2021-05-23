@@ -43,7 +43,8 @@ export default {
         passwordConfirmation: '',
         sns_id: 'snsId',
         sns_type: 'instagram'
-      }
+      },
+      
     }
   },
   methods: {

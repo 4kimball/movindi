@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     isLoggedIn({ accessToken }) {
       return accessToken ? true : false
+    },
+    movies(state) {
+      return state.movies
     }
   },
   mutations: {
@@ -135,6 +139,7 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
           dispatch('getByUsername', username)
+          dispatch('getMovies')
         })
         .then( () => {
           router.push({ name: 'Intro'})
@@ -175,5 +180,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
-  }
+  },
+  plugins: [createPersistedState()],
 })

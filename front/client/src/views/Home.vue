@@ -48,7 +48,7 @@
 
 
       <div class="today-actor">
-
+        <TodayActor />
       </div>
       
       <div class="community"></div>
@@ -58,17 +58,19 @@
 
 <script>
 import MovieList from '@/components/MovieList'
+import TodayActor from '@/components/TodayActor'
 
 export default {
   name: 'Home',
   data() {
     return {
       detailMovie: {},
-      
+      movies: this.$store.state.movies
     }
   },
   components: {
     MovieList,
+    TodayActor
   },
   methods: {
     handleClick(event) {
@@ -100,17 +102,11 @@ export default {
     },
   },
   computed: {
-    movies() {
-      return this.$store.state.movies
-    },
     randomMovies() {
       return this.$store.state.randomMovies
     },
+
   },
-  created() {
-    this.$store.dispatch('getMovies')
-  }, 
-  
 }
 
 </script>
@@ -221,5 +217,12 @@ export default {
 
 #rank-star {
   color: var(--color-pink);
+}
+
+@media screen and (max-width: 1125px) {
+  .home section{
+    margin-top: 0;
+
+  }
 }
 </style>
