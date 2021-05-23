@@ -16,7 +16,8 @@ export default new Vuex.Store({
     },
     accessToken: localStorage.getItem('access_token') || '',
     randomMovies: [],
-    searchResult: {}
+    searchResult: {},
+    username: ''
   },
   getters: {
     getOneArticle(state) {
@@ -105,10 +106,11 @@ export default new Vuex.Store({
       commit('RESET_SELECTE_ARTICLEID')
     },
     // 로그인
-    login({ commit }, credentials) {
+    login({state, commit}, credentials) {
       axios.post('http://127.0.0.1:8000/api/v1/token/', credentials)
         .then(res => {
-          console.log(res.data);
+          state.username = res.config.data.split('"')[3]
+ 
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
         })
@@ -140,6 +142,13 @@ export default new Vuex.Store({
         })
         .then(() => {
           router.push({name: 'SearchResult'})
+        })
+    },
+    // 배우 좋아요
+    like_actor({ state}, actor) {
+      axios.post(`http://127.0.0.1:8000/api/v1/actors/like/${actor.id}/`, {access_token: state.accessToken})
+        .then(res => {
+          res
         })
     }
   },

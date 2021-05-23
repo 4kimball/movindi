@@ -7,12 +7,12 @@ from imagekit.processors import ResizeToFill
 
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
     title = models.CharField(max_length=100)
     type = models.CharField(max_length=10)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    scrap_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='scrap_review')
 
 class Movie(models.Model):
     title = models.CharField(max_length=100)
@@ -43,4 +43,5 @@ class Actor(models.Model):
     date_of_birth = models.TextField()
     filmography = models.TextField()
     profile_image = models.TextField()
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_actor')
     
