@@ -6,6 +6,7 @@ urlpatterns = [
     path('movies/<str:keyword>/', views.movie_keyword),
     path('community/<str:type>/', views.community_list_create),
     path('community/detail/<int:article_pk>/', views.article_detail),
+    path('community/detail/<int:article_pk>/scrap/', views.article_scrap),
     path('community/article/<int:article_pk>/', views.article_update_delete),
     path('community/article/<int:review_pk>/comments/', views.review_comment_create),
     path('community/article/comments/<int:comment_pk>/', views.review_comment_delete),

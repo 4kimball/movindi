@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
-import createPersistedState from "vuex-persistedstate";
+
 
 axios.interceptors.request.use(config => {
   const accessToken = localStorage.getItem('access_token')
@@ -17,15 +17,15 @@ export default new Vuex.Store({
   state: {
     movies: [],
     actors: [],
-    reviews: [],
-    article: [],
+    detailArticle: [],
     accessToken: localStorage.getItem('access_token') || '',
     randomMovies: [],
     searchResult: {},
     user: {
       username: '',
       pk: Number
-    }
+    },
+    articles: []
   },
   getters: {
     isLoggedIn({ accessToken }) {
@@ -46,11 +46,11 @@ export default new Vuex.Store({
       state.randomMovies = movies
     },
     // 커뮤니티 관련함수
-    SET_REVIEWS(state, reviews) {
-      state.reviews = reviews
+    SET_ARTICLES(state, reviews) {
+      state.articles = reviews
     },
-    GET_ONE_ARTICLE(state, article) {
-      state.article = article
+    SET_DETAIL_ARTICLE(state, article) {
+      state.detailArticle = article
     },
     // CREATE_COMMENT(state, comment) {
     //   state.reviews
@@ -98,16 +98,16 @@ export default new Vuex.Store({
       // review 타입 글을 가져온다.
       axios.get(`http://127.0.0.1:8000/api/v1/community/${type}/`)
         .then(res => {
-          commit('SET_REVIEWS', res.data)
+          commit('SET_ARTICLES', res.data)
         })
         .catch(err => {
           console.error(err)
         })
     },
-    getOneArticle({ commit }, articleID) {
-      axios.get(`http://127.0.0.1:8000/api/v1/community/detail/${articleID}/`)
+    getDetailArticle({ commit }, article) {
+      axios.get(`http://127.0.0.1:8000/api/v1/community/detail/${article.id}/`)
         .then(res => {
-          commit('GET_ONE_ARTICLE', res.data)
+          commit('SET_DETAIL_ARTICLE', res.data)
         })
         .catch(err => {
           console.error(err)
@@ -124,6 +124,37 @@ export default new Vuex.Store({
       .catch(err => {
         console.error(err)
       })
+    },
+    deleteArticle({ commit }, article) {
+      axios.delete(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/`)
+        .then(res => {
+          console.log(res)
+          commit
+          router.push({name: 'CommunityReview'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    createComment({ state, dispatch }, content) {
+      const article = state.detailArticle
+      axios.post(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/comments/`, {content})
+        .then(res => {
+          console.log(res)
+          dispatch('getDetailArticle', article)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    clickScrap({ state, commit }, article) {
+      axios.post(`http://127.0.0.1:8000/api/v1/community/detail/${article.id}/scrap/`, {access_token: state.accessToken})
+        .then(res => {
+          commit('SET_DETAIL_ARTICLE', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getUserInfo({ commit }, username) {
       axios.get(`http://127.0.0.1:8000/api/v1/accounts/${username}`)
@@ -148,7 +179,7 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
           dispatch('getByUsername', username)
-          dispatch('getMovies')
+          
         })
         .then( () => {
           router.push({ name: 'Intro'})
@@ -190,5 +221,5 @@ export default new Vuex.Store({
   },
   modules: {
   },
-  plugins: [createPersistedState()],
+  
 })
