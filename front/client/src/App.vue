@@ -1,6 +1,6 @@
 <template>
   <div id="app" @resize="addMoreBtn">
-    <header>
+    <header id="header">
       <div class="logo">
         <span class="sub-title">독립영화를 사랑하는 당신과 함께</span>
         <router-link :to="{ name: 'Home'}" class="rlink"><h1>MoovIndi</h1></router-link>
@@ -40,7 +40,7 @@
     </div>
     </header>
     
-    <router-view/>
+    <router-view class="router"/>
     
   </div>
 </template>
@@ -108,6 +108,10 @@ export default {
 
 #logout:hover {
   cursor:pointer;
+}
+
+#search-bar {
+  background-color: transparent;
 }
 
 .search input {
