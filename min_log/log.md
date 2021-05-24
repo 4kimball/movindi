@@ -26,3 +26,6 @@
   - 배우 좋아요 완성
     - 배우의 like_users에는 user의 pk값이 들어가 있었다. 그래서 로그인을 했을 때 username으로 user 정보를 가져오는 것을 django에서 getByUsername으로 만들었고 여기서 UserSerializer를 반환해준다. vue에서는 이를 받아서 state의 user에 저장한다.
     - 현재 로그인된 user의 pk값이 actor의 like_users에 있는지 확인한다.
+- 05/24
+  - 커뮤니티 C R D 완성
+  - 메인 무비리스트 수정완료

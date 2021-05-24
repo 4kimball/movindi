@@ -81,13 +81,15 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('getMovies')
     this.$store.dispatch('getRandomMovies', '비')
+    
   },
   mounted() {
     window.addEventListener('resize', this.addMoreBtn)
+  },  
+  updated() {
+    this.$store.dispatch('getRandomMovies', '비')
   }
-  
 }
 </script>
 

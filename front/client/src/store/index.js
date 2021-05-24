@@ -39,6 +39,9 @@ export default new Vuex.Store({
     SET_MOVIES(state, movies) {
       state.movies = movies
     },
+    UPDATE_MOVIES(state) {
+      state.movies = []
+    },
     SET_ACTORS(state, actors) {
       state.actors = actors
     },
@@ -217,6 +220,9 @@ export default new Vuex.Store({
         .then(res => {
           commit('SET_ACTORS', res.data)
         })
+    },
+    updateMovies({commit}) {
+      commit('UPDATE_MOVIES')
     }
   },
   modules: {
