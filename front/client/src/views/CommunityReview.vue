@@ -1,16 +1,14 @@
 <template>
   <div>
-    <h2 align="center">리뷰게시판</h2>
-    <p>리스트</p>
-    <ReviewList />
-    <button>
-      <router-link :to="{ name: 'CommunityWrite'}">글쓰기</router-link>
-    </button>
+    <ReviewList 
+    :articles="articles"
+    />
+
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+
 import ReviewList from '@/components/ReviewList'
 // import ReviewDetail from '@/components/ReviewDetail'
 export default {
@@ -19,19 +17,17 @@ export default {
     ReviewList,
   },
   computed: {
-    ...mapState([
-      'reviews'
-    ])
+    articles() {
+      return this.$store.state.articles
+    }
   },
   created() {
-    const type = 'review'
-    this.$store.dispatch('getArticles', type)
+    this.$store.dispatch('getArticles', 'review')
   }
+
 }
 </script>
 
-<style scoped>
-p {
-  color: white;
-}
+<style>
+
 </style>

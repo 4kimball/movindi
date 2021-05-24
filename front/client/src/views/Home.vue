@@ -2,8 +2,14 @@
   <div class="home">
     <section >
       <div class="today-movie">
-        <MovieList 
-        :movies="movies"/>
+        <div class="btn-list">
+          <button class="btn-pick-type" id="btn-active" @click="changeColor"><router-link :to="{ name: 'TodayMovie'}" class="rlink" >오늘의 영화</router-link></button>
+          <button class="btn-pick-type" @click="changeColor"><router-link :to="{ name: 'AwardMovie'}" class="rlink">2020 서울 독립영화제</router-link></button>
+          <button class="btn-pick-type" @click="changeColor"><router-link :to="{ name: 'UpcomingMovie'}" class="rlink">개봉예정영화</router-link></button>
+        </div>
+        <div>
+        <router-view/>
+        </div>
       </div>
 
       <div class="recommand-movies" id="bg-rain">
@@ -51,7 +57,7 @@
       </div>
 
 
-      <div class="today-actor">
+      <div class="today-actor container">
         <TodayActor />
       </div>
       
@@ -61,26 +67,23 @@
 </template>
 
 <script>
-import MovieList from '@/components/MovieList'
 import TodayActor from '@/components/TodayActor'
-
+import { mapState } from 'vuex'
+import router from '../router'
 export default {
   name: 'Home',
   data() {
     return {
       detailMovie: {},
-      movies: this.$store.state.movies
     }
   },
   components: {
-    MovieList,
     TodayActor
   },
   methods: {
     handleClick(event) {
       const beforeClicked = document.getElementById("btn-clicked")
       const section = document.querySelector('.recommand-movies')
-      console.log(section)
       beforeClicked.id = ""
       const targetBtn = event.target
       targetBtn.id = "btn-clicked"
@@ -114,14 +117,26 @@ export default {
       } else {
         return false
       }
+    },
+    changeColor(event) {
+      let beforeBtn = document.getElementById("btn-active")
+      let targetBtn = event.target.parentNode
+      beforeBtn.id = ""
+      targetBtn.id = "btn-active"
     }
   },
   computed: {
     randomMovies() {
       return this.$store.state.randomMovies
     },
-
+    ...mapState([
+      'movies'
+    ])
   },
+  created() {
+      this.$store.dispatch('getMovies')
+      router.push({name: 'TodayMovie'})
+  }
 }
 
 </script>
@@ -138,15 +153,35 @@ export default {
   height: 900px;
   position: relative;
   color: #f2f2f2;
-
   display: flex;
-  justify-content: space-between;
 }
 
+.home .today-movie .btn-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 50%;
+  margin-left: 5rem;
+}
+
+.home .today-movie .btn-list #btn-active{
+  border-bottom: 2px solid white;
+}
+.home .today-movie .btn-list #btn-active a {
+  color: white;
+}
+.home .today-movie .btn-list .btn-pick-type {
+  width: 200px;
+  background-color: rgba( 255, 255, 255, 0 );
+  border: none;
+  border-bottom: 2px solid #bfbfbf;
+}
+.home .today-movie .btn-list button .rlink {
+  color: #bfbfbf;
+}
 .home .today-actor {
   width: 100%;
-  height: 1000px;
-  background: linear-gradient(70deg, #803300, #ff6600);
+  height: 900px;
 }
 
 .home .recommand-movies {

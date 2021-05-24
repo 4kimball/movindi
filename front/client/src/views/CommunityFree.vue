@@ -1,12 +1,26 @@
 <template>
   <div>
-    <p>자유게시판</p>
+    <ReviewList 
+    :articles="articles"
+    />
   </div>
 </template>
 
 <script>
+import ReviewList from '@/components/ReviewList'
 export default {
   name: 'CommunityFree',
+  components: {
+    ReviewList
+  },
+  created() {
+    this.$store.dispatch('getArticles', 'free')
+  },
+  computed: {
+    articles() {
+      return this.$store.state.articles
+    }
+  }
 }
 </script>
 

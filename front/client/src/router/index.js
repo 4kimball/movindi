@@ -8,6 +8,10 @@ import Actors from '../views/Actors'
 import Profile from '../views/Profile'
 import Login from '../views/Login'
 import SearchResult from '../views/SearchResult'
+import CommunityReviewUpdate from '../views/CommunityReviewUpdate'
+import AwardMovie from '../views/AwardMovie'
+import TodayMovie from '../views/TodayMovie'
+import UpcomingMovie from '../views/UpcomingMovie'
 
 import CommunityFree from '../views/CommunityFree'
 import CommunityJob from '../views/CommunityJob'
@@ -15,13 +19,31 @@ import CommunityReview from '../views/CommunityReview'
 import CommunityReviewDetail from '../views/CommunityReviewDetail'
 import CommunityWrite from '../views/CommunityWrite'
 import Signup from '../views/Signup'
+
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/award/movie',
+        name: 'AwardMovie',
+        component: AwardMovie
+      },
+      {
+        path:'/today/movie',
+        name: 'TodayMovie',
+        component: TodayMovie
+      },
+      {
+        path: '/upcoming/movie',
+        name: 'UpcomingMovie',
+        component: UpcomingMovie
+      },
+    ]
   },
   {
     path: '/intro',
@@ -54,9 +76,14 @@ const routes = [
         component: CommunityFree
       },
       {
-        path: 'write',
+        path: '/new/post',
         name: 'CommunityWrite',
         component: CommunityWrite
+      },
+      {
+        path: '/new',
+        name: 'CommunityReviewUpdate',
+        component: CommunityReviewUpdate
       },
     ]
   },
@@ -84,7 +111,7 @@ const routes = [
     path: '/search/result',
     name: 'SearchResult',
     component: SearchResult
-  }
+  },
 ]
 
 const router = new VueRouter({
