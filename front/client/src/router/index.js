@@ -9,6 +9,9 @@ import Profile from '../views/Profile'
 import Login from '../views/Login'
 import SearchResult from '../views/SearchResult'
 import CommunityReviewUpdate from '../views/CommunityReviewUpdate'
+import AwardMovie from '../views/AwardMovie'
+import TodayMovie from '../views/TodayMovie'
+import UpcomingMovie from '../views/UpcomingMovie'
 
 import CommunityFree from '../views/CommunityFree'
 import CommunityJob from '../views/CommunityJob'
@@ -22,7 +25,24 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/award/movie',
+        name: 'AwardMovie',
+        component: AwardMovie
+      },
+      {
+        path:'/today/movie',
+        name: 'TodayMovie',
+        component: TodayMovie
+      },
+      {
+        path: '/upcoming/movie',
+        name: 'UpcomingMovie',
+        component: UpcomingMovie
+      }
+    ]
   },
   {
     path: '/intro',
@@ -90,7 +110,7 @@ const routes = [
     path: '/search/result',
     name: 'SearchResult',
     component: SearchResult
-  }
+  },
 ]
 
 const router = new VueRouter({
