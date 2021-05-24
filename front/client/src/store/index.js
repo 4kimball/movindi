@@ -3,6 +3,13 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 import createPersistedState from "vuex-persistedstate";
+
+// axios.interceptors.request.use(config => {
+  //   const accessToken = localStorage.getItem('access_token')
+  //   config.headers.common['Authorization'] = accessToken ? `Bearer ${accessToken}` : ''
+  //   return config
+  // })
+  
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -10,11 +17,7 @@ export default new Vuex.Store({
     movies: [],
     actors: [],
     reviews: [],
-    whereUserWatch:{
-      selectBoardType: null,
-      selectPage: 1,
-      selectArticleID: null
-    },
+    article: [],
     accessToken: localStorage.getItem('access_token') || '',
     randomMovies: [],
     searchResult: {},
@@ -24,9 +27,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getOneArticle(state) {
-      return state.reviews.filter(review => review.id === state.whereUserWatch.selectArticleID)
-    },
     isLoggedIn({ accessToken }) {
       return accessToken ? true : false
     },
@@ -48,12 +48,12 @@ export default new Vuex.Store({
     SET_REVIEWS(state, reviews) {
       state.reviews = reviews
     },
-    UPDATE_SELECTED_ARTICLEID(state, review) {
-      state.whereUserWatch.selectArticleID = review.id
+    GET_ONE_ARTICLE(state, article) {
+      state.article = article
     },
-    RESET_SELECTE_ARTICLEID(state) {
-      state.whereUserWatch.selectArticleID = null
-    },
+    // CREATE_COMMENT(state, comment) {
+    //   state.reviews
+    // },
     UPDATE_TOKEN(state, access_token) {
       state.accessToken = access_token
     },
@@ -93,28 +93,38 @@ export default new Vuex.Store({
         })
     },
     // 커뮤니티 관련 함수
-    getArticles({ commit }) {
+    getArticles({ commit }, type) {
       // review 타입 글을 가져온다.
-      axios.get(`http://127.0.0.1:8000/api/v1/community/review/`)
+      axios.get(`http://127.0.0.1:8000/api/v1/community/${type}/`)
         .then(res => {
           commit('SET_REVIEWS', res.data)
-          console.log(res.data)
         })
         .catch(err => {
           console.error(err)
         })
     },
-    clickArticle({ commit }, review) {
-      axios.get(`http://127.0.0.1:8000/api/v1/community/detail/${review.id}/`)
+    getOneArticle({ commit }, articleID) {
+      axios.get(`http://127.0.0.1:8000/api/v1/community/detail/${articleID}/`)
         .then(res => {
-          commit('UPDATE_SELECTED_ARTICLEID', res.data)
+          commit('GET_ONE_ARTICLE', res.data)
         })
         .catch(err => {
           console.error(err)
         })
     },
-    resetSelectArticleID({ commit }) {
-      commit('RESET_SELECTE_ARTICLEID')
+    createComment({ commit }, article_id, content) {
+      axios({
+        method: 'post',
+        ulr: `http://127.0.0.1:8000/api/v1/community/article/${article_id}/comments/`,
+        data: { content },
+      })
+      .then(res => {
+        console.log(res.data)
+        commit('CREATE_COMMENT', res.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
     },
     getUserInfo({ commit }, username) {
       axios.get(`http://127.0.0.1:8000/api/v1/accounts/${username}`)

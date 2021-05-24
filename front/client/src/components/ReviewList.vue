@@ -8,10 +8,13 @@
       <tr 
         v-for="review in reviews"
         :key="review.id"
-        @click="clickArticle(review)"
       >
-        <td>{{ review.title }}</td>
-        <td>{{ review.content }}</td>
+        <td>{{ review.user }}</td>
+        <td @click="getOneArticle(review.id)">
+          <router-link :to="`/review/${review.id}`">
+            {{ review.title}}
+          </router-link>
+        </td>
       </tr>
     </table>
 
@@ -30,12 +33,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'clickArticle'
+      'getOneArticle'
     ])
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+table {
+  color: white;
+}
 </style>
