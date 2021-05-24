@@ -3,7 +3,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 from .models import Review, ReviewComment, Movie, MovieComment, Actor
 from .serializers import (
     MovieSerializer,
@@ -44,19 +45,21 @@ def movie_keyword(request, keyword):
     return Response(serializer.data)
 
 @api_view(['GET', 'POST'])
-def community_list(request, type):
+@permission_classes([IsAuthenticated])
+def community_list_create(request, type):
     '''
-    type이 리뷰&캐스팅에 따라 글의 목록 읽고 쓰기
+    type이 review, casting, free에 따라 글의 목록 읽고 쓰기
     '''
     if request.method == 'GET':
         articles = Review.objects.filter(type=type).order_by('-pk')
         serializer = ReviewListSerializer(articles, many=True)
         return Response(serializer.data)
     
-    elif request.method == 'POST':
+    elif request.method == 'POST':    
         serializer = ReviewSerializer(data=request.data)
+        return Response(request.user)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
