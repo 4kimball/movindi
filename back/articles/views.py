@@ -50,14 +50,17 @@ def community_list_create(request, type):
     '''
     type이 review, casting, free에 따라 글의 목록 읽고 쓰기
     '''
+    
     if request.method == 'GET':
-        articles = Review.objects.filter(type=type).order_by('-pk')
+        if type == 'all':
+            articles = Review.objects.order_by('pk')
+        else:
+            articles = Review.objects.filter(type=type).order_by('-pk')
         serializer = ReviewListSerializer(articles, many=True)
         return Response(serializer.data)
     
     elif request.method == 'POST':    
         serializer = ReviewSerializer(data=request.data)
-        return Response(request.user)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -69,7 +72,7 @@ def article_detail(request, article_pk):
     '''
     article = get_object_or_404(Review, pk=article_pk)
     if request.method == 'GET':
-        serializer = ReviewSerializer(article)
+        serializer = ReviewListSerializer(article)
         
         return Response(serializer.data)
 
@@ -87,6 +90,7 @@ def article_update_delete(request, article_pk):
             return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def review_comment_create(request, review_pk):
     '''
     게시글에 대한 댓글 쓰기
@@ -96,7 +100,8 @@ def review_comment_create(request, review_pk):
     if request.method == 'POST':
         serializer = ReviewCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(review=review)
+            serializer.save(review=review, user=request.user)
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['DELETE'])
@@ -164,4 +169,22 @@ def like_actor(request, actor_pk):
     
     actors = get_list_or_404(Actor)
     serializer = ActorListSerializer(actors, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def article_scrap(request, article_pk):
+    access_token = request.data.get('access_token')
+    user = jwt.decode(f'{access_token}', None, None)
+    article = get_object_or_404(Review, pk=article_pk)
+    user_id = user.get('user_id')
+    User = get_user_model()
+    user = User.objects.get(pk=user_id)
+
+    if article.scrap_users.filter(pk=user.pk).exists():
+        article.scrap_users.remove(user)
+    else:
+        article.scrap_users.add(user)
+    
+    article = get_object_or_404(Review, pk=article_pk)
+    serializer = ReviewListSerializer(article)
     return Response(serializer.data)

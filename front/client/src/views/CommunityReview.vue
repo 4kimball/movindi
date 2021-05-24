@@ -1,11 +1,9 @@
 <template>
   <div>
-    <h2>리뷰게시판</h2>
-    <p>리스트</p>
-    <ReviewList />
-    <button>
-      <router-link :to="{ name: 'CommunityWrite'}">글쓰기</router-link>
-    </button>
+    <ReviewList 
+    :articles="articles"
+    />
+
   </div>
 </template>
 
@@ -18,6 +16,14 @@ export default {
   components: {
     ReviewList,
   },
+  computed: {
+    articles() {
+      return this.$store.state.articles
+    }
+  },
+  created() {
+    this.$store.dispatch('getArticles', 'review')
+  }
 
 }
 </script>

@@ -8,6 +8,7 @@ import Actors from '../views/Actors'
 import Profile from '../views/Profile'
 import Login from '../views/Login'
 import SearchResult from '../views/SearchResult'
+import CommunityReviewUpdate from '../views/CommunityReviewUpdate'
 
 import CommunityFree from '../views/CommunityFree'
 import CommunityJob from '../views/CommunityJob'
@@ -54,9 +55,14 @@ const routes = [
         component: CommunityFree
       },
       {
-        path: 'write',
+        path: '/new/post',
         name: 'CommunityWrite',
         component: CommunityWrite
+      },
+      {
+        path: '/new',
+        name: 'CommunityReviewUpdate',
+        component: CommunityReviewUpdate
       },
     ]
   },

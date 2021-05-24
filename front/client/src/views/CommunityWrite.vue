@@ -49,7 +49,6 @@ export default {
   margin-top: 5rem;
   color: var(--color-pink);
 
-  border-top: 2px solid var(--color-pink);
   padding: 2rem;
 }
 

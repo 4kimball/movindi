@@ -29,7 +29,7 @@
          <div v-if="isLoggedIn" class="if-box">
         <router-link :to="{ name: 'Intro'}" class="rlink dropdown-item"><span>MoovIndi?</span></router-link>
         <router-link :to="{ name: 'Actors'}" class="rlink dropdown-item"><span>배우들</span></router-link>
-        <router-link :to="{ name: 'Community'}" class="rlink dropdown-item" ><span>Community</span></router-link>
+        <router-link :to="{ name: 'CommunityReview' }" class="rlink dropdown-item" ><span>Community</span></router-link>
         <router-link :to="{ name: 'Profile'}" class="rlink dropdown-item"><span>My</span></router-link>
         <span @click="logout" id="logout" class="dropdown-item">Logout</span>
         </div>
@@ -81,6 +81,7 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch('getMovies')
     this.$store.dispatch('getRandomMovies', '비')
   },
   mounted() {
@@ -91,7 +92,14 @@ export default {
 </script>
 
 <style>
+:root {
+  --font-sm-size: 8px;
+  --font-md-size: 16px;
+  --font-lg-size: 24px;
 
+  --color-pink: #ff1a75;
+  --color-black: #1a1a1a;
+}
 .rlink {
   text-decoration: none;
 }
@@ -124,5 +132,50 @@ export default {
 .logo .sub-title {
   font-size: 12px;
   color: #999999;
+}
+
+
+
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+header h1 {
+  color: var(--color-pink);
+}
+
+header span {
+  color: white;
+}
+
+header .search input {
+  width: 500px;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  border-bottom: 2px solid var(--color-pink);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+header .search i {
+  position: relative;
+  color: var(--color-pink);
+  right: 2rem;
+  top: 2px;
+}
+
+header .menu span{
+  font-size: var(--font-md-size);
+  padding: 8px;
+}
+
+header .menu span:hover{
+  color: var(--color-pink);
 }
 </style>
