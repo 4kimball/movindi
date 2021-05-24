@@ -57,7 +57,7 @@
       </div>
 
 
-      <div class="today-actor">
+      <div class="today-actor container">
         <TodayActor />
       </div>
       
@@ -67,7 +67,6 @@
 </template>
 
 <script>
-
 import TodayActor from '@/components/TodayActor'
 import { mapState } from 'vuex'
 import router from '../router'
@@ -182,9 +181,7 @@ export default {
 }
 .home .today-actor {
   width: 100%;
-  height: 1000px;
-  background: linear-gradient(70deg, #803300, #ff6600);
-
+  height: 900px;
 }
 
 .home .recommand-movies {

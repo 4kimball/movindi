@@ -19,6 +19,7 @@ import CommunityReview from '../views/CommunityReview'
 import CommunityReviewDetail from '../views/CommunityReviewDetail'
 import CommunityWrite from '../views/CommunityWrite'
 import Signup from '../views/Signup'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -41,7 +42,7 @@ const routes = [
         path: '/upcoming/movie',
         name: 'UpcomingMovie',
         component: UpcomingMovie
-      }
+      },
     ]
   },
   {
