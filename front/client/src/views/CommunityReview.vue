@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 align="center">리뷰게시판</h2>
+    <h2>리뷰게시판</h2>
     <p>리스트</p>
     <ReviewList />
     <button>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+
 import ReviewList from '@/components/ReviewList'
 // import ReviewDetail from '@/components/ReviewDetail'
 export default {
@@ -18,20 +18,10 @@ export default {
   components: {
     ReviewList,
   },
-  computed: {
-    ...mapState([
-      'reviews'
-    ])
-  },
-  created() {
-    const type = 'review'
-    this.$store.dispatch('getArticles', type)
-  }
+
 }
 </script>
 
-<style scoped>
-p {
-  color: white;
-}
+<style>
+
 </style>

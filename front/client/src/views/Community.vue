@@ -1,26 +1,11 @@
 <template>
   <div class="container">
     <ul class="communityMenu d-flex justify-content-center">
-      <router-link :to="{ name: 'CommunityReview'}"><span class="mx-3 p-2">#영화 리뷰</span></router-link>
-      <router-link :to="{ name: 'CommunityJob'}"><span class="mx-3 p-2">#구인구직</span></router-link>
-      <router-link :to="{ name: 'CommunityFree'}"><span class="mx-3 p-2">#자유게시판</span></router-link>
+      <router-link :to="{ name: 'CommunityReview'}" class="rlink"><span class="mx-3 p-2">#영화 리뷰</span></router-link>
+      <router-link :to="{ name: 'CommunityJob'}" class="rlink"><span class="mx-3 p-2">#구인구직</span></router-link>
+      <router-link :to="{ name: 'CommunityFree'}" class="rlink"><span class="mx-3 p-2">#자유게시판</span></router-link>
     </ul>
     <router-view/>
-
-
-    <!-- <b-tabs content-class="mt-3" align="center">
-      <b-tab title="# 영화 리뷰" active>
-        <div>
-          <CommunityReview />
-        </div>
-      </b-tab>
-      <b-tab title="# 구인구직">
-        <div></div>
-      </b-tab>
-      <b-tab title="# 자유게시판">
-        <div></div>
-      </b-tab>
-    </b-tabs> -->
   </div>
 </template>
 
@@ -34,13 +19,6 @@ export default {
 }
 </script>
 
-<style scoped>
-a {
-  text-decoration: none;
-}
+<style >
 
-ul span {
-  font-size: 18px;
-  color: #ff1a75;
-}
 </style>

@@ -4,11 +4,12 @@ import axios from 'axios'
 import router from '../router'
 import createPersistedState from "vuex-persistedstate";
 
-// axios.interceptors.request.use(config => {
-  //   const accessToken = localStorage.getItem('access_token')
-  //   config.headers.common['Authorization'] = accessToken ? `Bearer ${accessToken}` : ''
-  //   return config
-  // })
+axios.interceptors.request.use(config => {
+  const accessToken = localStorage.getItem('access_token')
+  config.headers.common['Authorization'] = accessToken ? `Bearer ${accessToken}` : ''
+  return config
+})
+
   
 Vue.use(Vuex)
 
@@ -112,15 +113,13 @@ export default new Vuex.Store({
           console.error(err)
         })
     },
-    createComment({ commit }, article_id, content) {
-      axios({
-        method: 'post',
-        ulr: `http://127.0.0.1:8000/api/v1/community/article/${article_id}/comments/`,
-        data: { content },
-      })
+    createArticle({ commit }, article) {
+      const type = article.type
+      axios.post(`http://127.0.0.1:8000/api/v1/community/${type}/`, article)
       .then(res => {
         console.log(res.data)
-        commit('CREATE_COMMENT', res.data)
+        commit
+        router.push({name: 'Community'})
       })
       .catch(err => {
         console.error(err)
