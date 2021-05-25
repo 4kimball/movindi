@@ -197,6 +197,24 @@ def like_actor(request, actor_pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
+def like_movie(request, movie_pk):
+    access_token = request.data.get('access_token')
+    user = jwt.decode(f'{access_token}', None, None)
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user_id = user.get('user_id')
+    User = get_user_model()
+    user = User.objects.get(pk=user_id)
+    
+    if movie.like_users.filter(pk=user.pk).exists():
+        movie.like_users.remove(user)
+    else:
+        movie.like_users.add(user)
+    
+    movies = get_list_or_404(Movie)
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
 def article_scrap(request, article_pk):
     access_token = request.data.get('access_token')
     user = jwt.decode(f'{access_token}', None, None)
