@@ -1,93 +1,102 @@
 <template>
   <div id="intro">
+    <!-- <Navbar /> -->
+    <div class="sections-menu">
+      <span
+          class="menu-point"
+          v-bind:class="{active: activeSection == index}"
+          v-on:click="scrollToSection(index)"
+          v-for="(offset, index) in offsets"
+          v-bind:key="index">
+      </span>
+    </div>
+    <section class="fullpage" id="sec1">
+      <div class="container">
 
-  <div class="sections-menu">
-    <span
-        class="menu-point"
-        v-bind:class="{active: activeSection == index}"
-        v-on:click="scrollToSection(index)"
-        v-for="(offset, index) in offsets"
-        v-bind:key="index">
-    </span>
-  </div>
-  <section class="fullpage">
-    <div class="what d-flex m-4">
-      <div class="fs-2 boldest me-5">독립영화란</div>
-      <div class="f-bdbdbd">
-        <div class="fs-4 lightest">상업적으로 성공하기 위한 틀 안에 있는 것이 아닌</div>
-        <div class="fs-4 lightest"><span class="f-pink">시대를 대변</span>하고 <span class="f-pink">자신의 주관</span>을 보여주는 장르</div>
+      <div class="what d-flex m-4 justify-content-center">
+        <div class="fs-2 boldest me-5">독립영화란?</div>
+        <div class="f-bdbdbd">
+          <div class="fs-4 lightest">상업적으로 성공하기 위한 틀 안에 있는 것이 아닌</div>
+          <div class="fs-4 lightest"><span class="f-pink">시대를 대변</span>하고 <span class="f-pink">자신의 주관</span>을 보여주는 장르</div>
+        </div>
       </div>
-    </div>
-    <div class="conversation m-4">
-      <div class="conversaion1 flex">
-        <img src="@/assets/justin.png" alt="남자어린아이 얼굴">
-        <img src="@/assets/conversation1.png" alt="다양한주제를 얘기할 수 있다.">
+      <div class="conversation m-4">
+        <img src="@/assets/conversations.png" alt="">
+        <!-- <div class="conversaion1 flex">
+          <img class="person" src="@/assets/justin.png" alt="남자어린아이 얼굴">
+          <img class="saying" src="@/assets/conversation1.png" alt="다양한주제를 얘기할 수 있다.">
+        </div>
+        <div class="conversaion2 flex">
+          <img class="saying" src="@/assets/conversation2.png" alt="소수자를 돌아보는 날카로운 문제의식.">
+          <img class="person" src="@/assets/helen.png" alt="다른인종 여성 얼굴">
+        </div>
+        <div class="conversaion3 flex">
+          <img class="person" src="@/assets/rosa.png" alt="할머니 얼굴">
+          <img class="saying" src="@/assets/conversation3.png" alt="실험적인 표현으로 영화를 발전.">
+        </div> -->
       </div>
-      <div class="conversaion2 flex">
-        <img src="@/assets/helen.png" alt="다른인종 여성 얼굴">
-        <img src="@/assets/conversation2.png" alt="소수자를 돌아보는 날카로운 문제의식.">
+      <div>
+        <div class="eeeeeebg px-3 py-1 m-4">
+          <span class="fs-1 boldest f-black"><span class="f-pink">독립영화</span>, 사회와 문화의 <span class="f-pink">다양성</span>을 키우다.</span>
+        </div>
       </div>
-      <div class="conversaion3 flex">
-        <img src="@/assets/rosa.png" alt="할머니 얼굴">
-        <img src="@/assets/conversation3.png" alt="실험적인 표현으로 영화를 발전.">
       </div>
-    </div>
-    <div>
-      <div class="eeeeeebg px-3 py-1 m-4">
-        <div class="fs-1 boldest f-black"><span class="f-pink">독립영화</span>, 사회와 문화의 <span class="f-pink">다양성</span>을 키우다.</div>
+    </section>
+    <section class="fullpage pink" id="sec2">
+      <div class="tri"></div>
+      <div class="words">
+        <p class="f-pink">독립영화는</p>
+        <p>자유롭고</p>
+        <p>실험적이고</p>
+        <p>과감하고</p>
+        <p>강렬하고</p>
       </div>
-    </div>
-  </section>
-  <section class="fullpage pink">
-    <div class="tri"></div>
-    <div class="words">
-      <p class="f-pink">독립영화는</p>
-      <p>자유롭고</p>
-      <p>실험적이고</p>
-      <p>과감하고</p>
-      <p>강렬하고</p>
-    </div>
-    <div class="movindi mt-5">
-      <!-- <p class="f30">무빈디</p> -->
-      <p class="f40 mt-5">무비+인디</p>
-      <p class="fb60">MOV+INDI</p>
-      <p class="f50">독립영화와 꿈꾸는 배우들</p>
-      <p class="f50">그리고 응원해주는 관객</p>
-    </div>
-    <!-- <div class="tri"></div> -->
-  </section>
-  <section class="fullpage pink">
-    <div class="tri-reverse"></div>
-    <div class="please">
-      <img src="@/assets/cartoon1.png" alt="독립영화를 알릴 기회가 필요하 다는 만화">
-      <div class="fs-4 my-5">
-        <p>독립영화를 계속 알릴 수 있도록</p>
-        <p>영화 배우들을 응원해주고</p>
-        <p>후기를 남겨주세요.</p>
-        <p class="fs-2 boldest f-black mt-5">무빈디_MOVINDI</p>
+      <div class="movindi mt-5">
+        <!-- <p class="f30">무빈디</p> -->
+        <p class="f40 mt-5">무비+인디</p>
+        <p class="fb60">MOV+INDI</p>
+        <p class="f50">독립영화와 꿈꾸는 배우들</p>
+        <p class="f50">그리고 응원해주는 관객</p>
       </div>
-    </div>
-    <div class="but">
-      <div class="fs-1 f-pink boldest">하지만</div>
-      <div class="fs-2">배우들의 생활고</div>
-      <div class="fs-2">늘어나는 멀티플랙스 영화관</div>
-      <div class="fs-2">코로나로 인한 투자 및 상영의 어려움</div>
-    </div>
-  </section>
-  <section class="fullpage">
+      <!-- <div class="tri"></div> -->
+    </section>
+    <section class="fullpage pink" id="sec3">
+      <div class="tri-reverse"></div>
+      <div class="please">
+        <img src="@/assets/cartoon1.png" alt="독립영화를 알릴 기회가 필요하 다는 만화">
+        <div class="fs-4 my-5">
+          <p>독립영화를 계속 알릴 수 있도록</p>
+          <p>영화 배우들을 응원해주고</p>
+          <p>후기를 남겨주세요.</p>
+          <p class="fs-2 boldest f-black mt-5">무빈디_MOVINDI</p>
+        </div>
+      </div>
+      <div class="but">
+        <div class="fs-1 f-pink boldest">하지만</div>
+        <div class="fs-2">배우들의 생활고</div>
+        <div class="fs-2">늘어나는 멀티플랙스 영화관</div>
+        <div class="fs-2">코로나로 인한 투자 및 상영의 어려움</div>
+      </div>
+    </section>
+    <section class="fullpage" id="sec4">
       <img class="my-5" src="@/assets/cartoon2.png" alt="독립영화 상영관이 적다는 만화">
       <div class="eeeeeebg px-3 py-1 m-4">
         <div class="fs-1 boldest f-black">점점 설 곳이 없어지는 <span class="f-pink">독립영화를 지켜주세요.</span></div>
       </div>
       <img class="my-5" src="@/assets/articles.png" alt="독립영화의 어려움에 관한 기사 캡쳐">
-  </section>
+      <p class="f-pink fs-4 boldest">무빈디 : Mov+Indi</p>
+    </section>
   </div>
-
 </template>
 
 <script>
+// import Navbar from '@/components/Navbar'
+// import { mapState } from 'vuex'
 export default {
   name: 'Intro',
+  // components: {
+  //   Navbar
+  // },
   data() {
     return {
       inMove: false,
@@ -96,10 +105,26 @@ export default {
       touchStartY: 0,
     }
   },
+  // computed : {
+  //   ...mapState([
+  //     'intros'
+  //   ])
+  // },
   methods: {
     calculateSectionOffsets() {
-      let sections = document.getElementsByTagName('section');
+      let sections = document.getElementsByTagName("section");
+      // let sec1 = document.getElementById("sec1")
+      // let sec2 = document.getElementById("sec2")
+      // let sec3 = document.getElementById("sec3")
+      // let sec4 = document.getElementById("sec4")
+      // let sections = [
+      //   sec1,
+      //   sec2,
+      //   sec3,
+      //   sec4,
+      // ];
       let length = sections.length;
+      console.log(sections)
       
       for(let i = 0; i < length; i++) {
         let sectionOffset = sections[i].offsetTop;
@@ -177,7 +202,7 @@ export default {
       return false;
     }
   },
-  created() {
+  mounted() {
     this.calculateSectionOffsets();
     
     window.addEventListener('DOMMouseScroll', this.handleMouseWheelDOM);  // Mozilla Firefox
@@ -197,11 +222,16 @@ export default {
 </script>
 
 <style scoped>
+
+
+
 #intro {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: #FFF;
   font-family: Helvetica, arial, sans-serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 h2 {
@@ -238,7 +268,7 @@ p {
 }
 
 .pink {
-  background-color: #ff0066;
+  background-color: #ff1a75;
 }
 
 h1.black {
@@ -274,16 +304,16 @@ h1.black {
   width: 0px;
   height: 0px;
   border-bottom: 100vh solid transparent;
-  border-left: 100vh solid black;
+  border-left: 100vw solid black;
 }
 
 .words {
   z-index: 2;
-  margin-right: 50vh;
+  margin-right: 50vw;
 }
 
 .movindi {
-  margin-left: 50vh;
+  margin-left: 50vw;
 }
 
 .words p {
@@ -301,7 +331,7 @@ h1.black {
 }
 
 .f-pink {
-  color: #ff0066;
+  color: #ff1a75;
 }
 
 .f-bdbdbd {
@@ -317,7 +347,7 @@ h1.black {
 }
 
 .words .f-pink {
-  color: #ff0066;
+  color: #ff1a75;
   font-size: 2.5rem;
   font-weight: 700;
 }
@@ -357,14 +387,15 @@ h1.black {
 .please {
   z-index: 2;
   text-align: right;
-  margin-left: 50vh;
+  margin-left: 50vw;
   line-height: 1;
 }
 
 .but {
   z-index: 2;
   line-height: 1.9;
-  margin-right: 35vh;
+  margin-right: 35vw;
+  text-align: left;
 }
 
 .tri-reverse {
@@ -373,7 +404,7 @@ h1.black {
   width: 0px;
   height: 0px;
   border-top: 100vh solid transparent;
-  border-left: 100vh solid black;
+  border-left: 100vw solid black;
 }
 
 @media screen and (max-width: 1200px) {
