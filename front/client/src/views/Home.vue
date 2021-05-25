@@ -22,40 +22,15 @@
         </div>
 
         <div class="images">
-          <div v-for="movie in randomMovies" :key="movie.id" @click="getDetailMovie(movie)">
-          <img :src=movie.poster_path alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          <div class="modal fade modal-dialog-scrollable " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="0" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content" >
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ detailMovie.title }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body ">
-                    <div class="d-flex">
-                    <div>  
-                     <p>{{ detailMovie.content }}</p>
-                     </div>
-                     <img :src=detailMovie.poster_path alt="" id="modal-img">
-                     </div> 
-                     <hr>
-                     <div id="icons">
-                     <p><span v-for="(rank, index) in detailMovie.rank_average" :key="index" id="rank-star"><i class="fas fa-star"></i></span></p>
-                     <p v-if="isLiked(detailMovie)" id="like-movie"><i class="fas fa-heart"></i></p>
-                     <p v-else id="like-movie"><i class="far fa-heart"></i></p>
-                      </div>
-                     <p v-for="comment in detailMovie.moviecomment_set" :key="comment.id">
-                       {{ comment.content }}
-                     </p>  
-                  </div>                  
-                </div>
-              </div>
-            </div>
+          <div v-for="movie in randomMovies" :key="movie.id" @click="setDetailMovie(movie)">
+          <router-link :to="{ name: 'MovieDetail'}" class="rlink" ><img :src=movie.poster_path alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          </router-link>
             </div>
         </div>
       </div>
+      
       </div>
-
+ 
 
       <div class="today-actor container">
         <TodayActor />
@@ -74,7 +49,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      detailMovie: {},
+      
     }
   },
   components: {
@@ -103,9 +78,8 @@ export default {
       }
       this.$store.dispatch('getRandomMovies', keyword)
     },
-    getDetailMovie(movie) {
-      this.detailMovie = movie
-      console.log(movie.rank_average)
+    setDetailMovie(movie) {
+      this.$store.dispatch('setDetailMovie', movie)
     },
     isLiked(movie) {
       

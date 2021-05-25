@@ -16,6 +16,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     movies: [],
+    detailMovie: {},
     actors: [],
     detailArticle: [],
     accessToken: localStorage.getItem('access_token') || '',
@@ -41,6 +42,9 @@ export default new Vuex.Store({
     },
     UPDATE_MOVIES(state) {
       state.movies = []
+    },
+    SET_DETAIL_MOVIE(state, movie) {
+      state.detailMovie = movie
     },
     SET_ACTORS(state, actors) {
       state.actors = actors
@@ -82,6 +86,28 @@ export default new Vuex.Store({
         .then(res => {
           console.log(res)
           commit('SET_MOVIES', res.data)
+        })
+    },
+    setDetailMovie({ commit }, movie) {
+      axios.get(`http://127.0.0.1:8000/api/v1/movies/detail/${movie.id}/`)
+        .then(res => {
+          console.log(res.data)
+          commit('SET_DETAIL_MOVIE', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      
+    },
+    createMovieComment({ state, dispatch }, comment) {
+      const movie = state.detailMovie
+      axios.post(`http://127.0.0.1:8000/api/v1/movies/${movie.id}/comments/`, comment)
+        .then(res => {
+          console.log(res.data)
+          dispatch('setDetailMovie', movie)
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
     getActors({ commit }) {
