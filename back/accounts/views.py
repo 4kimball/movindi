@@ -11,8 +11,10 @@ from .serializers import (
 )
 
 from django.contrib.auth import get_user_model
+import jwt
 
 from accounts import serializers
+
 @api_view(['POST'])
 def signup(request):
     # 1. 비밀번호 준비
@@ -40,5 +42,15 @@ def getByUsername(request, username):
     User = get_user_model()
     user = get_object_or_404(User, username=username)
     
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def update_user_info(request):
+    access_token = request.data.get('access_token')
+    user = jwt.decode(f'{access_token}', None, None)
+    user_id = user.get('user_id')
+    User = get_user_model()
+    user = User.objects.get(pk=user_id)
     serializer = UserSerializer(user)
     return Response(serializer.data)
