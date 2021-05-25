@@ -110,7 +110,25 @@ def review_comment_delete(request, comment_pk):
     comment.delete()
     return Response(status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def movie_detail(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    comments = movie.moviecomment_set.all()
+    total = 0
+    print(comments.values_list())
+  
+
+    if len(comments) > 0:
+        rank_average = total // len(comments)
+        movie.rank_average = rank_average
+    
+    movie.save()
+    serializer = MovieListSerializer(movie)
+    return Response(serializer.data)
+
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def movie_comment_create(request, movie_pk):
     '''
     영화에 평점 및 댓글 달기
@@ -119,7 +137,7 @@ def movie_comment_create(request, movie_pk):
    
     serializer = MovieCommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(movie=movie)
+        serializer.save(movie=movie, user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['DELETE'])

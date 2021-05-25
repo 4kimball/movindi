@@ -12,7 +12,7 @@
   </div>
   <section class="fullpage">
     <div class="what d-flex m-4">
-      <div class="fs-2 boldest me-5">독립영화란?</div>
+      <div class="fs-2 boldest me-5">독립영화란</div>
       <div class="f-bdbdbd">
         <div class="fs-4 lightest">상업적으로 성공하기 위한 틀 안에 있는 것이 아닌</div>
         <div class="fs-4 lightest"><span class="f-pink">시대를 대변</span>하고 <span class="f-pink">자신의 주관</span>을 보여주는 장르</div>

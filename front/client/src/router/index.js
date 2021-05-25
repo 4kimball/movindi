@@ -12,7 +12,7 @@ import CommunityReviewUpdate from '../views/CommunityReviewUpdate'
 import AwardMovie from '../views/AwardMovie'
 import TodayMovie from '../views/TodayMovie'
 import UpcomingMovie from '../views/UpcomingMovie'
-
+import MovieDetail from '../views/MovieDetail'
 import CommunityFree from '../views/CommunityFree'
 import CommunityJob from '../views/CommunityJob'
 import CommunityReview from '../views/CommunityReview'
@@ -112,6 +112,11 @@ const routes = [
     name: 'SearchResult',
     component: SearchResult
   },
+  {
+    path: '/movie/detail',
+    name: 'MovieDetail',
+    component: MovieDetail
+  }
 ]
 
 const router = new VueRouter({

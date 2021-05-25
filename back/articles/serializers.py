@@ -15,10 +15,16 @@ class ReviewListCommentSerializer(serializers.ModelSerializer):
         fields = ('content', 'user',)
 
 class MovieCommentSerializer(serializers.ModelSerializer):
+ 
     class Meta:
         model = MovieComment
-        fields = '__all__'
-        read_only_fields = ('movie', )
+        fields = ('content', )
+
+class MovieListCommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = MovieComment
+        fields = ('content', 'user')
 
 class ReviewListSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -28,7 +34,7 @@ class ReviewListSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class MovieListSerializer(serializers.ModelSerializer):
-    moviecomment_set = MovieCommentSerializer(many=True, read_only=True)
+    moviecomment_set = MovieListCommentSerializer(many=True, read_only=True)
     class Meta:
         model = Movie
         fields = '__all__'
