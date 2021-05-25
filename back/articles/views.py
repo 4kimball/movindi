@@ -50,10 +50,10 @@ def community_list_create(request, type):
     '''
     type이 review, casting, free에 따라 글의 목록 읽고 쓰기
     '''
-    
+    print(type)
     if request.method == 'GET':
         if type == 'all':
-            articles = Review.objects.order_by('pk')
+            articles = Review.objects.order_by('-pk')
         else:
             articles = Review.objects.filter(type=type).order_by('-pk')
         serializer = ReviewListSerializer(articles, many=True)
@@ -116,14 +116,19 @@ def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     comments = movie.moviecomment_set.all()
     total = 0
+    count = 0
     print(comments.values_list())
-  
+    for value in comments.values_list():
+        rank = value[3]
+        total += rank
+        count += 1
 
-    if len(comments) > 0:
-        rank_average = total // len(comments)
+    if count > 0:
+        rank_average = total // count
         movie.rank_average = rank_average
     
     movie.save()
+    print(movie.rank_average)
     serializer = MovieListSerializer(movie)
     return Response(serializer.data)
 
@@ -134,7 +139,9 @@ def movie_comment_create(request, movie_pk):
     영화에 평점 및 댓글 달기
     '''
     movie = get_object_or_404(Movie, pk=movie_pk)
-   
+    request.data['rank'] = int(request.data['rank'])
+    movie.rank_average += request.data['rank']
+    print(request.data)
     serializer = MovieCommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie, user=request.user)

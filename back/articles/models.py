@@ -34,7 +34,7 @@ class ReviewComment(models.Model):
 class MovieComment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    rank = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
+    rank = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     content = models.CharField(max_length=200)
 
 class Actor(models.Model):
@@ -43,5 +43,5 @@ class Actor(models.Model):
     date_of_birth = models.TextField()
     filmography = models.TextField()
     profile_image = models.TextField()
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_actor')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_actors')
     
