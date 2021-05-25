@@ -25,7 +25,8 @@ def signup(request):
     
     # 3. 인스턴스 준비
     serializer = UserSerializer(data=request.data)
-
+    print(request.data)
+    
     # 4. 유효성 검사
     if serializer.is_valid(raise_exception=True):
         user = serializer.save()
@@ -38,5 +39,6 @@ def signup(request):
 def getByUsername(request, username):
     User = get_user_model()
     user = get_object_or_404(User, username=username)
+    
     serializer = UserSerializer(user)
     return Response(serializer.data)

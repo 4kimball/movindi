@@ -32,11 +32,12 @@
         <input type="text" id="comment" placeholder="영화가 어떠셨나요?" v-model="comment.content">
         <button @click="createMovieComment">작성</button>
       </div>
-      <ul class="movie-comments">
+      <ul class="movie-comments" v-if="checkComment(detailMovie.moviecomment_set)">
         <li v-for="comment in detailMovie.moviecomment_set" :key="comment.id">
           {{ comment.user.username }}: {{ comment.content}}
         </li>
       </ul>
+      <p v-else class="mt-5">아직 작성된 평점이 없습니다.</p>
     </div>
   </div>
 </template>
@@ -64,6 +65,13 @@ export default {
       parseInt(String(this.comment.rank))
       console.log(typeof this.comment.rank)
       this.$store.dispatch('createMovieComment', this.comment)
+    },
+    checkComment(comments) {
+      if(comments.length){
+        return true
+      } else {
+        return false
+      }
     }
   }
 }

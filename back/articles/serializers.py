@@ -18,13 +18,13 @@ class MovieCommentSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = MovieComment
-        fields = ('content', )
+        fields = ('content', 'rank')
 
 class MovieListCommentSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = MovieComment
-        fields = ('content', 'user')
+        fields = ('content', 'rank', 'user')
 
 class ReviewListSerializer(serializers.ModelSerializer):
     user = UserSerializer()

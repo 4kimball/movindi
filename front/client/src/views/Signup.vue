@@ -49,6 +49,7 @@ export default {
   },
   methods: {
     signup() {
+      console.log(this.sns_type, this.sns_id)
       this.$store.dispatch('signup', this.credentials)
     }
   }
