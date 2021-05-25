@@ -82,7 +82,7 @@ export default {
   },
   created() {
     this.$store.dispatch('getRandomMovies', '비')
-    
+    this.$store.dispatch('updateUser')
   },
   mounted() {
     window.addEventListener('resize', this.addMoreBtn)

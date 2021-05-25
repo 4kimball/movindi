@@ -17,14 +17,11 @@
 </template>
 
 <script>
-
+import router from '../router'
 export default {
   name: 'Community',
   created() {
-    
-  },
-  components: {
-
+    router.push({name: 'CommunityReview' })
   },
   computed: {
     articles() {

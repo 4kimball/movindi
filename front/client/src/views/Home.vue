@@ -109,8 +109,9 @@ export default {
   },
   created() {
       this.$store.dispatch('getMovies')
+      this.$store.dispatch('getActors')
       router.push({name: 'TodayMovie'})
-  }
+  },
 }
 
 </script>

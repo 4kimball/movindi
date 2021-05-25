@@ -15,7 +15,8 @@
         <div>
           <h3>{{ actors[0].name }}</h3>
           <p>{{ actors[0].date_of_birth }}</p>
-          <button class="btn-follow">팔로잉하고 응원하기</button>
+          <button class="btn-unfollow" @click="like_actor(0)" v-if="isLiked(0)">이미 응원하고 있어요</button>
+          <button class="btn-follow" @click="like_actor(0)" v-else>응원하기</button>
         </div>
       </div>
       <div>
@@ -42,7 +43,8 @@
         <div>
           <h3>{{ actors[1].name }}</h3>
           <p>{{ actors[1].date_of_birth }}</p>
-          <button class="btn-follow">팔로잉하고 응원하기</button>
+          <button class="btn-unfollow" @click="like_actor(1)" v-if="isLiked(1)">이미 응원하고 있어요</button>
+          <button class="btn-follow" @click="like_actor(1)" v-else>응원하기</button>
         </div>
       </div>
       <div>
@@ -69,7 +71,9 @@
         <div>
           <h3>{{ actors[7].name }}</h3>
           <p>{{ actors[7].date_of_birth }}</p>
-          <button class="btn-follow">팔로잉하고 응원하기</button>
+           <button class="btn-unfollow" @click="like_actor(7)" v-if="isLiked(7)">이미 응원하고 있어요</button>
+          <button class="btn-follow" @click="like_actor(7)" v-else>응원하기</button>
+         
         </div>
       </div>
       <div>
@@ -95,8 +99,9 @@
         <img :src=actors[8].profile_image :alt=actors[8].name>
         <div>
           <h3>{{ actors[8].name }}</h3>
-          <p>{{ actors[8].date_of_birth }}</p>
-          <button class="btn-follow">팔로잉하고 응원하기</button>
+          <p>{{ actors[8].date_of_birth }}</p>         
+          <button class="btn-unfollow" @click="like_actor(8)" v-if="isLiked(8)">이미 응원하고 있어요</button>
+          <button class="btn-follow" @click="like_actor(8)" v-else>응원하기</button>
         </div>
       </div>
       <div>
@@ -164,8 +169,20 @@ export default {
         const box = document.querySelector('.actor-d')
         box.id = "showing"
       }
+    },
+    like_actor(idx) {
+      this.$store.dispatch('like_actor', this.actors[idx])
+    },
+    isLiked(idx) {
+    const actor = this.actors[idx]
+    if(actor.like_users.includes(this.$store.state.user.pk)){
+      return true
+    } else {
+      return false
     }
   }
+  },
+
 }
 </script>
 
@@ -218,6 +235,14 @@ export default {
   border: none;
   background-color: var(--color-pink);
   color: white;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-weight: bold;
+}
+.today-actor-item #actor-item-box .actor-info .btn-unfollow {
+  border: none;
+  background-color: white;
+  color: var(--color-pink);
   border-radius: 10px;
   padding: 10px 12px;
   font-weight: bold;
