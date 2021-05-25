@@ -21,7 +21,7 @@
 export default {
   name: 'Community',
   created() {
-    this.$store.dispatch('getArticles', 'review')
+    
   },
   components: {
 

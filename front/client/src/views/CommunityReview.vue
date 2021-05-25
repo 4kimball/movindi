@@ -8,21 +8,20 @@
 </template>
 
 <script>
-
 import ReviewList from '@/components/ReviewList'
-// import ReviewDetail from '@/components/ReviewDetail'
 export default {
   name: 'CommunityReview',
   components: {
     ReviewList,
   },
-  computed: {
-    articles() {
-      return this.$store.state.keywordArticles
-    }
-  },
+ computed: {
+   articles() {
+     return this.$store.state.articles
+   }
+ },
   created() {
     this.$store.dispatch('getArticles', 'review')
+
   }
 
 }

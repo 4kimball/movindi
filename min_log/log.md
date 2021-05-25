@@ -37,3 +37,21 @@
   - 오늘의 배우 팔로잉
   - 영화 상세 페이지
   - 프로필 페이지
+
+---
+
+### 상태관리
+
+- 초기 상태
+  - movies[41], randomMovies[4]
+- 로그인 후
+  - actors, keywordArticles, user 생성
+- 커뮤니티 이동했을 때
+  - 처음에 영화 리뷰는 정상적으로 나오지만 
+  - 캐스팅 갔다가 다시 오면 랜덤하게 글이 보여짐
+  - 이전 상태값을 불러오고 있음
+  - keywordArticles -> articles로 변경함 = 정상적으로 동작
+    - community에서는 articles로 불러오고 그 밑에 있는 컴포넌트에서는 keywordArticles로 불러와져서 그런거 같음
+  - 게시글이 삭제되면 articles의 인덱스와 게시글의 id가 일치하지 않기 때문에 문제발생
+  - 영화 좋아요, 게시글 수정
+
