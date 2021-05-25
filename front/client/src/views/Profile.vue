@@ -1,12 +1,12 @@
 <template>
   <div class="profile container mt-5">
-    <div class="user-info">
+        <div class="user-info">
       <h2>{{user.username }}</h2>
     </div>
     <div class="article-actor">
       <div class="review">
-        <div v-for="(article, index) in user.review_set" :key="index">
-          <span class="type">{{ keywordArticles[article-1].type|getType }}</span> | <span class="title">{{ keywordArticles[article-1].title }}</span>
+        <div v-for="(article, index) in myArticles" :key="index">
+          <span>{{ article.type }}</span>
         </div>
       </div>
       <div class="like-actors row">
@@ -26,7 +26,7 @@
     </div>
     <div class="scrap-article">
       <div v-for="(scrap, index) in user.scrap_articles" :key="index">
-        <h3>{{ keywordArticles[scrap-1].title }}</h3>  
+        <h3>{{ articles[scrap-1].title }}</h3>  
        </div>
     </div>
   </div>
@@ -36,13 +36,10 @@
 import { mapState } from 'vuex'
 export default {
   name: 'Profile',
-  computed: {
-    ...mapState([
-      'movies',
-      'keywordArticles',
-      'actors',
-      'user'
-    ])
+  data() {
+    return {
+      myArticles: []
+    }
   },
   filters: {
     getType(type) {
@@ -56,11 +53,24 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('getMovies')
-    this.$store.dispatch('getArticles', 'all')
-    this.$store.dispatch('getActors')
-    this.$sotre.dispatch('getByUsername', this.user.username)
-  }
+    this.$store.dispatch('getByUsername', this.user.username)
+    this.user.reivew_set.forEach( review => {
+      this.articles.forEach(article => {
+        if(review === article.id) {
+          this.myArticle.push(article)
+        }
+      })
+    })
+    console.log(this.myArticles)
+  },
+  computed: {
+    ...mapState([
+      'movies',
+      'articles',
+      'actors',
+      'user'
+    ])
+  },
 }
 </script>
 

@@ -32,7 +32,6 @@ export default new Vuex.Store({
       review_set: [],
       scrap_articles: []
     },
-    keyWordArticles: [],
     articles: []
   },
   getters: {
@@ -61,7 +60,7 @@ export default new Vuex.Store({
     },
     // 커뮤니티 관련함수
     SET_ARTICLES(state, reviews) {
-      state.keywordArticles = reviews
+      state.articles = reviews
     },
     SET_DETAIL_ARTICLE(state, article) {
       state.detailArticle = article
@@ -176,6 +175,7 @@ export default new Vuex.Store({
           console.log(res)
           commit
           router.push({name: 'CommunityReview'})
+          
         })
         .catch(err => {
           console.log(err)
@@ -192,22 +192,24 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    clickScrap({ state, commit, dispatch }, article) {
+    clickScrap({ state, commit }, article) {
       axios.post(`http://127.0.0.1:8000/api/v1/community/detail/${article.id}/scrap/`, {access_token: state.accessToken})
         .then(res => {
           
           commit('SET_DETAIL_ARTICLE', res.data)
-          dispatch('getByUsername', res.data.user.username)
+          //dispatch('getByUsername', state.user.username)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    getByUsername({ commit }, username) {
+    getByUsername({ commit, dispatch }, username) {
       axios.get(`http://127.0.0.1:8000/api/v1/accounts/user/${username}/`)
         .then(res => {
-          
           commit('SET_USER', res.data)
+          dispatch('getMovies')
+          dispatch('getActors')
+          dispatch('getArticles', 'all')
         })
         .catch(err => {
           console.log(err)
@@ -218,16 +220,13 @@ export default new Vuex.Store({
       axios.post('http://127.0.0.1:8000/api/v1/token/', credentials)
         .then(res => {
           const username = res.config.data.split('"')[3]
-         
+          
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
           dispatch('getByUsername', username)
           
         })
         .then( () => {
-          dispatch('getMovies')
-          dispatch('getArticles', 'all')
-          dispatch('getActors')
           router.push({ name: 'Intro'})
         })
     },
@@ -259,12 +258,12 @@ export default new Vuex.Store({
         })
     },
     // 배우 좋아요
-    like_actor({ commit, state, dispatch}, actor) {
+    like_actor({ commit, state}, actor) {
       axios.post(`http://127.0.0.1:8000/api/v1/actors/like/${actor.id}/`, {access_token: state.accessToken})
         .then(res => {
           console.log(res)
           commit('SET_ACTORS', res.data)
-          dispatch('getByUsername', state.user.username)
+          //dispatch('getByUsername', state.user.username)
         })
     },
     updateMovies({commit}) {

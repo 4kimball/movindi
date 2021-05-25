@@ -53,9 +53,9 @@ def community_list_create(request, type):
     print(type)
     if request.method == 'GET':
         if type == 'all':
-            articles = Review.objects.order_by('-pk')
+            articles = Review.objects.order_by('pk')
         else:
-            articles = Review.objects.filter(type=type).order_by('-pk')
+            articles = Review.objects.filter(type=type).order_by('pk')
         serializer = ReviewListSerializer(articles, many=True)
         return Response(serializer.data)
     

@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     articles() {
-      return this.$store.state.keywordArticles
+      return this.$store.state.articles
     }
   },
   created() {
