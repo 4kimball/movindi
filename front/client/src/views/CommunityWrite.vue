@@ -26,16 +26,11 @@ export default {
   name: 'CommunityWrite',
   data() {
     return {
-      article: {
-        type: '',
-        title: '',
-        content: ''
-      }
     }
   },
   methods: {
     createArticle() {
-      this.$store.dispatch('createArticle', this.article)
+      this.$store.dispatch('updateArticle', this.article)
     }
   }
 }

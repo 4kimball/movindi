@@ -169,6 +169,15 @@ export default new Vuex.Store({
         console.error(err)
       })
     },
+    updateArticle({ commit }, article) {
+      axios.put(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/`, article)
+        .then(res => {
+          commit('SET_DETAIL_ARTICLE', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     deleteArticle({ state, dispatch }, article) {
       axios.delete(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/`)
         .then(() => {
@@ -179,11 +188,20 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    createComment({ state, dispatch }, content) {
+    createReviewComment({ state, dispatch }, content) {
       const article = state.detailArticle
       axios.post(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/comments/`, {content})
         .then(res => {
           res
+          dispatch('getDetailArticle', article)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteReviewComment({ dispatch }, {comment, article}) {
+      axios.delete(`http://127.0.0.1:8000/api/v1/community/article/comments/${comment.id}/`)
+        .then(() => {
           dispatch('getDetailArticle', article)
         })
         .catch(err => {

@@ -6,25 +6,25 @@ class ReviewCommentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ReviewComment
-        fields = ('content', )
+        fields = ('content', 'id',)
 
 class ReviewListCommentSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = ReviewComment
-        fields = ('content', 'user',)
+        fields = ('content', 'user', 'id')
 
 class MovieCommentSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = MovieComment
-        fields = ('content', 'rank')
+        fields = ('content', 'rank', 'id')
 
 class MovieListCommentSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = MovieComment
-        fields = ('content', 'rank', 'user')
+        fields = ('content', 'rank', 'user', 'id')
 
 class ReviewListSerializer(serializers.ModelSerializer):
     user = UserSerializer()

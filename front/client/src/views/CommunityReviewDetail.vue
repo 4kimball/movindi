@@ -25,14 +25,15 @@
     <div class="comment-form">
       <label for="comment">{{user.username}}</label>
       <input type="text" id="comment" placeholder="댓글을 작성해보세요." v-model="comment">
-      <button @click="createComment">작성</button>
+      <button @click="createReviewComment" class="btn-create">작성</button>
     </div>
     <div v-if="inComment(detailArticle)">
     <ul>
       <li v-for="comment in detailArticle.reviewcomment_set" :key="comment.id" id="comment-item">
         <div>{{comment.user.username}}</div>
         <span>{{comment.content}}</span>
-      </li>  
+        <button  class="btn-delete" v-if="isDelete(comment.user)" @click="deleteComment(comment)">삭제</button>
+      </li>   
     </ul>
      </div>
      <p v-else>아직 댓글이 없습니다.</p>
@@ -42,19 +43,27 @@
 </template>
 
 <script>
+//import router from '../router'
 import { mapState } from 'vuex'
 
 export default {
   name: 'CommunityReviewDetail',
   data() {
     return {
-      comment: ''
+      comment: '',
     }
   },
   methods: {
     isLiked(article) {
       
       if(article.scrap_users.indexOf(this.$store.state.user.pk) !== -1) {
+        return true
+      } else {
+        return false
+      }
+    },
+    isDelete(comment_user) {
+      if(comment_user.username === this.user.username) {
         return true
       } else {
         return false
@@ -77,12 +86,19 @@ export default {
     clickScrap(detailArticle) {
       this.$store.dispatch('clickScrap', detailArticle)
     },
-    createComment() {
-      this.$store.dispatch('createComment', this.comment)
+    createReviewComment() {
+      this.$store.dispatch('createReviewComment', this.comment)
       this.comment = ''
     },
     deleteArticle() {
       this.$store.dispatch('deleteArticle', this.detailArticle)
+    },
+    deleteComment(comment) {
+      const params = {
+        comment: comment,
+        article: this.detailArticle
+      }
+      this.$store.dispatch('deleteReviewComment', params)
     }
   },
   computed: {
@@ -158,7 +174,7 @@ export default {
   padding: 3px;
 }
 
-.detail-article .comment-view .comment-form button {
+.detail-article .comment-view .comment-form .btn-create {
   border: none;
   border-radius: 5px;
   background-color: var(--color-pink);
@@ -196,6 +212,17 @@ export default {
   font-weight: bold;
 }
 
+.comment-view .btn-delete {
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-weight: bold;
+  background-color: #ff3300;
+  margin-left: 1rem;
+}
+.comment-view .btn-delete:hover {
+   background-color: #ff5c33;
+}
 .article-view .btn-update-delete .btn-update {
   background-color: #0033cc;
   margin-right: 6px;
