@@ -23,7 +23,7 @@
 
         <div class="images">
           <div v-for="movie in randomMovies" :key="movie.id" @click="setDetailMovie(movie)">
-          <router-link :to="{ name: 'MovieDetail'}" class="rlink" ><img :src=movie.poster_path alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <router-link :to="{ name: 'MovieDetail'}" class="rlink" ><img :src=movie.poster_path :alt=movie.title class="poster">
           </router-link>
             </div>
         </div>
@@ -163,8 +163,17 @@ export default {
   width: 100%;
   height: 1000px;
   background-color: navy;
-  
 }
+
+.home .recommand-movies .images .poster{
+  border-radius: 7px;
+  box-shadow: 3px 3px 3px white;
+  transition: transform 1s ease-in-out;
+}
+.home .recommand-movies .images .poster:hover {
+  transform: scale(1.1);
+}
+
 
 #bg-rain {
   background-image: url('../assets/bg-rain.jpg');

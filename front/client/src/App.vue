@@ -102,6 +102,9 @@ export default {
   --color-pink: #ff1a75;
   --color-black: #1a1a1a;
 }
+header {
+  z-index: 100;
+}
 .rlink {
   text-decoration: none;
 }
