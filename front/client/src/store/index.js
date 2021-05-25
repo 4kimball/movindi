@@ -163,19 +163,17 @@ export default new Vuex.Store({
       .then(res => {
         res
         dispatch('getByUsername', state.user.username)
-        router.push({name: 'Community'})
+        router.push({name: 'CommunityReview'})
       })
       .catch(err => {
         console.error(err)
       })
     },
-    deleteArticle({ commit }, article) {
+    deleteArticle({ state, dispatch }, article) {
       axios.delete(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/`)
-        .then(res => {
-          console.log(res)
-          commit
-          router.push({name: 'CommunityReview'})
-          
+        .then(() => {
+             router.push({name: 'CommunityReview'})
+          dispatch('getByUsername', state.user.username)
         })
         .catch(err => {
           console.log(err)
@@ -185,19 +183,19 @@ export default new Vuex.Store({
       const article = state.detailArticle
       axios.post(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/comments/`, {content})
         .then(res => {
-          console.log(res)
+          res
           dispatch('getDetailArticle', article)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    clickScrap({ state, commit }, article) {
+    clickScrap({ state, commit, dispatch }, article) {
       axios.post(`http://127.0.0.1:8000/api/v1/community/detail/${article.id}/scrap/`, {access_token: state.accessToken})
         .then(res => {
           
           commit('SET_DETAIL_ARTICLE', res.data)
-          //dispatch('getByUsername', state.user.username)
+          dispatch('getByUsername', state.user.username)
         })
         .catch(err => {
           console.log(err)
@@ -258,16 +256,37 @@ export default new Vuex.Store({
         })
     },
     // 배우 좋아요
-    like_actor({ commit, state}, actor) {
+    like_actor({ commit, state, dispatch}, actor) {
       axios.post(`http://127.0.0.1:8000/api/v1/actors/like/${actor.id}/`, {access_token: state.accessToken})
         .then(res => {
-          console.log(res)
+          
           commit('SET_ACTORS', res.data)
-          //dispatch('getByUsername', state.user.username)
+          dispatch('getByUsername', state.user.username)
+        })
+    },
+    // 영화 좋아요
+    like_movie({state, commit, dispatch}, movie) {
+      axios.post(`http://127.0.0.1:8000/api/v1/movies/detail/like/${movie.id}/`, {access_token: state.accessToken})
+        .then(res => {
+          
+          commit('SET_MOVIES', res.data)
+          dispatch('getByUsername', state.user.username)
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
     updateMovies({commit}) {
       commit('UPDATE_MOVIES')
+    },
+    updateUser({state, commit, dispatch}) {
+      axios.post('http://127.0.0.1:8000/api/v1/accounts/again/', {access_token: state.accessToken})
+      .then(res => {
+        console.log(res.data)
+        commit('SET_USER', res.data)
+        dispatch('getByUsername', res.data.username)
+        
+      })
     }
   },
   modules: {

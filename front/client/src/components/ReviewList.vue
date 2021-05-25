@@ -1,5 +1,7 @@
 <template>
   <div class="review">
+    <h5>{{postType}}</h5>
+    <div class="tables">
     <table class="table mt-5 ">
   <thead>
     <tr>
@@ -18,6 +20,7 @@
 </table>
 <router-view/>
   </div>
+  </div>
 </template>
 
 <script>
@@ -27,6 +30,9 @@ export default {
   props: {
     articles: {
       type: Array
+    },
+    postType: {
+      type: String
     }
   },
   methods: {
@@ -49,7 +55,19 @@ export default {
 </script>
 
 <style scoped>
+.review {
+  display: flex;
 
+}
+.review h5 {
+  flex: 1 1 10%;
+  color: white;
+  margin-top: 5rem;
+  margin-right: 3rem;
+}
+.review .tables {
+  flex: 1 1 90%;
+}
 .table tr {
   margin-bottom: 1rem;
   color: white;

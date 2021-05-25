@@ -13,8 +13,9 @@
         <p>배우 | {{ detailMovie.actors }}</p>
         <p class="mt-5">{{ detailMovie.content }}</p>
       </div>
-      <div class="btn-like-movie">
-        <i class="fas fa-heart"></i>
+      <div class="btn-like-movie" @click="like_movie">
+        <i class="fas fa-heart" v-if="isLiked(detailMovie)"></i>
+        <i class="far fa-heart" v-else></i>
       </div>
     </div>
     <hr class="mt-5">
@@ -68,6 +69,17 @@ export default {
     },
     checkComment(comments) {
       if(comments.length){
+        return true
+      } else {
+        return false
+      }
+    },
+    like_movie() {
+      this.$store.dispatch('like_movie', this.detailMovie)
+      this.$store.dispatch('setDetailMovie', this.detailMovie)
+    },
+    isLiked(movie) {
+      if(movie.like_users.includes(this.user.pk)) {
         return true
       } else {
         return false

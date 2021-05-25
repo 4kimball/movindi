@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ReviewList 
+    <ReviewList
+    :postType="postType" 
     :articles="articles"
     />
   </div>
@@ -10,8 +11,13 @@
 import ReviewList from '@/components/ReviewList'
 export default {
   name: 'CommunityFree',
+  data() {
+    return {
+      postType: "자유 게시판"
+    }
+  },
   components: {
-    ReviewList
+    ReviewList,
   },
   created() {
     this.$store.dispatch('getArticles', 'free')

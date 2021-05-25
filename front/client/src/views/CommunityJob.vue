@@ -1,6 +1,7 @@
 <template>
   <div>
-   <ReviewList 
+   <ReviewList
+   :postType="postType" 
    :articles="articles"
    />
   </div>
@@ -10,8 +11,13 @@
 import ReviewList from '@/components/ReviewList'
 export default {
   name: 'CommunityJob',
+  data() {
+    return {
+      postType: "캐스팅"
+    }
+  },
   components: {
-    ReviewList 
+    ReviewList,
   },
   computed: {
     articles() {
@@ -20,7 +26,8 @@ export default {
   },
   created() {
     this.$store.dispatch('getArticles', 'casting')
-  }
+  },
+
 }
 </script>
 

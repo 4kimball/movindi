@@ -28,11 +28,14 @@
 </template>
 
 <script>
+//import router from '../router'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Actors',
   created() {
     this.$store.dispatch('getActors')
+    this.$store.dispatch('updateUser')
+    
   },
   computed: {
     actors() {
@@ -44,6 +47,7 @@ export default {
   },
   methods: {
     like_actor(actor) {
+      
       this.$store.dispatch('like_actor', actor)
     },
     isLiked(actor) {
@@ -57,7 +61,7 @@ export default {
         return false
       }
     }
-  }
+  },
 }
 </script>
 
