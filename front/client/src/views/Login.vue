@@ -41,12 +41,12 @@ export default {
       this.$store.dispatch('login', this.credentials)
       setTimeout(() => {
 
-      }, 1000)
+      }, 50)
       if(this.$store.state.loginState === 401) {
        this.isCorrect = true;
        setTimeout(() => {
          this.isCorrect = false
-       }, 1500)
+       }, 1000)
       }
     },
     signup() {

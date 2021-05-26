@@ -18,16 +18,12 @@
 
 <script>
 import router from '../router'
+
 export default {
   name: 'Community',
   created() {
     router.push({name: 'CommunityReview' })
   },
-  computed: {
-    articles() {
-      return this.$store.state.articles
-    }
-  }
 }
 </script>
 

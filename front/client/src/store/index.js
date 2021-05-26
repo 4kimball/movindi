@@ -193,7 +193,15 @@ export default new Vuex.Store({
       .then(res => {
         res
         dispatch('getByUsername', state.user.username)
-        router.push({name: 'CommunityReview'})
+        setTimeout(() => {
+          if(type === 'review') {
+            router.push({name: 'CommunityReview'})
+          } else if(type === 'casting') {
+            router.push({name:'CommunityJob'})
+          } else if(type === 'free') {
+            router.push({name: 'CommunityFree'})
+          }
+        }, 500)
       })
       .catch(err => {
         console.error(err)
@@ -203,16 +211,26 @@ export default new Vuex.Store({
       axios.put(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/`, article)
         .then(res => {
           commit('SET_DETAIL_ARTICLE', res.data)
+          
         })
         .catch(err => {
           console.log(err)
         })
     },
     deleteArticle({ state, dispatch }, article) {
+      const type = article.type
       axios.delete(`http://127.0.0.1:8000/api/v1/community/article/${article.id}/`)
         .then(() => {
-             router.push({name: 'CommunityReview'})
           dispatch('getByUsername', state.user.username)
+          setTimeout(() => {
+            if(type === 'review') {
+              router.push({name: 'CommunityReview'})
+            } else if(type === 'casting') {
+              router.push({name:'CommunityJob'})
+            } else if(type === 'free') {
+              router.push({name: 'CommunityFree'})
+            }
+          }, 500)
         })
         .catch(err => {
           console.log(err)
@@ -265,15 +283,13 @@ export default new Vuex.Store({
     login({commit, dispatch}, credentials) {
       axios.post('http://127.0.0.1:8000/api/v1/token/', credentials)
         .then(res => {
+          router.push({ name: 'Intro'})
           const username = res.config.data.split('"')[3]
           
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
           dispatch('getByUsername', username)
           dispatch('getScrollActors', 1)
-        })
-        .then( () => {
-          router.push({ name: 'Intro'})
         })
         .catch(err => {
           commit('SET_LOGIN_STATUS', err.response.status)

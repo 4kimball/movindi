@@ -9,4 +9,4 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'pk', 'image', 'sns_id', 'sns_type', 'password', 'like_actors', 'like_movies', 'review_set', 'scrap_review')
-        read_only_field = ('image', 'like_actors', 'like_movies', 'review_set', 'scrap_review')
+        read_only_fields = ('image', 'like_actors', 'like_movies', 'review_set', 'scrap_review')

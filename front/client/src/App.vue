@@ -103,7 +103,6 @@ export default {
   --color-black: #1a1a1a;
 }
 header {
-  z-index: 100;
   background: linear-gradient(black, rgba(0, 0, 0, 0));
 }
 .rlink {

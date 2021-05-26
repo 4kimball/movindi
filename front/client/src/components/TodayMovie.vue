@@ -224,6 +224,11 @@ export default {
   },
   mounted() {
     this.show = true;
+  },
+  computed: {
+    movies() {
+      return this.$store.state.movies
+    }
   }
 }
 </script>
@@ -236,6 +241,10 @@ export default {
 }
 #today-movie .fade-enter {
   opacity: 0;
+}
+
+.today-movie .btn2slide:hover {
+  cursor: pointer;
 }
 
 /* GO TO NEXT SLIDE */
