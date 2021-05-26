@@ -12,27 +12,24 @@
     <section class="fullpage">
       <TodayMovie/>
     </section>
-    <section class="fullpage black">
-      <TodayActor />
+    <section class="fullpage">
+      <RecommendMovies/>
     </section>
     <section class="fullpage red">
-      <h1>Section 3</h1>
-      <p>works on <b>desktop & mobile</b></p>
-    </section>
-    <section class="fullpage green">
-      <h1>Section 4</h1>
-      <p>Tutorial <a href="https://webdeasy.de/en/programming-vue-js-fullpage-scroll/?referer=cp-NVOEBL" target="_blank">here</a></p>
+      <TodayActor />
     </section>
   </div>
 </template>
 
 <script>
 import TodayMovie from '@/components/TodayMovie'
+import RecommendMovies from '@/components/RecommendMovies'
 import TodayActor from '@/components/TodayActor'
 export default {
   name: 'Home',
   components: {
     TodayMovie,
+    RecommendMovies,
     TodayActor
   },
   data() {
