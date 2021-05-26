@@ -13,8 +13,7 @@
       <TodayMovie/>
     </section>
     <section class="fullpage black">
-      <h1>Section 2</h1>
-      <p>made with <a href="https://vuejs.org/" target="_blank">Vue.js</a></p>
+      <TodayActor />
     </section>
     <section class="fullpage red">
       <h1>Section 3</h1>
@@ -29,10 +28,12 @@
 
 <script>
 import TodayMovie from '@/components/TodayMovie'
+import TodayActor from '@/components/TodayActor'
 export default {
   name: 'Home',
   components: {
-    TodayMovie
+    TodayMovie,
+    TodayActor
   },
   data() {
     return {
