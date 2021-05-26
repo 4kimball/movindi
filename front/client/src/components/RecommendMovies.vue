@@ -1,6 +1,6 @@
 <template>
-  <div id="recommand-movies">
-    <div class="d-flex align-items-center h-100" id="movies">
+  <div class="recommand-movies">
+    <div class="d-flex align-items-center h-100 " id="movies">
       <div class="buttons">
         <button @click="handleClick" id="btn-clicked" class="btn-rain">#비도오고그래서</button>
         <button @click="handleClick" class="btn-friend">#친구와 함께</button>
@@ -10,34 +10,11 @@
 
       <div class="images">
         <div 
-        v-for="movie in randomMovies" 
-        :key="movie.id" 
+        v-for="(movie, index) in randomMovies" 
+        :key="index" 
         @click="getDetailMovie(movie)">
           <div class="d-flex">
             <img :src=movie.poster_path alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <!-- <div class="modal fade modal-dialog-scrollable " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="0" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content" >
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ detailMovie.title }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body ">
-                    <div class="d-flex">
-                    <div>  
-                      <p>{{ detailMovie.content }}</p>
-                      </div>
-                      <img :src=detailMovie.poster_path alt="" id="modal-img">
-                      </div> 
-                      <hr>
-                      <p><span v-for="(rank, index) in detailMovie.rank_average" :key="index" id="rank-star"><i class="fas fa-star"></i></span></p>
-                      <p v-for="comment in detailMovie.moviecomment_set" :key="comment.id">
-                        {{ comment.content }}
-                      </p>  
-                  </div>                  
-                </div>
-              </div>
-          </div> -->
           </div>
         </div>
       </div>
@@ -79,7 +56,6 @@ export default {
     },
     getDetailMovie(movie) {
       this.detailMovie = movie
-      console.log(movie.rank_average)
     },
   },
   computed: {
@@ -97,36 +73,65 @@ export default {
 </script>
 
 <style>
-
-.home section {
-  display: flex;
-  flex-direction: column;
-  margin-top: 5rem;
-}
-
-.home .today-movie {
-  width: 100%;
-  height: 900px;
-  position: relative;
-  color: #f2f2f2;
-
-  display: flex;
-  justify-content: space-between;
-}
-
-.home .today-actor {
-  width: 100%;
-  height: 1000px;
-  background: linear-gradient(70deg, #803300, #ff6600);
-}
-
-.home .recommand-movies {
+.recommand-movies {
   width: 100%;
   height: 100%;
-  background-color: navy;
-  
+}
+.recommand-movies .buttons {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5rem;
+  justify-content: space-around;
+  height: 50%;
+  position: relative;
+  padding: 3rem;
+
+  flex: 1 1 20%;
+  margin-left: 3rem;
+}
+.recommand-movies .buttons::after {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  content: "";
+  width: 2px;
+  height: 75%;
+  background-color: var(--color-pink);
+}
+.recommand-movies .buttons button {
+  border:none;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  font-weight: bold;
+  border: 2px solid var(--color-pink);
+  padding: 1rem;
+  border-radius: 50px;
+  font-size: 20px;
+  width: 80%;
+}
+#btn-clicked {
+  background-color: var(--color-pink);
+}
+.recommand-movies .images {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 80%;
+  align-items: center;
+  margin-right: 3rem;
 }
 
+.recommand-movies .images img {
+  width: 250px;
+  transition: transform 0.5s ease-in;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px #cccccc;
+}
+
+.recommand-movies .images img:hover {
+  transform: scale(1.1);
+}
 #bg-rain {
   background-image: url('../assets/bg-rain.jpg');
 }
@@ -145,63 +150,5 @@ export default {
   background-image: url('../assets/bg-change.jpg');
 
 }
-.home .community {
-  width: 100%;
-  height: 1000px;
-  background-color: green;
-}
 
-.recommand-movies {
-  height: 100%;
-}
-
-.recommand-movies #movies {
-  margin-left: 5rem;
-  margin-right: 5rem;
-  align-items: center;
-}
-.recommand-movies .buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 50%;
-  margin-right: 5rem;
-}
-.recommand-movies .buttons button {
-  border: 1px white solid;
-  color: white;
-  border-radius: 10px;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0);
-  font-weight: bold;
-}
-.recommand-movies .buttons button:hover {
-  background-color: rgba(255, 26, 117, 0.5);
-}
-.recommand-movies .images img {
-  margin-left: 2rem;
-  width: 300px;
-}
-
-.recommand-movies .images {
-  display: flex;
-}
-#btn-clicked {
-  background-color: rgba(255, 26, 117, 0.8);
-  
-}
-
-
-.modal-header, .modal-body{
-  width: 100%;
-  background: linear-gradient(to bottom right, #262626, #595959);
-  opacity: 0.8;
-  color: white;
-  font-weight: bold;
-
-}
-
-#rank-star {
-  color: var(--color-pink);
-}
 </style>

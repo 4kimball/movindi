@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div class="home">
     <div class="sections-menu">
       <span
          class="menu-point"
@@ -141,18 +141,18 @@ export default {
 </script>
 
 <style>
-#home {
+.home {
   margin: 0;
   color: #FFF;
   font-family: Helvetica, arial, sans-serif;
   overflow: hidden;
 }
 
-h2 {
+.home h2 {
   position: fixed;
 }
 
-.fullpage {
+.home .fullpage {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -161,18 +161,18 @@ h2 {
   flex-direction: column;
 }
 
-h1 {
+.home h1 {
   font-size: 6em;
   margin: 0;
   text-align: center;
   padding: 0 1rem;
 }
 
-p {
+.home p {
   font-size: 1em;
 }
 
-.fullpage a {
+.home .fullpage a {
   text-decoration: none;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.3);
@@ -181,30 +181,30 @@ p {
   margin-left: 5px;
 }
 
-.red {
+.home .red {
   background-color: #ab4545;
 }
 
-section.black {
+.home section.black {
   background-color: #000;
 }
 
-.green {
+.home .green {
   background-color: #68c368;
 }
 
-h1.black {
+.home h1.black {
   color: #000;
 }
 
-.sections-menu {
+.home .sections-menu {
   position: fixed;
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.sections-menu .menu-point {
+.home .sections-menu .menu-point {
   width: 10px;
   height: 10px;
   background-color: #FFF;
@@ -215,7 +215,7 @@ h1.black {
   cursor: pointer;
 }
 
-.sections-menu .menu-point.active {
+.home .sections-menu .menu-point.active {
   opacity: 1;
   transform: scale(1.5);
 }
