@@ -134,22 +134,23 @@ export default {
   transform: scale(1.1);
 }
 #bg-rain {
-  background-image: url('../assets/bg-rain.jpg');
+  background: url('../assets/bg-rain.jpg') no-repeat center fixed;
+  background-size: cover;
 }
 
 #bg-friend {
-  background-image: url('../assets/bg-friend.jpg');
-  background-size: 500px;
+  background: url('../assets/bg-friend.jpg') no-repeat center fixed;
+  background-size: cover;
 }
 
 #bg-family {
-  background-image: url('../assets/bg-family.jpg');
-  background-size: 700px;
+  background: url('../assets/bg-family.jpg') no-repeat center fixed;
+  background-size: cover;
 }
 
 #bg-change {
-  background-image: url('../assets/bg-change.jpg');
-
+  background: url('../assets/bg-change.jpg') no-repeat center fixed;
+  background-size: cover;
 }
 
 @media screen and (max-width: 1400px) {
