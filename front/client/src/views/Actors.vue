@@ -2,7 +2,7 @@
   <div class="actors" >
     <div class="container mt-5">
       <div class="row">
-        <div class="col-10 col-md-5"  v-for="actor in actors" :key="actor.id" id="actor-box">
+        <div class="col-10 col-md-5"  v-for="actor in scrollActors" :key="actor.id" id="actor-box">
           <div id="actor-like" @click="like_actor(actor)">
                 <span v-if="isLiked(actor)">
                   <i class="fas fa-heart"></i>
@@ -29,33 +29,34 @@
 
 <script>
 //import router from '../router'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Actors',
   data() {
     return {
-      page: 1,
       handleActors: []
     }
   },
   created() {
-    this.page = 1
-    this.$store.dispatch('getScrollActors', this.page)
-    this.$store.dispatch('updateUser')
+   // this.$store.dispatch('updateUser')
     window.addEventListener('scroll', this.handleScroll)
   },
   computed: {
-    actors() {
-      return this.$store.state.scrollActors
-    },
     ...mapGetters([
       'isLoggedIn'
+    ]),
+    ...mapState([
+      'actors',
+      'scrollActors',
     ])
   },
   methods: {
     like_actor(actor) {
-      
-      this.$store.dispatch('like_actor', actor)
+      const params = {
+        actor: actor,
+        page: this.page
+      }
+      this.$store.dispatch('like_actor', params)
     },
     isLiked(actor) {
       
@@ -72,9 +73,10 @@ export default {
       let windowHeight = window.innerHeight
       let scrollY = window.scrollY
       let bodyHeight = document.body.offsetHeight
-      if(scrollY + windowHeight >= bodyHeight && this.page*6 <= 10){
-       this.page += 1
-       this.$store.dispatch('getScrollActors', this.page)
+      let page = Math.round(this.scrollActors.length / 6) + 1
+      if(scrollY + windowHeight >= bodyHeight && page*6 <= 12){
+       this.$store.dispatch('getScrollActors', page)
+       
       }
       
     }
