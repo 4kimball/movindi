@@ -168,7 +168,7 @@ export default {
 .home .recommand-movies .images .poster{
   border-radius: 7px;
   box-shadow: 3px 3px 3px white;
-  transition: transform 1s ease-in-out;
+  transition: transform .5s ease-in;
 }
 .home .recommand-movies .images .poster:hover {
   transform: scale(1.1);

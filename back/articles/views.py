@@ -172,17 +172,18 @@ def actor_list_scroll(request, page):
     actors = get_list_or_404(Actor)[start:end]
     serializer = ActorListSerializer(actors, many=True)
     return Response(serializer.data)
-@api_view(['GET'])
-def search(request, keyword):
+@api_view(['POST'])
+def search(request):
     '''
     검색
     '''
-    if Actor.objects.filter(name=keyword).exists():
-        actor = get_object_or_404(Actor, name=keyword)
+    keyword = request.data.get('keyword')
+    if Actor.objects.filter(name__contains=keyword).exists():
+        actor = Actor.objects.get(name__contains=keyword)
         serializer = ActorListSerializer(actor)
         return Response(serializer.data)
-    elif Movie.objects.filter(title=keyword).exists():
-        movie = get_object_or_404(Movie, title=keyword)
+    elif Movie.objects.filter(title__contains=keyword).exists():
+        movie = Movie.objects.get(title__contains=keyword)
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
     else:

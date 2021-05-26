@@ -33,7 +33,9 @@ export default new Vuex.Store({
       review_set: [],
       scrap_articles: []
     },
-    articles: []
+    articles: [],
+    loginState: '',
+    signupState: ''
   },
   getters: {
     isLoggedIn({ accessToken }) {
@@ -102,6 +104,12 @@ export default new Vuex.Store({
     },
     DELETE_USER(state) {
       state.user = {}
+    },
+    SET_LOGIN_STATUS(state, status) {
+      state.loginState = status
+    },
+    SET_SIGNUP_STATUS(state, status) {
+      state.signupState = status
     }
   },
   actions: {
@@ -267,6 +275,9 @@ export default new Vuex.Store({
         .then( () => {
           router.push({ name: 'Intro'})
         })
+        .catch(err => {
+          commit('SET_LOGIN_STATUS', err.response.status)
+        })
     },
     //로그아웃
     logout({ commit }) {
@@ -275,19 +286,24 @@ export default new Vuex.Store({
       localStorage.removeItem('access_token')
       router.push({name:'Login'})
     },
-    signup({ dispatch }, credentials) {
+    signup({ commit, dispatch }, credentials) {
       axios.post('http://127.0.0.1:8000/api/v1/accounts/signup/', credentials)
         .then(res => {
           res
           dispatch('login', credentials)
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
+          if(err.response.data.username) {
+            commit('SET_SIGNUP_STATUS', 1)
+          } else if(err.response.data.error) {
+            commit('SET_SIGNUP_STATUS', 2)
+          }
         })
     },
     search({ commit }, keyword) {
       
-      axios.get(`http://127.0.0.1:8000/api/v1/search/${keyword}/`)
+      axios.post(`http://127.0.0.1:8000/api/v1/search/`, {keyword})
         .then(res => {
           commit('UPDATE_SEARCH', res.data)
         })
@@ -296,7 +312,7 @@ export default new Vuex.Store({
         })
     },
     // 배우 좋아요
-    like_actor({ commit, state, dispatch}, {actor}) {
+    like_actor({ commit, state, dispatch}, actor) {
       axios.post(`http://127.0.0.1:8000/api/v1/actors/like/${actor.id}/`, {access_token: state.accessToken})
         .then(res => {       
           commit('SET_ACTORS', res.data)

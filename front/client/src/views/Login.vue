@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <h5 v-if="isCorrect" class="login-alarm">입력된 정보가 올바르지 않습니다.</h5>
     <div class="login-form" @keyup.enter="login">
     <div>
       <label for="username">ID</label>
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import router from '../router'
 export default {
   name: 'Login',
@@ -27,7 +29,8 @@ export default {
       credentials: {
         username: '',
         password: ''
-      }
+      },
+      isCorrect: false
     }
   },
   components: {
@@ -36,10 +39,25 @@ export default {
   methods: {
     login() {
       this.$store.dispatch('login', this.credentials)
+      setTimeout(() => {
+
+      }, 1000)
+      if(this.$store.state.loginState === 401) {
+       this.isCorrect = true;
+       setTimeout(() => {
+         this.isCorrect = false
+       }, 1500)
+      }
     },
     signup() {
       router.push({name: 'Signup'})
-    }
+    },
+ 
+  },
+  computed: {
+    ...mapState([
+      'loginState'
+    ])
   }
 }
 </script>
@@ -48,18 +66,24 @@ export default {
 .login {
   width: 100%;
   height: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.login .login-alarm {
+  color: var(--color-pink);
+  margin-top: 5rem;
+  transition: all .5s ease-in-out;
+}
 .login .login-form {
-  position: absolute;
-  top: 250px;
-  left: 550px;
   padding: 5rem;
   color: var(--color-pink);
   font-weight: 600;
 
   display: flex;
   flex-direction: column;
+  transition: transform .5s ease-in;
 }
 
 .login .login-form input {
@@ -73,7 +97,9 @@ export default {
   color: white;
 }
 
-
+#login-form-rotate {
+  transform: rotate(1.1);
+}
 .login .login-form button {
   width: 100px;
   align-items: flex-end;

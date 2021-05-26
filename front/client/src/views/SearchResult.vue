@@ -8,6 +8,9 @@
         <div class="info">
           <h2>{{ result.title }}</h2>
           <p>{{ result.release_date }} | {{ result.genre }} | {{ result.director }} | {{ result.actors }}</p>
+          <p v-if="result.rank_average"><span v-for="(rank, index) in result.rank_average" :key="index" id="rank-star"><i class="fas fa-star"></i>
+        </span></p>
+          <p v-else>등록된 평점이 없습니다.</p>
           <hr>
           <p>{{ result.content }}</p>
         </div>
@@ -59,5 +62,6 @@ export default {
   width: 100%;
   width: 250px;
   height: 400px;
+  border-radius: 50%;
 }
 </style>

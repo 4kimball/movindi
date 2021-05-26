@@ -52,11 +52,8 @@ export default {
   },
   methods: {
     like_actor(actor) {
-      const params = {
-        actor: actor,
-        page: this.page
-      }
-      this.$store.dispatch('like_actor', params)
+
+      this.$store.dispatch('like_actor', actor)
     },
     isLiked(actor) {
       

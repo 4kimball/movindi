@@ -1,5 +1,7 @@
 <template>
   <div class="signup">
+    <h5 class="login-alarm-id d-none">이미 존재하는 아이디입니다.</h5>
+    <h5 class="login-alarm-pw d-none">비밀번호가 일치하지 않습니다.</h5>
     <div class="signup-form" @keyup.enter="signup">
       <div class="input-info">
         <label for="username">아이디: </label>
@@ -13,17 +15,7 @@
         <label for="passwordConfirmation">비밀번호 확인: </label>
         <input type="password" id="passwordConfirmation" v-model="credentials.passwordConfirmation">
       </div>
-      <div class="input-info">
-        <label for="snsId">SNS ID
-          <select name="sns-id" id="sns-type" v-model="sns_type" required>
-            <option value="instagram">Instgram</option>
-            <option value="kakao">KaKaO</option>
-        </select>
-        : 
-        </label>
-        
-        <input type="text" placeholder="선택사항 입니다." v-model="sns_id">
-      </div>
+     
       <div id="signup-btn">
         <div></div>
       <button class="signup-btn" @click="signup">가입</button>
@@ -44,13 +36,27 @@ export default {
         sns_id: 'snsId',
         sns_type: 'instagram'
       },
-      
+      idUnCorrect: false,
+      pwUnCorrect: false
     }
   },
   methods: {
     signup() {
-      console.log(this.sns_type, this.sns_id)
       this.$store.dispatch('signup', this.credentials)
+      if(this.$store.state.signupState === 1) {
+        const alarm = document.querySelector('.login-alarm-id')
+        alarm.classList.remove('d-none')
+        setTimeout(() => {
+          alarm.classList.add('d-none')
+        }, 1000)
+      } else if(this.$store.state.signupState === 2) {
+        const alarm = document.querySelector('.login-alarm-pw')
+        alarm.classList.remove('d-none')
+        setTimeout(() => {
+          alarm.classList.add('d-none')
+        }, 1000)
+      }
+    this.$store.state.signupState = 0
     }
   }
 }
@@ -61,8 +67,14 @@ export default {
   width: 100%;
   height: 1000px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.signup .login-alarm-id, .login-alarm-pw {
+  color: var(--color-pink);
+  transition: all .5s ease-in-out;
 }
 .signup .signup-form {
   padding: 5rem;
