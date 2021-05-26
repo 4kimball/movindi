@@ -19,6 +19,10 @@ import CommunityReview from '../views/CommunityReview'
 import CommunityReviewDetail from '../views/CommunityReviewDetail'
 import CommunityWrite from '../views/CommunityWrite'
 import Signup from '../views/Signup'
+import ProfileActor from '../views/ProfileActor'
+import ProfileMovie from '../views/ProfileMovie'
+import ProfileArticle from '../views/ProfileArticle'
+import ProfileScrap from '../views/ProfileScrap'
 
 Vue.use(VueRouter)
 
@@ -95,7 +99,29 @@ const routes = [
   {
     path: '/profile',
     name: 'Profile',
-    component: Profile
+    component: Profile,
+    children: [
+      {
+        path: '/like/actors',
+        name: 'ProfileActor',
+        component: ProfileActor
+      },
+      {
+        path: '/like/movies',
+        name: 'ProfileMovie',
+        component: ProfileMovie
+      },
+      {
+        path: '/my/article',
+        name: 'ProfileArticle',
+        component: ProfileArticle
+      },
+      {
+        path: '/scrap/article',
+        name: 'ProfileScrap',
+        component: ProfileScrap
+      }
+    ]
   },
   {
     path: '/login',
