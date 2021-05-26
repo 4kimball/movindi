@@ -199,6 +199,7 @@ export default {
 
 .home .sections-menu {
   position: fixed;
+  z-index: 100;
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
