@@ -2,7 +2,7 @@
   <div class="actors" >
     <div class="container mt-5">
       <div class="row">
-        <div class="col-10 col-md-5"  v-for="actor in scrollActors" :key="actor.id" id="actor-box">
+        <div class="col-8 col-md-5 align-items-center"  v-for="actor in scrollActors" :key="actor.id" id="actor-box">
           <div id="actor-like" @click="like_actor(actor)">
                 <span v-if="isLiked(actor)">
                   <i class="fas fa-heart"></i>
@@ -71,7 +71,7 @@ export default {
       let scrollY = window.scrollY
       let bodyHeight = document.body.offsetHeight
       let page = Math.round(this.scrollActors.length / 6) + 1
-      if(scrollY + windowHeight >= bodyHeight && page*6 <= 12){
+      if(scrollY + windowHeight >= bodyHeight && page*6 <= 24){
        this.$store.dispatch('getScrollActors', page)
        
       }

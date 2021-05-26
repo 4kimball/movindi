@@ -51,6 +51,9 @@ export default {
   justify-content: space-between;
 }
 
+.search-result .search-view #rank-star {
+  color: var(--color-pink);
+}
 .search-result .search-view .poster img {
   width: 100%;
   width: 400px;

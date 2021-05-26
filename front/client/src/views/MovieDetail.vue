@@ -98,7 +98,10 @@ export default {
   background-color: #f2f2f2;
   color: black;
   border-radius: 10px;
+}
 
+.detail-movie .movie-item #rank-star{
+  color: var(--color-pink);
 }
 .detail-movie .movie-item .poster {
   flex: 1 1 40%;

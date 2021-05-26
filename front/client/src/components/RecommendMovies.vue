@@ -1,6 +1,5 @@
 <template>
-  <div class="recommand-movies">
-    <div class="d-flex align-items-center h-100 " id="movies">
+  <div class="recommand-movies" id="bg-rain">
       <div class="buttons">
         <button @click="handleClick" id="btn-clicked" class="btn-rain">#비도오고그래서</button>
         <button @click="handleClick" class="btn-friend">#친구와 함께</button>
@@ -9,16 +8,15 @@
       </div>
 
       <div class="images">
-        <div 
+        <div class="d-flex"
         v-for="(movie, index) in randomMovies" 
         :key="index" 
-        @click="getDetailMovie(movie)">
-          <div class="d-flex">
-            <img :src=movie.poster_path alt="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          </div>
-        </div>
+        @click="setDetailMovie(movie)">
+        <router-link :to="{ name: 'MovieDetail'}" class="rlink" >
+          <img :src=movie.poster_path :alt=movie.title  >
+        </router-link>
       </div>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -34,7 +32,6 @@ export default {
     handleClick(event) {
       const beforeClicked = document.getElementById("btn-clicked")
       const section = document.querySelector('.recommand-movies')
-      console.log(section)
       beforeClicked.id = ""
       const targetBtn = event.target
       targetBtn.id = "btn-clicked"
@@ -54,8 +51,8 @@ export default {
       }
       this.$store.dispatch('getRandomMovies', keyword)
     },
-    getDetailMovie(movie) {
-      this.detailMovie = movie
+    setDetailMovie(movie) {
+      this.$store.dispatch('setDetailMovie', movie)
     },
   },
   computed: {
@@ -76,6 +73,8 @@ export default {
 .recommand-movies {
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
 }
 .recommand-movies .buttons {
   display: flex;
@@ -121,7 +120,9 @@ export default {
   align-items: center;
   margin-right: 3rem;
 }
-
+.recommand-movies .images .rlink {
+  background: none;
+}
 .recommand-movies .images img {
   width: 250px;
   transition: transform 0.5s ease-in;
@@ -151,4 +152,36 @@ export default {
 
 }
 
+@media screen and (max-width: 1400px) {
+  .recommand-movies {
+    flex-direction: column;
+  }
+
+  .recommand-movies .buttons {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto 0;
+  }
+
+  .recommand-movies .buttons button {
+    padding: 8px;
+    font-size: 15px;
+  }
+  .recommand-movies .buttons::after {
+    display: none;
+  }
+  .recommand-movies .buttons::before {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-pink);
+    content: "";
+  }
+  .recommand-movies .images img {
+    width: 200px;
+  }
+}
 </style>

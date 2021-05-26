@@ -1,7 +1,7 @@
 <template>
   <div class="signup">
-    <h5 class="login-alarm-id d-none">이미 존재하는 아이디입니다.</h5>
-    <h5 class="login-alarm-pw d-none">비밀번호가 일치하지 않습니다.</h5>
+    <h5 class="login-alarm-id d-none">입력된 정보가 올바르지 않습니다.</h5>
+    <h5 class="login-alarm-pw d-none">입력된 정보가 올바르지 않습니다.</h5>
     <div class="signup-form" @keyup.enter="signup">
       <div class="input-info">
         <label for="username">아이디: </label>

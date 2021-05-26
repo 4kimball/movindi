@@ -5,20 +5,20 @@
       <div class="slide-nav d-flex justify-content-center">
         <div 
         @click="changeSlide(0)"
-        class="d-flex flex-column btn2slide d-flex flex-column align-items-center">
-          <span>혼자 사는 사람들</span>
+        class="d-flex flex-column btn2slide d-flex flex-column align-items-center" id="active-slide">
+          <span class="slide-name">혼자 사는 사람들</span>
           <div class="mt-2 btn-bar"></div>
         </div>
         <div 
         @click="changeSlide(1)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center">
-          <span>혼자 사는 사람들</span>
+          <span class="slide-name">혼자 사는 사람들</span>
           <div class="mt-2 btn-bar"></div>
         </div>
         <div 
         @click="changeSlide(2)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center">
-          <span>혼자 사는 사람들</span>
+          <span class="slide-name">혼자 사는 사람들</span>
           <div class="mt-2 btn-bar"></div>
         </div>
       </div>
@@ -67,35 +67,32 @@
       <div v-if="current===1" :key="current" class="slide container-fluid p-0" :class="slides[current].className">
         <div class="row">
           <div class="col-5 d-flex P-0">
-            <img class="today-movie-poster" src="@/assets/today-movie/today-movie-poster.jpg" alt="">
+            <img class="today-movie-poster" :src=movies[26].poster_path :alt=movies[26].title>
           </div>
           <div class="col-7 d-flex justify-content-start align-items-center col7-box">
             <div class="about-movie d-flex flex-column justify-content-center mx-5">
-              <span class="fs-today f-999999 my-0">오늘의 영화</span>
-              <span class="fs-title f-white boldest my-0">혼자 사는 사람들</span>
-              <p class="f-999999 fs-today lighter">Aloners  |  2021  |  극영화  |  90분 35초  |  12세이상 관람가  |  컬러</p>
+              <span class="fs-today f-999999 my-0">제 46회 서울 독립영화제 장편 대상</span>
+              <span class="fs-title f-white boldest my-0">휴가</span>
+              <p class="f-999999 fs-today lighter">드라마  |  2021.10  |  81분  |  12세이상 관람가</p>
               <div class="fs-contents f-dbdbdb contents my-3">
-                집에서도 밖에서도 늘 혼자가 편한 진아. <br>
-                사람들은 자꾸 말을 걸어오지만, 진아는 그저 불편하다. <br>
-                회사에서 신입사원의 1:1 교육까지 떠맡자 괴로워 죽을 지경. <br>
+                '어느 해고노동자의 짧은 휴가’<br>
+                해고노동자 재복은 5년째 집을 떠나 농성 중이다.<br>
+                노조가 정리해고무효소송에서 최종 패소하자<br>
                 그러던 어느 날, 출퇴근길에 맨날 말을 걸던 옆집 남자가 <br>
-                아무도 모르게 혼자 죽었다는 걸 알게 된다. <br>
-                그 죽음 이후, 진아의 고요한 일상에 작은 파문이 이는데… <br>
-
-                저마다 1인분의 외로움을 간직한, 우리들 이야기
+                재복과 동료들은 열흘 간의 휴가를 갖기로 한다.<br>
               </div>
               <div class="actors d-flex justify-content-between mt-5">
                 <div class="actor1 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/lead1.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">공승연</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">이봉하</span>
                 </div>
                 <div class="actor2 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/lead2.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">정다은</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">김아석</span>
                 </div>
                 <div class="actor3 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/sub1.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">서현우</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">김정연</span>
                 </div>
             </div>
             </div>
@@ -170,9 +167,9 @@ export default {
     }
   },
   methods: {
-    // changeSlide(slideNum) {
-    //   if (current === 0 && slideNum == 1)
-    // },
+     changeSlide(slideNum) {
+      this.current = slideNum;
+     },
     slide(dir) {
       this.direction = dir;
       dir === 1
@@ -185,6 +182,11 @@ export default {
   },
   mounted() {
     this.show = true;
+  },
+  computed: {
+    movies() {
+      return this.$store.state.movies
+    }
   }
 }
 </script>
@@ -197,6 +199,10 @@ export default {
 }
 .fade-enter {
   opacity: 0;
+}
+
+.today-movie .btn2slide:hover {
+  cursor: pointer;
 }
 
 /* GO TO NEXT SLIDE */
