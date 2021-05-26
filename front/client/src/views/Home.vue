@@ -1,272 +1,230 @@
 <template>
-  <div class="home">
-    <section >
-      <div class="today-movie">
-        <div class="btn-list">
-          <button class="btn-pick-type" id="btn-active" @click="changeColor"><router-link :to="{ name: 'TodayMovie'}" class="rlink" >오늘의 영화</router-link></button>
-          <button class="btn-pick-type" @click="changeColor"><router-link :to="{ name: 'AwardMovie'}" class="rlink">2020 서울 독립영화제</router-link></button>
-          <button class="btn-pick-type" @click="changeColor"><router-link :to="{ name: 'UpcomingMovie'}" class="rlink">개봉예정영화</router-link></button>
-        </div>
-        <div>
-        <router-view/>
-        </div>
-      </div>
-
-      <div class="recommand-movies" id="bg-rain">
-        <div class="d-flex align-items-center h-100" id="movies">
-        <div class="buttons">
-          <button @click="handleClick" id="btn-clicked" class="btn-rain">#비도오고그래서</button>
-          <button @click="handleClick" class="btn-friend">#친구와 함께</button>
-          <button @click="handleClick" class="btn-family">#가족에 대해서</button>
-          <button @click="handleClick" class="btn-change">#기분전환</button>
-        </div>
-
-        <div class="images">
-          <div v-for="movie in randomMovies" :key="movie.id" @click="setDetailMovie(movie)">
-          <router-link :to="{ name: 'MovieDetail'}" class="rlink" ><img :src=movie.poster_path :alt=movie.title class="poster">
-          </router-link>
-            </div>
-        </div>
-      </div>
-      
-      </div>
- 
-
-      <div class="today-actor container">
-        <TodayActor />
-      </div>
-      
-      <div class="community"></div>
+  <div id="home">
+    <div class="sections-menu">
+      <span
+         class="menu-point"
+         v-bind:class="{active: activeSection == index}"
+         v-on:click="scrollToSection(index)"
+         v-for="(offset, index) in offsets"
+         v-bind:key="index">
+      </span>
+    </div>
+    <section class="fullpage">
+      <TodayMovie/>
+    </section>
+    <section class="fullpage black">
+      <h1>Section 2</h1>
+      <p>made with <a href="https://vuejs.org/" target="_blank">Vue.js</a></p>
+    </section>
+    <section class="fullpage red">
+      <h1>Section 3</h1>
+      <p>works on <b>desktop & mobile</b></p>
+    </section>
+    <section class="fullpage green">
+      <h1>Section 4</h1>
+      <p>Tutorial <a href="https://webdeasy.de/en/programming-vue-js-fullpage-scroll/?referer=cp-NVOEBL" target="_blank">here</a></p>
     </section>
   </div>
 </template>
 
 <script>
-import TodayActor from '@/components/TodayActor'
-import { mapState } from 'vuex'
-import router from '../router'
+import TodayMovie from '@/components/TodayMovie'
 export default {
   name: 'Home',
+  components: {
+    TodayMovie
+  },
   data() {
     return {
-      
+      inMove: false,
+      activeSection: 0,
+      offsets: [],
+      touchStartY: 0
     }
-  },
-  components: {
-    TodayActor
   },
   methods: {
-    handleClick(event) {
-      const beforeClicked = document.getElementById("btn-clicked")
-      const section = document.querySelector('.recommand-movies')
-      beforeClicked.id = ""
-      const targetBtn = event.target
-      targetBtn.id = "btn-clicked"
-      let keyword = ''
-      if(targetBtn.className === 'btn-rain') {
-        section.id = 'bg-rain';
-        keyword = '비'
-      } else if(targetBtn.className ==='btn-friend') {
-        section.id = 'bg-friend';
-        keyword = '친구'
-      } else if(targetBtn.className === 'btn-family') {
-        section.id = 'bg-family';
-        keyword = '가족'
-      } else if(targetBtn.className === 'btn-change') {
-        section.id = 'bg-change';
-        keyword = '기분전환'
-      }
-      this.$store.dispatch('getRandomMovies', keyword)
-    },
-    setDetailMovie(movie) {
-      this.$store.dispatch('setDetailMovie', movie)
-    },
-    isLiked(movie) {
+    calculateSectionOffsets() {
+      let sections = document.getElementsByTagName('section');
+      let length = sections.length;
       
-      if(!this.isLoggedIn){
-        return false
-      } 
-      if(movie.like_users.includes(this.$store.state.user.pk)){
-        return true
-      } else {
-        return false
+      for(let i = 0; i < length; i++) {
+        let sectionOffset = sections[i].offsetTop;
+        this.offsets.push(sectionOffset);
       }
     },
-    changeColor(event) {
-      let beforeBtn = document.getElementById("btn-active")
-      let targetBtn = event.target.parentNode
-      beforeBtn.id = ""
-      targetBtn.id = "btn-active"
-    }
-  },
-  computed: {
-    randomMovies() {
-      return this.$store.state.randomMovies
+    handleMouseWheel: function(e) {
+      
+      if (e.wheelDelta < 30 && !this.inMove) {
+        this.moveUp();
+      } else if (e.wheelDelta > 30 && !this.inMove) {
+        this.moveDown();
+      }
+        
+      e.preventDefault();
+      return false;
     },
-    ...mapState([
-      'movies'
-    ])
+    handleMouseWheelDOM: function(e) {
+      
+      if (e.detail > 0 && !this.inMove) {
+        this.moveUp();
+      } else if (e.detail < 0 && !this.inMove) {
+        this.moveDown();
+      }
+      
+      return false;
+    },
+    moveDown() {
+      this.inMove = true;
+      this.activeSection--;
+        
+      if(this.activeSection < 0) this.activeSection = this.offsets.length - 1;
+        
+      this.scrollToSection(this.activeSection, true);
+    },
+    moveUp() {
+      this.inMove = true;
+      this.activeSection++;
+        
+      if(this.activeSection > this.offsets.length - 1) this.activeSection = 0;
+        
+      this.scrollToSection(this.activeSection, true);
+    },
+    scrollToSection(id, force = false) {
+      if(this.inMove && !force) return false;
+      
+      this.activeSection = id;
+      this.inMove = true;
+      
+      document.getElementsByTagName('section')[id].scrollIntoView({behavior: 'smooth'});
+      
+      setTimeout(() => {
+        this.inMove = false;
+      }, 400);
+      
+    },
+    // touchStart(e) {
+    //   e.preventDefault();
+      
+    //   this.touchStartY = e.touches[0].clientY;
+    // },
+    // touchMove(e) {
+    //   if(this.inMove) return false;
+    //   e.preventDefault();
+      
+    //   const currentY = e.touches[0].clientY;
+      
+    //   if(this.touchStartY < currentY) {
+    //     this.moveDown();
+    //   } else {
+    //     this.moveUp();
+    //   }
+      
+    //   this.touchStartY = 0;
+    //   return false;
+    // }
   },
-  created() {
-      this.$store.dispatch('getMovies')
-      this.$store.dispatch('getActors')
-      router.push({name: 'TodayMovie'})
+  mounted() {
+    this.calculateSectionOffsets();
+    
+    window.addEventListener('DOMMouseScroll', this.handleMouseWheelDOM);  // Mozilla Firefox
+    window.addEventListener('mousewheel', this.handleMouseWheel, { passive: false }); // Other browsers
+    
+    // window.addEventListener('touchstart', this.touchStart, { passive: false }); // mobile devices
+    // window.addEventListener('touchmove', this.touchMove, { passive: false }); // mobile devices
   },
+  destroyed() {
+    window.removeEventListener('mousewheel', this.handleMouseWheel, { passive: false });  // Other browsers
+    window.removeEventListener('DOMMouseScroll', this.handleMouseWheelDOM); // Mozilla Firefox
+    
+    // window.removeEventListener('touchstart', this.touchStart); // mobile devices
+    // window.removeEventListener('touchmove', this.touchMove); // mobile devices
+  }
 }
-
 </script>
 
 <style>
-.home section {
+#home {
+  margin: 0;
+  color: #FFF;
+  font-family: Helvetica, arial, sans-serif;
+  overflow: hidden;
+}
+
+h2 {
+  position: fixed;
+}
+
+.fullpage {
+  height: 100vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  margin-top: 5rem;
-}
-
-.home .today-movie {
-  width: 100%;
-  height: 900px;
-  position: relative;
-  color: #f2f2f2;
-  display: flex;
-}
-
-.home .today-movie .btn-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 50%;
-  margin-left: 5rem;
-}
-
-.home .today-movie .btn-list #btn-active{
-  border-bottom: 2px solid white;
-}
-.home .today-movie .btn-list #btn-active a {
-  color: white;
-}
-.home .today-movie .btn-list .btn-pick-type {
-  width: 200px;
-  background-color: rgba( 255, 255, 255, 0 );
-  border: none;
-  border-bottom: 2px solid #bfbfbf;
-}
-.home .today-movie .btn-list button .rlink {
-  color: #bfbfbf;
-}
-.home .today-actor {
-  width: 100%;
-  height: 900px;
-}
-
-.home .recommand-movies {
-  width: 100%;
-  height: 1000px;
-  background-color: navy;
-}
-
-.home .recommand-movies .images .poster{
-  border-radius: 7px;
-  box-shadow: 3px 3px 3px white;
-  transition: transform 1s ease-in-out;
-}
-.home .recommand-movies .images .poster:hover {
-  transform: scale(1.1);
-}
-
-
-#bg-rain {
-  background-image: url('../assets/bg-rain.jpg');
-}
-
-#bg-friend {
-  background-image: url('../assets/bg-friend.jpg');
-  background-size: 500px;
-}
-
-#bg-family {
-  background-image: url('../assets/bg-family.jpg');
-  background-size: 700px;
-}
-
-#bg-change {
-  background-image: url('../assets/bg-change.jpg');
-
-}
-.home .community {
-  width: 100%;
-  height: 1000px;
-  background-color: green;
-}
-
-.recommand-movies {
-  height: 100%;
-}
-
-.recommand-movies #movies {
-  margin-left: 5rem;
-  margin-right: 5rem;
+  justify-content: center;
   align-items: center;
-}
-.recommand-movies .buttons {
-  display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  height: 50%;
-  margin-right: 5rem;
-}
-.recommand-movies .buttons button {
-  border: 1px white solid;
-  color: white;
-  border-radius: 10px;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0);
-  font-weight: bold;
-}
-.recommand-movies .buttons button:hover {
-  background-color: rgba(255, 26, 117, 0.5);
-}
-.recommand-movies .images img {
-  margin-left: 2rem;
-  width: 300px;
 }
 
-.recommand-movies .images {
-  display: flex;
-}
-#btn-clicked {
-  background-color: rgba(255, 26, 117, 0.8);
-  
-}
-
-
-.modal-header, .modal-body{
-  width: 100%;
-  background: linear-gradient(to bottom right, #262626, #595959);
-  opacity: 0.8;
-  color: white;
-  font-weight: bold;
-
+h1 {
+  font-size: 6em;
+  margin: 0;
+  text-align: center;
+  padding: 0 1rem;
 }
 
-#rank-star {
-  color: var(--color-pink);
+p {
+  font-size: 1em;
 }
 
-.home #icons {
-  display: flex;
-  justify-content: space-between;
+.fullpage a {
+  text-decoration: none;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 5px 10px;
+  color: #FFF;
+  margin-left: 5px;
 }
 
-.home #icons #like-movie {
-  font-size: 22px;
-  color: var(--color-pink);
+.red {
+  background-color: #ab4545;
 }
 
-@media screen and (max-width: 1125px) {
-  .home section{
-    margin-top: 0;
+section.black {
+  background-color: #000;
+}
 
+.green {
+  background-color: #68c368;
+}
+
+h1.black {
+  color: #000;
+}
+
+.sections-menu {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sections-menu .menu-point {
+  width: 10px;
+  height: 10px;
+  background-color: #FFF;
+  display: block;
+  margin: 1rem 0;
+  opacity: .6;
+  transition: .4s ease all;
+  cursor: pointer;
+}
+
+.sections-menu .menu-point.active {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+@media screen and (max-width: 1200px) {
+  h1 {
+    font-size: 2.5em;
   }
 }
 </style>
