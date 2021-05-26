@@ -1,5 +1,5 @@
 <template>
-  <div class="today-actor-item mt-1">
+  <div class="today-actor-item mt-1 container">
     <div class="btn-actor-list">
       <h3>오늘의 배우</h3>
       <button class="btn-a" @click="changeActor" id="pick-actor">정다은</button>
@@ -201,6 +201,7 @@ export default {
   justify-content: space-around;
   height: 50%;
   margin-bottom: 5rem;
+  flex: 1 1 20%;
 }
 
 .today-actor-item .btn-actor-list::after {
@@ -210,7 +211,7 @@ export default {
   position: absolute;
   top: 10;
   right: 0;
-  background-color: var(--color-pink);
+  background-color: white;
 
 }
 
@@ -225,10 +226,13 @@ export default {
 .today-actor-item .tbox {
   display: none;
   margin-left: 5rem;
+  width: 100%;
+  flex: 1 1 80%;
 }
 
 .today-actor-item #actor-item-box{
   display: flex;
+  width: 100%;
 }
 
 .today-actor-item #actor-item-box .actor-info .btn-follow {
@@ -262,14 +266,14 @@ export default {
   margin: 2rem 0;
 }
 .today-actor-item #actor-item-box .actor-intro h5 {
-  color: var(--color-pink);
+  color: #ffcc00;
 }
 .today-actor-item #actor-item-box .actor-filmo {
   display: flex;
 }
 
 .today-actor-item #actor-item-box .actor-filmo h5 {
-  color: var(--color-pink);
+  color: #ffcc00;
 }
 .today-actor-item #actor-item-box .filmo-poster {
   margin-left: 3rem;
