@@ -59,6 +59,10 @@ export default new Vuex.Store({
     SET_SCROLL_ACTORS(state, actors) {
       state.scrollActors.push(...actors)
     },
+    SET_LIKE_SCROLL_ACTORS(state, actors) {
+      const size = state.scrollActors.length
+      state.scrollActors = actors.splice(0, size)
+    },
     SET_RANDOM_MOVIE(state, movies) {
       state.randomMovies = movies
     },
@@ -143,7 +147,6 @@ export default new Vuex.Store({
       console.log(page)
       axios.get(`http://127.0.0.1:8000/api/v1/actors/page=${page}/`)
         .then(res => {
-          console.log(res)
           commit('SET_SCROLL_ACTORS', res.data)
         })
         .catch(err => {
@@ -259,7 +262,7 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
           dispatch('getByUsername', username)
-          
+          dispatch('getScrollActors', 1)
         })
         .then( () => {
           router.push({ name: 'Intro'})
@@ -293,11 +296,11 @@ export default new Vuex.Store({
         })
     },
     // 배우 좋아요
-    like_actor({ commit, state, dispatch}, actor) {
+    like_actor({ commit, state, dispatch}, {actor}) {
       axios.post(`http://127.0.0.1:8000/api/v1/actors/like/${actor.id}/`, {access_token: state.accessToken})
-        .then(res => {
-          
+        .then(res => {       
           commit('SET_ACTORS', res.data)
+          commit('SET_LIKE_SCROLL_ACTORS', res.data)
           dispatch('getByUsername', state.user.username)
         })
     },
@@ -322,7 +325,7 @@ export default new Vuex.Store({
         console.log(res.data)
         commit('SET_USER', res.data)
         dispatch('getByUsername', res.data.username)
-        
+        dispatch('getScrollActors', 1)
       })
     }
   },
