@@ -38,7 +38,7 @@
      </div>
      <p v-else>아직 댓글이 없습니다.</p>
   </div>
-  <router-view/>
+  
   </div>
 </template>
 
