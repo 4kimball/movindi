@@ -70,7 +70,6 @@ export default {
     this.$store.dispatch('getByUsername', this.user.username)
     this.getMyArticle(this.articles)
     this.getMyScrapArticle(this.articles)
-    console.log('profile 새로고침')
   },
   computed: {
     ...mapState([

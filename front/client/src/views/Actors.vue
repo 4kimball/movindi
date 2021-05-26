@@ -1,5 +1,5 @@
 <template>
-  <div class="actors">
+  <div class="actors" >
     <div class="container mt-5">
       <div class="row">
         <div class="col-10 col-md-5"  v-for="actor in actors" :key="actor.id" id="actor-box">
@@ -32,14 +32,21 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Actors',
+  data() {
+    return {
+      page: 1,
+      handleActors: []
+    }
+  },
   created() {
-    this.$store.dispatch('getActors')
+    this.page = 1
+    this.$store.dispatch('getScrollActors', this.page)
     this.$store.dispatch('updateUser')
-    
+    window.addEventListener('scroll', this.handleScroll)
   },
   computed: {
     actors() {
-      return this.$store.state.actors
+      return this.$store.state.scrollActors
     },
     ...mapGetters([
       'isLoggedIn'
@@ -60,6 +67,16 @@ export default {
       } else {
         return false
       }
+    },
+    handleScroll() {
+      let windowHeight = window.innerHeight
+      let scrollY = window.scrollY
+      let bodyHeight = document.body.offsetHeight
+      if(scrollY + windowHeight >= bodyHeight && this.page*6 <= 10){
+       this.page += 1
+       this.$store.dispatch('getScrollActors', this.page)
+      }
+      
     }
   },
 }

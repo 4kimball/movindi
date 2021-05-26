@@ -18,6 +18,7 @@ export default new Vuex.Store({
     movies: [],
     detailMovie: {},
     actors: [],
+    scrollActors: [],
     detailArticle: [],
     accessToken: localStorage.getItem('access_token') || '',
     randomMovies: [],
@@ -54,6 +55,9 @@ export default new Vuex.Store({
     },
     SET_ACTORS(state, actors) {
       state.actors = actors
+    },
+    SET_SCROLL_ACTORS(state, actors) {
+      state.scrollActors.push(...actors)
     },
     SET_RANDOM_MOVIE(state, movies) {
       state.randomMovies = movies
@@ -126,9 +130,24 @@ export default new Vuex.Store({
         })
     },
     getActors({ commit }) {
-      axios.get('http://127.0.0.1:8000/api/v1/actors/')
+      
+      axios.get(`http://127.0.0.1:8000/api/v1/actors/page/all/`)
         .then(res => {
           commit('SET_ACTORS', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getScrollActors({ commit }, page) {
+      console.log(page)
+      axios.get(`http://127.0.0.1:8000/api/v1/actors/page=${page}/`)
+        .then(res => {
+          console.log(res)
+          commit('SET_SCROLL_ACTORS', res.data)
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
     getRandomMovies({ commit }, keyword) {
