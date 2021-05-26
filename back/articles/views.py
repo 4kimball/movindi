@@ -163,6 +163,16 @@ def actor_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def actor_list_scroll(request, page):
+    '''
+    무한 스크롤 -> actors에 보여질 데이터
+    '''
+    start = 6 * (page-1)
+    end = 6 * page
+    actors = get_list_or_404(Actor)[start:end]
+    serializer = ActorListSerializer(actors, many=True)
+    return Response(serializer.data)
+@api_view(['GET'])
 def search(request, keyword):
     '''
     검색
