@@ -7,21 +7,21 @@
         @click="changeSlide(0)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center btn"
         :class="{'clicked-slide-nav': is0}">
-          <span>혼자 사는 사람들</span>
+          <span>#외로움 : 혼자 사는 사람들</span>
           <div class="mt-2 btn-bar"></div>
         </div>
         <div 
         @click="changeSlide(1)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center btn"
         :class="{'clicked-slide-nav': is1}">
-          <span>내겐 너무 소중한 너</span>
+          <span>#가족 : 내겐 너무 소중한 너</span>
           <div class="mt-2 btn-bar"></div>
         </div>
         <div 
         @click="changeSlide(2)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center btn"
         :class="{'clicked-slide-nav': is2}">
-          <span>혼자 사는 사람들</span>
+          <span>#짝사랑 : 네가 내가 되었으면 좋겠다</span>
           <div class="mt-2 btn-bar"></div>
         </div>
       </div>
