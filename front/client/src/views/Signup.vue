@@ -1,7 +1,5 @@
 <template>
   <div class="signup">
-    <h5 class="login-alarm-id d-none">입력된 정보가 올바르지 않습니다.</h5>
-    <h5 class="login-alarm-pw d-none">입력된 정보가 올바르지 않습니다.</h5>
     <div class="signup-form" @keyup.enter="signup">
       <div class="input-info">
         <label for="username">아이디: </label>
@@ -21,6 +19,8 @@
       <button class="signup-btn" @click="signup">가입</button>
       </div>
     </div>
+    <h5 v-if="isIdError">비밀번호가 일치하지 않습니다.</h5>
+    <h5 v-else-if="isPwError">동일한 계정이 존재합니다.</h5>
   </div>
 </template>
 
@@ -36,29 +36,33 @@ export default {
         sns_id: 'snsId',
         sns_type: 'instagram'
       },
-      idUnCorrect: false,
-      pwUnCorrect: false
+      isIdError: false,
+      isPwError: false
     }
   },
   methods: {
     signup() {
+      const signupForm = document.querySelector('.signup-form')
       this.$store.dispatch('signup', this.credentials)
       if(this.$store.state.signupState === 1) {
-        const alarm = document.querySelector('.login-alarm-id')
-        alarm.classList.remove('d-none')
+        signupForm.id = 'sign-alarm'
+        this.isPwError = true
         setTimeout(() => {
-          alarm.classList.add('d-none')
-        }, 1000)
+          signupForm.id = ''
+          this.isPwError = false
+          this.$store.state.signupState = 0
+        }, 1000);
       } else if(this.$store.state.signupState === 2) {
-        const alarm = document.querySelector('.login-alarm-pw')
-        alarm.classList.remove('d-none')
+        signupForm.id = 'sign-alarm'
+        this.isIdError = true
         setTimeout(() => {
-          alarm.classList.add('d-none')
-        }, 1000)
+          signupForm.id = ''
+          this.isIdError = false
+          this.$store.state.signupState = 0
+        }, 1000);
       }
-    this.$store.state.signupState = 0
-    }
   }
+}
 }
 </script>
 
@@ -123,5 +127,31 @@ export default {
   -webkit-appearance: none;
 }
 
+.signup h5 {
+  color: var(--color-pink);
+}
+#sign-alarm {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
 
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 </style>
