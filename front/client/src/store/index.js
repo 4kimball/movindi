@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
     articles: [],
     loginState: '',
-    signupState: ''
+    signupState: 0
   },
   getters: {
     isLoggedIn({ accessToken }) {
@@ -309,7 +309,6 @@ export default new Vuex.Store({
           dispatch('login', credentials)
         })
         .catch(err => {
-          console.log(err.response)
           if(err.response.data.username) {
             commit('SET_SIGNUP_STATUS', 1)
           } else if(err.response.data.error) {

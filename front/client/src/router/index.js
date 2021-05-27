@@ -60,32 +60,32 @@ const routes = [
     component: Community,
     children: [
       {
-        path: 'review',
+        path: '/community/review',
         name: 'CommunityReview',
         component: CommunityReview
       },
       {
-        path: '/review/:article_id',
+        path: '/community/detail/post',
         name: 'CommunityReviewDetail',
         component: CommunityReviewDetail
       },
       {
-        path: 'job',
+        path: '/community/casting',
         name: 'CommunityJob',
         component: CommunityJob
       },
       {
-        path: 'free',
+        path: '/community/free',
         name: 'CommunityFree',
         component: CommunityFree
       },
       {
-        path: '/new/post',
+        path: '/community/new/post',
         name: 'CommunityWrite',
         component: CommunityWrite
       },
       {
-        path: '/new',
+        path: '/community/new',
         name: 'CommunityReviewUpdate',
         component: CommunityReviewUpdate
       },
@@ -102,25 +102,25 @@ const routes = [
     component: Profile,
     children: [
       {
-        path: '/like/actors',
+        path: '/profile/cheer/actors',
         name: 'ProfileActor',
         component: ProfileActor
       },
       {
-        path: '/like/movies',
+        path: '/profile/favor/movies',
         name: 'ProfileMovie',
         component: ProfileMovie
       },
       {
-        path: '/my/article',
+        path: '/profile/my/article',
         name: 'ProfileArticle',
-        component: ProfileArticle
+        component: ProfileArticle,
       },
       {
-        path: '/scrap/article',
+        path: '/profile/scrap/article',
         name: 'ProfileScrap',
-        component: ProfileScrap
-      }
+        component: ProfileScrap,
+      },
     ]
   },
   {

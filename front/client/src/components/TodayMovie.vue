@@ -7,21 +7,21 @@
         @click="changeSlide(0)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center btn"
         :class="{'clicked-slide-nav': is0}">
-          <span>혼자 사는 사람들</span>
+          <span>오늘의 영화</span>
           <div class="mt-2 btn-bar"></div>
         </div>
         <div 
         @click="changeSlide(1)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center btn"
         :class="{'clicked-slide-nav': is1}">
-          <span>내겐 너무 소중한 너</span>
+          <span>개봉 예정 영화</span>
           <div class="mt-2 btn-bar"></div>
         </div>
         <div 
         @click="changeSlide(2)"
         class="d-flex flex-column btn2slide d-flex flex-column align-items-center btn"
         :class="{'clicked-slide-nav': is2}">
-          <span>혼자 사는 사람들</span>
+          <span>서울 독립영화제 장편대상</span>
           <div class="mt-2 btn-bar"></div>
         </div>
       </div>
@@ -38,7 +38,7 @@
             <div class="about-movie d-flex flex-column justify-content-center mx-5">
               <span class="fs-today f-999999 my-0">오늘의 영화</span>
               <span class="fs-title f-white boldest my-0">혼자 사는 사람들</span>
-              <p class="f-999999 fs-today lighter">Aloners  |  2021  |  극영화  |  90분 35초  |  12세이상 관람가  |  컬러</p>
+              <p class="f-999999 fs-today lighter">Aloners  |  2021.05.19  |  드라마  |  90분 35초  |  12세이상 관람가</p>
               <div class="fs-contents f-dbdbdb contents my-3">
                 집에서도 밖에서도 늘 혼자가 편한 진아. <br>
                 사람들은 자꾸 말을 걸어오지만, 진아는 그저 불편하다. <br>
@@ -70,39 +70,38 @@
       <div v-if="current===1" :key="current" class="slide container-fluid p-0" :class="slides[current].className">
         <div class="row">
           <div class="col-5 d-flex P-0">
-            <img class="today-movie-poster" src="@/assets/today-movie/today-movie-poster2.jpg" alt="">
+            <img class="today-movie-poster" src="@/assets/today-movie/today-movie-poster4.jpg" alt="">
           </div>
           <div class="col-7 d-flex justify-content-start align-items-center col7-box">
             <div class="about-movie d-flex flex-column justify-content-center mx-5">
-              <span class="fs-today f-999999 my-0">오늘의 영화</span>
-              <span class="fs-title f-white boldest my-0">내겐 너무 소중한 너</span>
-              <p class="f-999999 fs-today lighter">My lovely angel  |  2021  |  극영화  |  100분 51초  |  12세이상 관람가  |  컬러</p>
+              <span class="fs-today f-999999 my-0">개봉 예정 영화</span>
+              <span class="fs-title f-white boldest my-0">낫아웃</span>
+              <p class="f-999999 fs-today lighter">Not Out  |  2021.06.03  |  드라마  |  107분 51초  |  15세이상 관람가</p>
               <div class="fs-contents f-dbdbdb contents my-3">
-                가짜라도! 아빠가 되어야 한다!<br><br>
+                <strong>“내 꿈은 얼마예요?”</strong><br>
+                기적이 일어났고, 끝까지 가고 싶었다.<br>
+                특별할 것 없던 열아홉 고교 야구 입시생 ‘광호’는
+                봉황대기 결승전 결승타의 주인공이 된다,
+                잘 될 것 같았던 신인 드래프트에서 탈락한 ‘광호’.<br><br>
 
-                돈만 빼고 세상 무서울 게 없다고 호언장담하던 ‘재식’은
-                갑자기 세상을 떠난 ‘지영’의 전재산을 먹튀하기 위해
-                ‘지영’의 딸 ‘은혜’의 가짜 아빠를 자처하게 된다.<br><br>
+                야구를 계속하기 위해서는 돈이 필요하다고 생각한 ‘광호’는
+                친구에게 불법 휘발유를 파는 일을 소개받아 악착같이 돈을 모으기 시작한다.<br><br>
 
-                알고 보니 ‘은혜’는 시각과 청각 장애를 모두 가진 아이.
-                보지도, 듣지도 못하는 ‘은혜’를 귀찮아 하던 ‘재식’은
-                손끝으로 세상을 느끼는 ‘은혜’만의 특별한 방식에
-                조금씩 익숙해지기 시작하는데…<br><br>
-
-                올 봄, 가장 특별한 만남이 이뤄진다!
+                하지만 뭐하나 뜻대로 되지 않자,
+                결국 ‘광호’는 친구에게 위험한 제안을 하는데….
               </div>
               <div class="actors d-flex justify-content-between mt-5">
                 <div class="actor1 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/2-lead1.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">진구</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">정재광</span>
                 </div>
                 <div class="actor2 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/2-lead2.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">정서연</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">이규성</span>
                 </div>
                 <div class="actor3 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/2-sub1.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">강신일</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">송이재</span>
                 </div>
             </div>
             </div>
@@ -112,34 +111,32 @@
       <div v-if="current===2" :key="current" class="slide container-fluid p-0" :class="slides[current].className">
         <div class="row">
           <div class="col-5 d-flex P-0">
-            <img class="today-movie-poster" src="@/assets/today-movie/today-movie-poster3.jpg" alt="">
+            <img class="today-movie-poster" src="@/assets/today-movie/today-movie-poster5.jpg" alt="" id="award">
           </div>
           <div class="col-7 d-flex justify-content-start align-items-center col7-box">
             <div class="about-movie d-flex flex-column justify-content-center mx-5">
-              <span class="fs-today f-999999 my-0">오늘의 영화</span>
-              <span class="fs-title f-white boldest my-0">네가 내가 되었으면 좋겠다</span>
-              <p class="f-999999 fs-today lighter">I wish you were me  |  2020  |  극영화  |  66분 7초  |  12세이상 관람가  |  컬러</p>
+              <span class="fs-today f-999999 my-0">2020 서울 독립영화제 장편대상 작품</span>
+              <span class="fs-title f-white boldest my-0">휴가</span>
+              <p class="f-999999 fs-today lighter">A Leave  |  2021.10  |  드라마  |  81분 09초  |  12세이상 관람가</p>
               <div class="fs-contents f-dbdbdb contents my-3">
-                이건.. 너랑 나 사이에 비밀이다!<br><br>
-
-                수진을 짝사랑해 왔던 충길은 주변 친구들에게 고백을 하고<br>
-                친구들을 동원해 철저하게 계획된 고백 작전을 펼친다.<br>
-                엉뚱하지만 기발한, 치밀하지만 귀여운 충길의 고백 작전은 계획한대로 순조롭게<br>
-                이루어지는 듯 하지만 예상치 못한 복병을 맞이하게 된다.<br>
-                과연 충길의 고백은 성공할 수 있을까?<br>
+                <strong>'어느 해고노동자의 짧은 휴가’</strong> <br>
+                해고노동자 재복은 5년째 집을 떠나 농성 중이다. <br>
+                노조가 정리해고무효소송에서 최종 패소하자 <br>
+                그러던 어느 날, 출퇴근길에 맨날 말을 걸던 옆집 남자가 <br>
+                재복과 동료들은 열흘 간의 휴가를 갖기로 한다. <br>
               </div>
               <div class="actors d-flex justify-content-between mt-5">
                 <div class="actor1 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/3-lead1.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">공승연</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">이봉하</span>
                 </div>
                 <div class="actor2 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/3-lead2.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">정다은</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">김아석</span>
                 </div>
                 <div class="actor3 m-2 d-flex flex-column align-items-center">
                   <img class="actors-img" src="@/assets/today-movie/3-sub1.jpg" alt="">
-                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">서현우</span>
+                  <span class="p-1 mt-3 bg-pink text-center fs-contents boldest col-6">김정연</span>
                 </div>
             </div>
             </div>
@@ -382,7 +379,9 @@ export default {
   height: 100vh;
   width: 100vw;
 }
-
+#today-movie #award {
+  max-width: 800px; 
+}
 #today-movie .col7-box {
   padding-left: 8vw;
 }
@@ -443,7 +442,7 @@ export default {
 }
 
 #today-movie .bg-pink {
-  background-color: #ff1a75;
+  color: var(--color-pink);
 }
 
 </style>

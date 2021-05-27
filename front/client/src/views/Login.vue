@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    <h5 v-if="isCorrect" class="login-alarm">입력된 정보가 올바르지 않습니다.</h5>
     <div class="login-form" @keyup.enter="login">
     <div>
       <label for="username">ID</label>
@@ -38,16 +37,15 @@ export default {
   },
   methods: {
     login() {
+      const loginForm = document.querySelector('.login-form')
       this.$store.dispatch('login', this.credentials)
-      setTimeout(() => {
-
-      }, 50)
       if(this.$store.state.loginState === 401) {
-       this.isCorrect = true;
-       setTimeout(() => {
-         this.isCorrect = false
-       }, 1000)
-      }
+        loginForm.id = 'login-alarm'
+        setTimeout(() => {
+          loginForm.id = ''
+          this.$store.state.loginState = ''
+        }, 1000)
+      } 
     },
     signup() {
       router.push({name: 'Signup'})
@@ -73,8 +71,6 @@ export default {
 
 .login .login-alarm {
   color: var(--color-pink);
-  margin-top: 5rem;
-  transition: all .5s ease-in-out;
 }
 .login .login-form {
   padding: 5rem;
@@ -83,7 +79,7 @@ export default {
 
   display: flex;
   flex-direction: column;
-  transition: transform .5s ease-in;
+  margin-top: 15rem;
 }
 
 .login .login-form input {
@@ -127,4 +123,28 @@ export default {
   cursor: pointer;
 }
 
+#login-alarm {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 </style>
