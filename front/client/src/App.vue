@@ -2,8 +2,8 @@
   <div id="app" @resize="addMoreBtn">
     <header id="header">
       <div class="logo">
-        <span class="sub-title">독립영화를 사랑하는 당신과 함께</span>
-        <router-link :to="{ name: 'Home'}" class="rlink"><h1>MovIndi</h1></router-link>
+        <div class="sub-title"><span>독립영화를 사랑하는 당신과 함께</span></div>
+        <router-link :to="{ name: 'Home'}" class="rlink"><img src="@/assets/main-logo.png" alt="" class="movindi-logo"></router-link>
       </div>
       <div class="search">
         <input type="text" v-model="searchKeyword" @keyup.enter="search" id="search-bar">
@@ -105,6 +105,18 @@ export default {
 header {
   z-index:100;
   background: linear-gradient(black, rgba(0, 0, 0, 0));
+}
+
+header .logo {
+  padding: 5px;
+}
+
+header .logo .movindi-logo{
+  margin-left: 2rem;
+}
+header .movindi-logo {
+  width: 150px;
+  height: 55px;
 }
 .rlink {
   text-decoration: none;
