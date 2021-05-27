@@ -1,124 +1,132 @@
 <template>
-  <div class="today-actor-item mt-1 container">
-    <div class="btn-actor-list">
-      <h3>오늘의 배우</h3>
-      <button class="btn-a" @click="changeActor" id="pick-actor">정다은</button>
-      <button class="btn-b" @click="changeActor">서현우</button>
-      <button class="btn-c" @click="changeActor">이가섭</button>
-      <button class="btn-d" @click="changeActor">이종원</button>
-    </div>
-    <div class="tbox actor-a" id="showing">
-      <div id="actor-item-box">
-      <div>
-      <div class="actor-info">
-        <img :src=actors[0].profile_image :alt=actors[0].name>
-        <div>
-          <h3>{{ actors[0].name }}</h3>
-          <p>{{ actors[0].date_of_birth }}</p>
-          <button class="btn-unfollow" @click="like_actor(0)" v-if="isLiked(0)">이미 응원하고 있어요</button>
-          <button class="btn-follow" @click="like_actor(0)" v-else>응원하기</button>
-        </div>
+  <div class="today-actor-item mt-1 container-fluid">
+    <div class="row">
+      <div class="btn-actor-list col-3" id="actors-big-row">
+        <h3 class="py-5">오늘의 배우</h3>
+        <button class="btn-a py-4" @click="changeActor" id="pick-actor">정다은</button>
+        <button class="btn-b py-4" @click="changeActor">서현우</button>
+        <button class="btn-c py-4" @click="changeActor">이가섭</button>
+        <button class="btn-d py-4" @click="changeActor">이종원</button>
       </div>
-      <div>
-        <div class="actor-intro">
-          <h5 class="me-2">소개</h5>
-          <p>{{ actors[0].intro }}</p>
-        </div>
-        <div class="actor-filmo">
-          <h5 class="me-3">필모그래피</h5>
-          <p>{{ actors[0].filmography }}</p>
-        </div>
-      </div>
-      </div>
-      <img :src=movies[17].poster_path :alt=movies[17].poster_path class="filmo-poster">
-      </div>
-    </div>
+
+      <div class="tbox-list col-9">
 
 
-    <div class="tbox actor-b">
-      <div id="actor-item-box">
-      <div>
-      <div class="actor-info">
-        <img :src=actors[1].profile_image :alt=actors[1].name>
-        <div>
-          <h3>{{ actors[1].name }}</h3>
-          <p>{{ actors[1].date_of_birth }}</p>
-          <button class="btn-unfollow" @click="like_actor(1)" v-if="isLiked(1)">이미 응원하고 있어요</button>
-          <button class="btn-follow" @click="like_actor(1)" v-else>응원하기</button>
+        <div class="tbox actor-a" id="showing">
+          <div id="actor-item-box">
+          <div>
+          <div class="actor-info">
+            <img :src=actors[0].profile_image :alt=actors[0].name>
+            <div>
+              <h3>{{ actors[0].name }}</h3>
+              <p>{{ actors[0].date_of_birth }}</p>
+              <button class="btn-unfollow" @click="like_actor(0)" v-if="isLiked(0)">이미 응원하고 있어요</button>
+              <button class="btn-follow" @click="like_actor(0)" v-else>응원하기</button>
+            </div>
+          </div>
+          <div>
+            <div class="actor-intro">
+              <h5 class="me-2">소개</h5>
+              <p>{{ actors[0].intro }}</p>
+            </div>
+            <div class="actor-filmo">
+              <h5 class="me-3">필모그래피</h5>
+              <p>{{ actors[0].filmography }}</p>
+            </div>
+          </div>
+          </div>
+          <img :src=movies[17].poster_path :alt=movies[17].poster_path class="filmo-poster">
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="actor-intro">
-          <h5 class="me-2">소개</h5>
-          <p>{{ actors[1].intro }}</p>
-        </div>
-        <div class="actor-filmo">
-          <h5 class="me-3">필모그래피</h5>
-          <p>{{ actors[1].filmography }}</p>
-        </div>
-      </div>
-      </div>
-      <img :src=movies[17].poster_path :alt=movies[17].poster_path class="filmo-poster">
-      </div>
-    </div>
 
 
-    <div class="tbox actor-c">
-      <div id="actor-item-box">
-      <div>
-      <div class="actor-info">
-        <img :src=actors[7].profile_image :alt=actors[7].name>
-        <div>
-          <h3>{{ actors[7].name }}</h3>
-          <p>{{ actors[7].date_of_birth }}</p>
-           <button class="btn-unfollow" @click="like_actor(7)" v-if="isLiked(7)">이미 응원하고 있어요</button>
-          <button class="btn-follow" @click="like_actor(7)" v-else>응원하기</button>
-         
+        <div class="tbox actor-b">
+          <div id="actor-item-box">
+          <div>
+          <div class="actor-info">
+            <img :src=actors[1].profile_image :alt=actors[1].name>
+            <div>
+              <h3>{{ actors[1].name }}</h3>
+              <p>{{ actors[1].date_of_birth }}</p>
+              <button class="btn-unfollow" @click="like_actor(1)" v-if="isLiked(1)">이미 응원하고 있어요</button>
+              <button class="btn-follow" @click="like_actor(1)" v-else>응원하기</button>
+            </div>
+          </div>
+          <div>
+            <div class="actor-intro">
+              <h5 class="me-2">소개</h5>
+              <p>{{ actors[1].intro }}</p>
+            </div>
+            <div class="actor-filmo">
+              <h5 class="me-3">필모그래피</h5>
+              <p>{{ actors[1].filmography }}</p>
+            </div>
+          </div>
+          </div>
+          <img :src=movies[17].poster_path :alt=movies[17].poster_path class="filmo-poster">
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="actor-intro">
-          <h5 class="me-2">소개</h5>
-          <p>{{ actors[7].intro }}</p>
-        </div>
-        <div class="actor-filmo">
-          <h5 class="me-3">필모그래피</h5>
-          <p>{{ actors[7].filmography }}</p>
-        </div>
-      </div>
-      </div>
-      <img :src=movies[39].poster_path :alt=movies[39].poster_path class="filmo-poster">
-      </div>
-    </div>
 
 
-    <div class="tbox actor-d">
-      <div id="actor-item-box">
-      <div>
-      <div class="actor-info">
-        <img :src=actors[8].profile_image :alt=actors[8].name>
-        <div>
-          <h3>{{ actors[8].name }}</h3>
-          <p>{{ actors[8].date_of_birth }}</p>         
-          <button class="btn-unfollow" @click="like_actor(8)" v-if="isLiked(8)">이미 응원하고 있어요</button>
-          <button class="btn-follow" @click="like_actor(8)" v-else>응원하기</button>
+        <div class="tbox actor-c">
+          <div id="actor-item-box">
+          <div>
+          <div class="actor-info">
+            <img :src=actors[7].profile_image :alt=actors[7].name>
+            <div>
+              <h3>{{ actors[7].name }}</h3>
+              <p>{{ actors[7].date_of_birth }}</p>
+              <button class="btn-unfollow" @click="like_actor(7)" v-if="isLiked(7)">이미 응원하고 있어요</button>
+              <button class="btn-follow" @click="like_actor(7)" v-else>응원하기</button>
+            
+            </div>
+          </div>
+          <div>
+            <div class="actor-intro">
+              <h5 class="me-2">소개</h5>
+              <p>{{ actors[7].intro }}</p>
+            </div>
+            <div class="actor-filmo">
+              <h5 class="me-3">필모그래피</h5>
+              <p>{{ actors[7].filmography }}</p>
+            </div>
+          </div>
+          </div>
+          <img :src=movies[39].poster_path :alt=movies[39].poster_path class="filmo-poster">
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="actor-intro">
-          <h5 class="me-2">소개</h5>
-          <p>{{ actors[8].intro }}</p>
+
+
+        <div class="tbox actor-d">
+          <div id="actor-item-box">
+          <div>
+          <div class="actor-info">
+            <img :src=actors[8].profile_image :alt=actors[8].name>
+            <div>
+              <h3>{{ actors[8].name }}</h3>
+              <p>{{ actors[8].date_of_birth }}</p>         
+              <button class="btn-unfollow" @click="like_actor(8)" v-if="isLiked(8)">이미 응원하고 있어요</button>
+              <button class="btn-follow" @click="like_actor(8)" v-else>응원하기</button>
+            </div>
+          </div>
+          <div>
+            <div class="actor-intro">
+              <h5 class="me-2">소개</h5>
+              <p>{{ actors[8].intro }}</p>
+            </div>
+            <div class="actor-filmo">
+              <h5 class="me-3">필모그래피</h5>
+              <p>{{ actors[8].filmography }}</p>
+            </div>
+          </div>
+          </div>
+          <img :src=movies[39].poster_path :alt=movies[39].poster_path class="filmo-poster">
+          </div>
         </div>
-        <div class="actor-filmo">
-          <h5 class="me-3">필모그래피</h5>
-          <p>{{ actors[8].filmography }}</p>
-        </div>
-      </div>
-      </div>
-      <img :src=movies[39].poster_path :alt=movies[39].poster_path class="filmo-poster">
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -186,6 +194,7 @@ export default {
 }
 </script>
 
+
 <style>
 .today-actor-item {
   color: white;
@@ -199,6 +208,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   height: 50%;
   margin-bottom: 5rem;
   flex: 1 1 20%;
@@ -206,13 +216,12 @@ export default {
 
 .today-actor-item .btn-actor-list::after {
   content: "";
-  width: 1px;
-  height: 50%;
+  width: 2px;
+  height: 100%;
   position: absolute;
   top: 10;
   right: 0;
-  background-color: white;
-
+  background-color: #444444;
 }
 
 .today-actor-item .btn-actor-list button {
@@ -284,4 +293,33 @@ export default {
 #showing {
   display: block
 }
+
+
+/* text styling */
+/* .today-actor-item .row {
+  padding: 10vw;
+  width: 100vw;
+}*/
+
+.today-actor-item .btn-actor-list button {
+  font-size: 2.3vh;
+  color: #999999;
+}
+
+
+.today-actor-item .btn-actor-list h3 {
+  font-weight: 900;
+  font-size: 3vh;
+}
+
+.today-actor-item .btn-actor-list #pick-actor {
+  color: #ff1a75;
+  font-weight: 800;
+  font-size: 2.3vh;
+}
+
+.today-actor-item #actors-big-row {
+  width: 100vw;
+}
+
 </style>

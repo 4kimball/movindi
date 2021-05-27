@@ -121,6 +121,10 @@ export default {
     //   return false;
     // }
   },
+  created() {
+    this.$store.dispatch('getActors')
+  },
+
   mounted() {
     this.calculateSectionOffsets();
     
@@ -181,9 +185,9 @@ export default {
   margin-left: 5px;
 }
 
-.home .red {
+/* .home .red {
   background-color: #ab4545;
-}
+} */
 
 .home section.black {
   background-color: #000;
