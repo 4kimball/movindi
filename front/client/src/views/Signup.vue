@@ -1,5 +1,7 @@
 <template>
   <div class="signup">
+    <h5 v-if="isIdError">비밀번호가 일치하지 않습니다.</h5>
+    <h5 v-else-if="isPwError">동일한 계정이 존재합니다.</h5>
     <div class="signup-form" @keyup.enter="signup">
       <div class="input-info">
         <label for="username">아이디: </label>
@@ -19,8 +21,6 @@
       <button class="signup-btn" @click="signup">가입</button>
       </div>
     </div>
-    <h5 v-if="isIdError">비밀번호가 일치하지 않습니다.</h5>
-    <h5 v-else-if="isPwError">동일한 계정이 존재합니다.</h5>
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
           signupForm.id = ''
           this.isPwError = false
           this.$store.state.signupState = 0
-        }, 1000);
+        }, 2000);
       } else if(this.$store.state.signupState === 2) {
         signupForm.id = 'sign-alarm'
         this.isIdError = true
@@ -59,7 +59,7 @@ export default {
           signupForm.id = ''
           this.isIdError = false
           this.$store.state.signupState = 0
-        }, 1000);
+        }, 2000);
       }
   }
 }
@@ -85,6 +85,7 @@ export default {
 
   color: var(--color-pink);
   font-weight: 600;
+  margin-bottom: 10rem;
 }
 
 .signup .signup-form input {

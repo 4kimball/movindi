@@ -44,7 +44,7 @@ export default {
         setTimeout(() => {
           loginForm.id = ''
           this.$store.state.loginState = ''
-        }, 1000)
+        }, 2000)
       } 
     },
     signup() {
@@ -79,7 +79,7 @@ export default {
 
   display: flex;
   flex-direction: column;
-  margin-top: 15rem;
+  margin-top: 10rem;
 }
 
 .login .login-form input {

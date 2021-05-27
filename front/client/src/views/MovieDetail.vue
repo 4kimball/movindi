@@ -6,8 +6,12 @@
       </div>
       <div class="movie-info">
         <h2 class="movie-title">{{ detailMovie.title }}</h2>
-        <p>{{ detailMovie.release_date }} | <span v-for="(rank, index) in detailMovie.rank_average" :key="index" id="rank-star"><i class="fas fa-star"></i>
+        <p v-if="detailMovie.rank_average">{{ detailMovie.release_date }} | <span v-for="(rank, index) in detailMovie.rank_average" :key="index" id="rank-star">
+          <i class="fas fa-star"></i>
         </span></p>
+        <p v-else>
+          {{ detailMovie.release_date }} | 아직 등록된 평점이 없습니다.
+        </p>
         <hr>
         <p>감독 | {{ detailMovie.director }}</p>
         <p>배우 | {{ detailMovie.actors }}</p>

@@ -18,6 +18,7 @@ from .serializers import (
 from django.contrib.auth import get_user_model
 import jwt
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def movie_list(request):
     '''
     전체 영화 목록 가져오기
@@ -36,6 +37,7 @@ def movie_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def movie_keyword(request, keyword):
     '''
     키워드로 영화추천하기
@@ -66,6 +68,7 @@ def community_list_create(request, type):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def article_detail(request, article_pk):
     '''
     해당 글 선택시 해당 글로 이동하기
@@ -77,6 +80,7 @@ def article_detail(request, article_pk):
         return Response(serializer.data)
 
 @api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def article_update_delete(request, article_pk):
     article = get_object_or_404(Review, pk=article_pk)
     if request.method == 'DELETE':
@@ -105,6 +109,7 @@ def review_comment_create(request, review_pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def review_comment_delete(request, comment_pk):
     comment = get_object_or_404(ReviewComment, pk=comment_pk)
     comment.delete()
@@ -154,6 +159,7 @@ def movie_comment_delete(request, comment_pk):
     return Response(status=status.HTTP_200_OK)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def actor_list(request):
     '''
     전체 배우 리스트
@@ -163,6 +169,7 @@ def actor_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def actor_list_scroll(request, page):
     '''
     무한 스크롤 -> actors에 보여질 데이터
@@ -173,6 +180,7 @@ def actor_list_scroll(request, page):
     serializer = ActorListSerializer(actors, many=True)
     return Response(serializer.data)
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def search(request):
     '''
     검색
@@ -183,13 +191,14 @@ def search(request):
         serializer = ActorListSerializer(actor)
         return Response(serializer.data)
     elif Movie.objects.filter(title__contains=keyword).exists():
-        movie = Movie.objects.get(title__contains=keyword)
+        movie = Movie.objects.get(title__icontains=keyword)
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def like_actor(request, actor_pk):
     access_token = request.data.get('access_token')
     user = jwt.decode(f'{access_token}', None, None)
@@ -208,6 +217,7 @@ def like_actor(request, actor_pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def like_movie(request, movie_pk):
     access_token = request.data.get('access_token')
     user = jwt.decode(f'{access_token}', None, None)
@@ -226,6 +236,7 @@ def like_movie(request, movie_pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def article_scrap(request, article_pk):
     access_token = request.data.get('access_token')
     user = jwt.decode(f'{access_token}', None, None)

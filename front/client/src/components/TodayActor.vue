@@ -1,48 +1,51 @@
 <template>
-  <div class="today-actor-item mt-1 container-fluid">
-    <div class="row">
-      <div class="btn-actor-list col-3" id="actors-big-row">
-        <h3 class="py-5">오늘의 배우</h3>
-        <button class="btn-a py-4" @click="changeActor" id="pick-actor">정다은</button>
-        <button class="btn-b py-4" @click="changeActor">서현우</button>
-        <button class="btn-c py-4" @click="changeActor">이가섭</button>
-        <button class="btn-d py-4" @click="changeActor">이종원</button>
+  <div class="today-actor-item container">
+      <div class="btn-actor-list" >
+        <h3>오늘의 배우</h3>
+
+          <button class="btn-a" @click="changeActor" id="pick-actor">정다은</button>
+          <button class="btn-b" @click="changeActor">서현우</button>
+          <button class="btn-c" @click="changeActor">이가섭</button>
+          <button class="btn-d" @click="changeActor">이종원</button>
+
       </div>
 
-      <div class="tbox-list col-9">
+      <div class="tbox-list">
 
 
         <div class="tbox actor-a" id="showing">
           <div id="actor-item-box">
-          <div>
+          <div class="actor-info-box">
           <div class="actor-info">
-            <img :src=actors[0].profile_image :alt=actors[0].name>
+            <img :src=actors[12].profile_image :alt=actors[12].name>
             <div>
-              <h3>{{ actors[0].name }}</h3>
-              <p>{{ actors[0].date_of_birth }}</p>
-              <button class="btn-unfollow" @click="like_actor(0)" v-if="isLiked(0)">이미 응원하고 있어요</button>
-              <button class="btn-follow" @click="like_actor(0)" v-else>응원하기</button>
+              <h3>{{ actors[12].name }}</h3>
+              <p>{{ actors[12].date_of_birth }}</p>
+              <button class="btn-unfollow" @click="like_actor(12)" v-if="isLiked(12)">이미 응원하고 있어요</button>
+              <button class="btn-follow" @click="like_actor(12)" v-else>응원하기</button>
             </div>
           </div>
           <div>
             <div class="actor-intro">
               <h5 class="me-2">소개</h5>
-              <p>{{ actors[0].intro }}</p>
+              <p>{{ actors[12].intro }}</p>
             </div>
             <div class="actor-filmo">
               <h5 class="me-3">필모그래피</h5>
-              <p>{{ actors[0].filmography }}</p>
+              <p>{{ actors[12].filmography }}</p>
             </div>
           </div>
           </div>
-          <img :src=movies[17].poster_path :alt=movies[17].poster_path class="filmo-poster">
+          <div class="filmo-poster">
+          <img :src=movies[14].poster_path :alt=movies[14].poster_path >
+          </div>
           </div>
         </div>
 
 
         <div class="tbox actor-b">
           <div id="actor-item-box">
-          <div>
+          <div class="actor-info-box">
           <div class="actor-info">
             <img :src=actors[1].profile_image :alt=actors[1].name>
             <div>
@@ -63,14 +66,16 @@
             </div>
           </div>
           </div>
-          <img :src=movies[17].poster_path :alt=movies[17].poster_path class="filmo-poster">
+          <div class="filmo-poster">
+          <img :src=movies[17].poster_path :alt=movies[17].poster_path >
+         </div>
           </div>
         </div>
 
 
         <div class="tbox actor-c">
           <div id="actor-item-box">
-          <div>
+          <div class="actor-info-box">
           <div class="actor-info">
             <img :src=actors[7].profile_image :alt=actors[7].name>
             <div>
@@ -92,14 +97,16 @@
             </div>
           </div>
           </div>
-          <img :src=movies[39].poster_path :alt=movies[39].poster_path class="filmo-poster">
+          <dir class="filmo-poster">
+          <img :src=movies[39].poster_path :alt=movies[39].poster_path >
+          </dir>
           </div>
         </div>
 
 
         <div class="tbox actor-d">
           <div id="actor-item-box">
-          <div>
+          <div class="actor-info-box">
           <div class="actor-info">
             <img :src=actors[8].profile_image :alt=actors[8].name>
             <div>
@@ -120,11 +127,12 @@
             </div>
           </div>
           </div>
-          <img :src=movies[39].poster_path :alt=movies[39].poster_path class="filmo-poster">
+          <div class="filmo-poster">
+          <img :src=movies[39].poster_path :alt=movies[39].poster_path >
+          </div>
           </div>
         </div>
       </div>
-    </div>
   </div>
 
 </template>
@@ -142,6 +150,7 @@ export default {
   },
   methods: {
     changeActor(event) {
+
       const currentActor = document.getElementById('pick-actor')
       const targetActor = event.target
       currentActor.id = ""
@@ -198,9 +207,11 @@ export default {
 <style>
 .today-actor-item {
   color: white;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 .today-actor-item .btn-actor-list {
@@ -221,11 +232,11 @@ export default {
   position: absolute;
   top: 10;
   right: 0;
-  background-color: #444444;
+  background-color: white;
 }
 
 .today-actor-item .btn-actor-list button {
-  width: 200px;
+  width: 50%;
   background-color: rgba( 255, 255, 255, 0 );
   border: none;
   color: white;
@@ -235,15 +246,23 @@ export default {
 .today-actor-item .tbox {
   display: none;
   margin-left: 5rem;
-  width: 100%;
   flex: 1 1 80%;
+  width: 1000px;
 }
 
 .today-actor-item #actor-item-box{
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
+.today-actor-item #actor-item-box .actor-info-box{
+  flex: 1 1 70%;
+}
 
+.today-actor-item #actor-item-box .filmo-poster {
+  flex: 1 1 30%;
+}
 .today-actor-item #actor-item-box .actor-info .btn-follow {
   border: none;
   background-color: var(--color-pink);
@@ -271,10 +290,10 @@ export default {
 }
 
 .today-actor-item #actor-item-box .actor-intro {
-  display: flex;
   margin: 2rem 0;
 }
 .today-actor-item #actor-item-box .actor-intro h5 {
+  margin-right: 4px;
   color: #ffcc00;
 }
 .today-actor-item #actor-item-box .actor-filmo {
@@ -287,39 +306,49 @@ export default {
 .today-actor-item #actor-item-box .filmo-poster {
   margin-left: 3rem;
   border-radius: 10px;
-  width: 30%;
-  height: 100%;
+  flex: 1 1 10%;
+}
+
+.today-actor-item #actor-item-box .filmo-poster img {
+  width: 300px;
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px #f2f2f2;
 }
 #showing {
   display: block
 }
 
-
-/* text styling */
-/* .today-actor-item .row {
-  padding: 10vw;
-  width: 100vw;
-}*/
-
-.today-actor-item .btn-actor-list button {
-  font-size: 2.3vh;
-  color: #999999;
+#pick-actor {
+  color: var(--color-pink);
 }
 
+@media screen and (max-width: 1420px) {
+  .today-actor-item {
+    flex-direction: column;
+  }
+  .today-actor-item .btn-actor-list h3 {
+    width: 100%;
+    margin-right: 2rem;
+  }
+  .today-actor-item .btn-actor-list {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 70%;
+  }
 
-.today-actor-item .btn-actor-list h3 {
-  font-weight: 900;
-  font-size: 3vh;
+  .today-actor-item .btn-actor-list::after{
+    display: none;
+  }
+
+  .today-actor-item .btn-actor-list::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+  }
 }
-
-.today-actor-item .btn-actor-list #pick-actor {
-  color: #ff1a75;
-  font-weight: 800;
-  font-size: 2.3vh;
-}
-
-.today-actor-item #actors-big-row {
-  width: 100vw;
-}
-
 </style>

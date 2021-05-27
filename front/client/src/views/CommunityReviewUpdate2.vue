@@ -1,8 +1,8 @@
 <template>
-  <div class="commu-write">
-    <div class="form-item">
+    <div class="article-update container">
+      <div class="form-item">
       <label for="post-type" class="me-2">말머리</label>
-      <select name="" id="post-type" v-model="article.type">
+      <select name="" id="post-type" v-model="detailArticle.type">
         <option value="review">영화리뷰</option>
         <option value="casting">캐스팅</option>
         <option value="free">자유게시판</option>
@@ -10,56 +10,54 @@
     </div>
     <div class="form-item">
       <label for="title" class="me-2">제목 </label>
-      <input type="text" id="title" v-model="article.title">
+      <input type="text" id="title" v-model="detailArticle.title">
     </div>
     <div class="form-item">
-      <textarea name="" id="content" cols="30" rows="20" v-model="article.content"></textarea>
+      <textarea name="" id="content" cols="30" rows="20" v-model="detailArticle.content"></textarea>
     </div>
     <div class="write-btn">
-    <button @click="createArticle">작성</button>
+    <button @click="updateArticle">수정</button>
     </div>
   </div>
 </template>
 
 <script>
+import router from '../router'
+import { mapState } from 'vuex'
 export default {
-  name: 'CommunityWrite',
-  data() {
-    return {
-      article: {
-        type: '',
-        title: '',
-        content: ''
-      }
-    }
+  name: 'CommunityReviewUpdate',
+  computed: {
+    ...mapState([
+      'detailArticle',
+    ]),
   },
   methods: {
-    createArticle() {
-      this.$store.dispatch('createArticle', this.article)
+    updateArticle() {
+      this.$store.dispatch('updateArticle', this.detailArticle)
+      router.push({ name: 'CommunityReviewDetail'})
     }
   }
 }
 </script>
 
 <style>
-.commu-write {
+.article-update {
   width: 100%;
   display: flex;
   flex-direction: column;
-
   color: var(--color-pink);
 
   padding: 2rem;
 }
 
-.commu-write .form-item {
+.article-update .form-item {
   margin-top: 2rem;
 }
-.commu-write select {
+.article-update select {
  background-color: #d9d9d9;
  border-radius: 7px;
 }
-.commu-write input {
+.article-update input {
   width: 855px;
   height: 30px;
   border: none;
@@ -69,7 +67,7 @@ export default {
   position: relative;
 }
 
-.commu-write textarea {
+.article-update textarea {
   width: 900px;
   border: none;
   border-radius: 7px;
@@ -77,12 +75,12 @@ export default {
   background-color: #d9d9d9;
 }
 
-.commu-write .write-btn {
+.article-update .write-btn {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
 }
-.commu-write button {
+.article-update button {
   width: 150px;
   height: 40px;
   border: none;

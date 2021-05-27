@@ -20,6 +20,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import router from '../router'
 export default {
   name: 'Profile',
   filters: {
@@ -38,7 +39,8 @@ export default {
   },
   created() {
     this.$store.dispatch('getByUsername', this.user.username)
-    this.getCurPos()
+    router.push({name: 'ProfileActor'})
+    //this.getCurPos()
   },
   computed: {
     ...mapState([
@@ -74,20 +76,17 @@ export default {
       let curURL = window.location.href.split('/');
       
       const curBtn = document.getElementById("active")
-      
-      if(curURL[3] == 'like') {
-        if(curURL[4] == 'actors') {
-          document.querySelector('.like-actor').id = "active"
-        } else if(curURL[4] == 'movies' ) {
+      if(curURL[4] == 'cheer') {
+        document.querySelector('.like-actor').id = "active"
+      }
+      else if(curURL[4] == 'favor' ) {
           document.querySelector('.like-movie').id = "active"
         }
-      } else if(curURL[4] == 'article') {
-        if(curURL[3] == 'my') {
-          document.querySelector('.my-article').id = "active"
-        } else if(curURL[3] == 'scrap') {
+     else if(curURL[4] == 'my') {
+        document.querySelector('.my-article').id = "active"
+    } else if(curURL[4] == 'scrap') {
           document.querySelector('.scrap-article').id = "active"
         }
-      }
       curBtn.id = ""
     },
     getCurPos() {
@@ -101,14 +100,14 @@ export default {
 <style>
 .profile {
   display: flex;
-  height: 100%;
+  height: 1000px;
 }
 
 .profile .profile-navbar {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 100%;
+  height: 35%;
   position: relative;
   flex: 1 1 20%;
 }
@@ -143,7 +142,7 @@ export default {
   font-weight: bold;
 }
 
-#active {
+.profile #active {
   color: white;
 }
 .profile .profile-item {

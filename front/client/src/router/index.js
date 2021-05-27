@@ -17,13 +17,14 @@ import CommunityFree from '../views/CommunityFree'
 import CommunityJob from '../views/CommunityJob'
 import CommunityReview from '../views/CommunityReview'
 import CommunityReviewDetail from '../views/CommunityReviewDetail'
+import CommunityReviewDetail2 from '../views/CommunityReviewDetail2'
 import CommunityWrite from '../views/CommunityWrite'
 import Signup from '../views/Signup'
 import ProfileActor from '../views/ProfileActor'
 import ProfileMovie from '../views/ProfileMovie'
 import ProfileArticle from '../views/ProfileArticle'
 import ProfileScrap from '../views/ProfileScrap'
-
+import CommunityReviewUpdate2 from '../views/CommunityReviewUpdate2'
 Vue.use(VueRouter)
 
 const routes = [
@@ -65,11 +66,6 @@ const routes = [
         component: CommunityReview
       },
       {
-        path: '/community/detail/post',
-        name: 'CommunityReviewDetail',
-        component: CommunityReviewDetail
-      },
-      {
         path: '/community/casting',
         name: 'CommunityJob',
         component: CommunityJob
@@ -89,7 +85,22 @@ const routes = [
         name: 'CommunityReviewUpdate',
         component: CommunityReviewUpdate
       },
+      {
+        path: '/community/detail/post',
+        name: 'CommunityReviewDetail',
+        component: CommunityReviewDetail
+      },
     ]
+  },
+  {
+    path: '/community/profile/post',
+    name: 'CommunityReviewDetail2',
+    component: CommunityReviewDetail2
+  },
+  {
+    path: '/community/profile/post/again',
+    name: 'CommunityReviewUpdate2',
+    component: CommunityReviewUpdate2
   },
   {
     path: '/actors',
@@ -149,6 +160,26 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const accessToken = localStorage.getItem('access_token')
+  const authPaths = ['Login', 'Signup']
+  if (accessToken) {
+    if (authPaths.includes(to.name)) {
+
+      next({ name: 'Intro' })
+    } else {
+      next()
+    }
+  } else {
+
+    if (authPaths.includes(to.name)) {
+      next()
+    } else {
+      next({ name: 'Login' })
+    }
+  }
 })
 
 export default router

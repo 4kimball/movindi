@@ -81,7 +81,8 @@ export default {
   flex-direction: column;
   margin-right: 5rem;
   justify-content: space-around;
-  height: 50%;
+  width: 100%;
+  height: 80%;
   position: relative;
   padding: 3rem;
 
@@ -90,7 +91,7 @@ export default {
 }
 .recommand-movies .buttons::after {
   position: absolute;
-  top: 50px;
+  top: 90px;
   right: 0;
   content: "";
   width: 2px;
@@ -153,7 +154,7 @@ export default {
   background-size: cover;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1420px) {
   .recommand-movies {
     flex-direction: column;
   }

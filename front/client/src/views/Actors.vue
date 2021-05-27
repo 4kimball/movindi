@@ -37,6 +37,7 @@ export default {
       handleActors: []
     }
   },
+
   created() {
    // this.$store.dispatch('updateUser')
     window.addEventListener('scroll', this.handleScroll)

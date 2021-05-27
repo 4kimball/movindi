@@ -1,6 +1,6 @@
 <template>
   <div class="profile-article">
-    <ReviewList 
+    <ReviewList2 
     :postType="postType"
     :articles="myArticles"
     />
@@ -9,7 +9,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import ReviewList from '@/components/ReviewList'
+import ReviewList2 from '@/components/ReviewList2'
 export default {
   name: 'ProfileArticle',
   data() {
@@ -19,7 +19,7 @@ export default {
     }
   },
   components: {
-    ReviewList
+    ReviewList2
   },
   computed: {
     ...mapState([

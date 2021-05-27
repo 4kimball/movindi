@@ -45,7 +45,6 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 5rem;
   color: var(--color-pink);
 
   padding: 2rem;

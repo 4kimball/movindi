@@ -28,6 +28,9 @@ export default {
 </script>
 
 <style >
+.community {
+  height: 1000px;
+}
 .community .menu {
   display: flex;
   justify-content: space-between;
