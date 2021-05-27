@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
     articles: [],
     loginState: '',
-    signupState: 0
+    signupState: 0,
   },
   getters: {
     isLoggedIn({ accessToken }) {
@@ -283,13 +283,13 @@ export default new Vuex.Store({
     login({commit, dispatch}, credentials) {
       axios.post('http://127.0.0.1:8000/api/v1/token/', credentials)
         .then(res => {
-          router.push({ name: 'Intro'})
+         
           const username = res.config.data.split('"')[3]
-          
           localStorage.setItem('access_token', res.data.access)
           commit('UPDATE_TOKEN', res.data.access)
           dispatch('getByUsername', username)
           dispatch('getScrollActors', 1)
+          router.push({ name: 'Intro'})
         })
         .catch(err => {
           commit('SET_LOGIN_STATUS', err.response.status)
@@ -302,11 +302,10 @@ export default new Vuex.Store({
       localStorage.removeItem('access_token')
       router.push({name:'Login'})
     },
-    signup({ commit, dispatch }, credentials) {
+    signup({ commit}, credentials) {
       axios.post('http://127.0.0.1:8000/api/v1/accounts/signup/', credentials)
-        .then(res => {
-          res
-          dispatch('login', credentials)
+        .then(() => {
+          router.push({name: 'Login'})
         })
         .catch(err => {
           if(err.response.data.username) {
@@ -324,6 +323,9 @@ export default new Vuex.Store({
         })
         .then(() => {
           router.push({name: 'SearchResult'})
+        })
+        .catch(err => {
+          console.log(err.response)
         })
     },
     // 배우 좋아요

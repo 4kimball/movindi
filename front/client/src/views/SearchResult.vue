@@ -14,7 +14,10 @@
           <hr>
           <p>{{ result.content }}</p>
         </div>
-        <div class="poster"><img :src=result.poster_path :alt=result.title></div>
+        <div class="poster" @click="setDetailMovie(result)">
+          <router-link :to="{ name: 'MovieDetail'}" class="rlink" >
+          <img :src=result.poster_path :alt=result.title>
+          </router-link></div>
       </div>
       <div v-else class="search-view">
         <div class="profile-image"><img :src=result.profile_image :alt=result.name></div>
@@ -37,6 +40,11 @@ export default {
     result() {
       return this.$store.state.searchResult
     }
+  },
+  methods: {
+    setDetailMovie(movie) {
+      this.$store.dispatch('setDetailMovie', movie)
+    },
   }
 }
 </script>
@@ -44,6 +52,7 @@ export default {
 <style>
 .search-result {
   color: white;
+  height: 1000px;
 }
 
 .search-result .search-view {
@@ -59,12 +68,23 @@ export default {
   width: 400px;
   height: 600px;
   margin-left: 5rem;
+  border-radius: 10px;
 }
 
 .search-result .search-view .profile-image img {
   width: 100%;
-  width: 250px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 1220px) {
+  .search-result .search-view {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .search-result .search-view .profile-image {
+    margin-bottom: 10rem;
+  }
 }
 </style>

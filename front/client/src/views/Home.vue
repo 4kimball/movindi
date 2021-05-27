@@ -15,7 +15,7 @@
     <section class="fullpage">
       <RecommendMovies/>
     </section>
-    <section class="fullpage red">
+    <section class="fullpage" id="section3">
       <TodayActor />
     </section>
   </div>
@@ -185,9 +185,9 @@ export default {
   margin-left: 5px;
 }
 
-/* .home .red {
-  background-color: #ab4545;
-} */
+.home #section3 {
+  background: linear-gradient(#737373, #0d0d0d);
+}
 
 .home section.black {
   background-color: #000;

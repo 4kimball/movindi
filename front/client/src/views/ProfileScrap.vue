@@ -1,6 +1,6 @@
 <template>
   <div class="profile-scrap">
-    <ReviewList 
+    <ReviewList2 
     :postType="postType"
     :articles="myScrapArticles"
     />
@@ -9,11 +9,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import ReviewList from '@/components/ReviewList'
+import ReviewList2 from '@/components/ReviewList2'
 export default {
   name: 'ProfileScrap',
   components: {
-    ReviewList
+    ReviewList2
   },
   data() {
     return {

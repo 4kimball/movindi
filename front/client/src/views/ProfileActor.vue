@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-actors">
+  <div class="profile-actors container">
     <div class="row">
       <div v-for="(actor, index) in user.like_actors" :key="index" class="col-3 profile-actors-item">
         <img :src=actors[actor-1].profile_image :alt=actors[actor-1].name>

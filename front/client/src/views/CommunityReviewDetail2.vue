@@ -18,7 +18,7 @@
     </div>
     <div class="btn-update-delete" v-if="isUpdate(detailArticle)">
       
-      <button class="btn-update"><router-link :to="{ name: 'CommunityReviewUpdate'}" class="rlink">수정</router-link></button>
+      <button class="btn-update"><router-link :to="{ name: 'CommunityReviewUpdate2'}" class="rlink">수정</router-link></button>
       <button class="btn-delete" @click="deleteArticle">삭제</button>
     </div>
   </div>

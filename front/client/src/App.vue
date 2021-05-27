@@ -3,7 +3,7 @@
     <header id="header">
       <div class="logo">
         <span class="sub-title">독립영화를 사랑하는 당신과 함께</span>
-        <router-link :to="{ name: 'Home'}" class="rlink"><h1>MoovIndi</h1></router-link>
+        <router-link :to="{ name: 'Home'}" class="rlink"><h1>MovIndi</h1></router-link>
       </div>
       <div class="search">
         <input type="text" v-model="searchKeyword" @keyup.enter="search" id="search-bar">
@@ -11,7 +11,7 @@
       </div>
       <ul class="menu">
         <div v-if="isLoggedIn" class="if-box">
-        <router-link :to="{ name: 'Intro'}" class="rlink"><span>MoovIndi?</span></router-link>
+        <router-link :to="{ name: 'Intro'}" class="rlink"><span>MovIndi?</span></router-link>
         <router-link :to="{ name: 'Actors'}" class="rlink"><span>배우들</span></router-link>
         <router-link :to="{ name: 'Community'}" class="rlink" ><span>Community</span></router-link>
         <router-link :to="{ name: 'Profile'}" class="rlink"><span>My</span></router-link>
@@ -51,13 +51,13 @@ export default {
   name: 'App',
   data() {
     return {
-      searchKeyword: ''
+      searchKeyword: '',
     }
   },
   computed: {
     ...mapGetters([
       'isLoggedIn'
-    ])
+    ]),
   },
   methods: {
     logout() {
